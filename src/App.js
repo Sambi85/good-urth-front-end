@@ -1,7 +1,6 @@
 
 import './App.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import HomeContainer from './containers/HomeContainer.js'
 import marketContainer from './containers/marketContainer.js'
 import orderContainer from './containers/orderContainer.js'
