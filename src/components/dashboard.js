@@ -9,7 +9,7 @@ class Dashboard extends React.Component {
     }
 
     render() {
-        console.log(store.getState().users[0].username)
+        // console.log(store.getState().users[0].username)
         return (
                 <> 
                 This is the Dashboard ! 
