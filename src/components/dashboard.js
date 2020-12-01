@@ -2,33 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { getUsers } from '../redux/actions'
 import store from '../redux/store';
+// semantic-ui
+import { Header, Image, Grid, Segment } from 'semantic-ui-react'
+// import { Container } from 'semantic-ui-react'
 
-// Material UI 
-import Container from '@material-ui/core/Container';
-import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      '& > *': {
-        margin: theme.spacing(0),
-      },
-      flexGrow: 1,
-    },
-    large: {
-      width: theme.spacing(7),
-      height: theme.spacing(7),
-    },
-      paper: {
-        padding: theme.spacing(10),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      },
-  }));
-  
   class Dashboard extends React.Component {
       
     componentDidMount() {
@@ -39,30 +17,43 @@ const useStyles = makeStyles((theme) => ({
     render() {
         // console.log(store.getState().users[0])
         return (
-                <>
-                    <Grid container direction="row"
-                                    justify="center"
-                                    alignItems="center"
-                    >
-                <Grid item xs={3}>  
-                        <Avatar alt={store.getState().users[0].username} 
-                                src={store.getState().users[0].avatar} 
-                                // className={useStyles.large}
-                                style={{ height: '200px', width: '200px' }}
-                        />
-                        
-                        
-                </Grid>
-                <Grid item xs={3}>  
-                
-                            <h1>{store.getState().users[0].username}</h1>
-                            <h4>{store.getState().users[0].bio}</h4>
-            
-                </Grid>
-                </Grid>
+            <>
+            {/* <Container>  
+                <Header>
+                    <Image style={{'font-size':42}}
+                           src={store.getState().users[0].avatar}
+                           rounded
+                    />
+                      {store.getState().users[0].username}
+                </Header> 
+                      {store.getState().users[0].bio}
+              </Container> */}
+
+  <Grid celled>
+    <Grid.Row>
+      <Grid.Column width={2}>
+      <Image style={{'font-size':42}}
+             src={store.getState().users[0].avatar}
+             rounded
+             />
+      </Grid.Column>
+      <Grid.Column width={3}>
+        <Segment>
+      <Header>{store.getState().users[0].username}</Header> 
+      </Segment>
+      <Segment>
+        {store.getState().users[0].bio}
+        </Segment>
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>
 
 
-                </>
+
+
+
+              
+            </>
         )
     }
 }
