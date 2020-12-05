@@ -13,6 +13,7 @@
     "date-fns": "^2.16.1",
     "fontsource-lekton": "^3.0.5",
     "fontsource-montserrat": "^3.0.9",
+    "google-map-react": "^2.1.9",
     "material-components-web": "^8.0.0",
     "react": "^17.0.1",
     "react-calendar": "^3.2.1",

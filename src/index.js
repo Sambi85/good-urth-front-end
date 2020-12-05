@@ -9,11 +9,11 @@ import 'semantic-ui-css/semantic.min.css'
 
 ReactDOM.render(
   
+  <Provider store={store}>
     <BrowserRouter>
-      <Provider store={store}>
         <App/>
-      </Provider>
     </BrowserRouter>
+      </Provider>
     ,
   document.getElementById('root')
 );

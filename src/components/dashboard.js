@@ -19,7 +19,7 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
       
         return (
                  <>
-                  <Grid celled>
+                  {/* <Grid celled>
                     <Grid.Row>
                       <Grid.Column width={3}>
                         <Header as='h2'>Messages</Header>
@@ -30,7 +30,6 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
                                src={store.getState().users[0].avatar}
                               rounded
                               />
-                      
                       </Grid.Column>
 
                       <Grid.Column width={4}>
@@ -46,7 +45,7 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
                       <Timetable/>
                       </Grid.Column>
                     </Grid.Row>
-                  </Grid>
+                  </Grid> */}
                 </>
         )
     }

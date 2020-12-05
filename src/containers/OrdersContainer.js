@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class marketContainer extends React.Component {
+class OrdersContainer extends React.Component {
 
     render(){
         return (
-            <>MarketContainer</>
+            <>OrdersContainer</>
         )
     }
 
 }
 
-export default marketContainer; 
+export default OrdersContainer; 

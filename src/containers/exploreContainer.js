@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import NavBar from '../components/NavBar.js';
+import { withRouter } from 'react-router-dom';
 
-class exploreContainer extends React.Component {
+class ExploreContainer extends React.Component {
 
     render(){
         return (
-            <>ExplorerContainer</>
+            <>ExplorerContainer
+             
+            </>
         )
     }
-
 }
 
-export default exploreContainer; 
+export default withRouter(ExploreContainer); 
+
