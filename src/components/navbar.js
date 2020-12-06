@@ -15,9 +15,9 @@ class NavBar extends React.Component {
                                 <Menu.Item position='right'>
                                     <NavLink to="/home" style={{"padding":"5px"}}><Icon name='home'/>
                                     </NavLink>
-                                    <NavLink to="/messages" style={{"padding":"5px"}}><Icon name='comment alternate outline'/>
-                                    </NavLink>
                                     <NavLink to="/explore" style={{"padding":"5px"}}><Icon name='compass outline'/>
+                                    </NavLink>
+                                    <NavLink to="/messages" style={{"padding":"5px"}}><Icon name='comment alternate outline'/>
                                     </NavLink>
                                     <NavLink to='/markets' style={{"padding":"5px"}}><Icon name='map marker alternate'/>
                                     </NavLink>
