@@ -10,6 +10,7 @@ class HomeContainer extends React.Component {
 
     return (       
             <>
+        
             <Dashboard/>
                 <Grid celled='internally'>
                 <Grid.Row>

@@ -3,24 +3,34 @@ import React from 'react';
 import { Map, GoogleApiWrapper } from 'google-maps-react';
 
 const mapStyles = {
-    width: 'auto',
-    height: '500px',
+    
+  style: {
+      width: '100%',
+      height: '500px',
+      
+    },
+    
+  center: {
+      lat: 	40.730610,
+      lng: 	-73.935242
+    }
   };
 
 class NycMap extends React.Component {
 
-render() {
-    return (
-        <Map
-          google={this.props.google}
-          zoom={8}
-          style={mapStyles}
-          initialCenter={{ lat: 47.444, lng: -122.176}}
-        />
+  render() {
+      return (
+         <div id="map" height="500px"> 
+           <Map
+            google={this.props.google}
+            zoom={18}
+            style={mapStyles.style}
+            initialCenter={mapStyles.center}
+          />
+       </div>   
     );
   }
 }
-
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyBo2wf41ArKIsEEZilaEiEWt0sMKboP0xg'

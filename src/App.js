@@ -7,16 +7,12 @@ import MarketsContainer from './containers/MarketsContainer.js'
 import OrdersContainer from './containers/OrdersContainer.js'
 import MessagesContainer from './containers/MessagesContainer.js'
 import SettingsContainer from './containers/SettingsContainer.js'
-import Header from './components/header.js'
-import Footer from './components/footer.js'
+
 
 function App() {
   return (
     <div>
-    
       <NavBar/>
-      
-
       <Switch>
       <Route exact path="/home" render={() => <HomeContainer/>}/>
         <Route exact path="/explore" render={() => <ExplorerContainer/>}/>

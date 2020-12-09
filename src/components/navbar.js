@@ -1,15 +1,18 @@
 import React from 'react';
-import { Icon, Menu} from 'semantic-ui-react'
+import { Icon, Image, Menu } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom';
+import Logo from '../Logo.png'
 
 class NavBar extends React.Component {
     render() {
         return(  
                         <div className="header-div">
                             <Menu>
-                                Good Urth Logo
-                                <Menu.Item position='center'>
-                                    
+                            <Menu.Item position='left'>
+                                <Image src={Logo}/>
+                            </Menu.Item>
+                                
+                                <Menu.Item position='center'>    
                                 </Menu.Item>
                             
                                 <Menu.Item position='right'>
@@ -17,9 +20,9 @@ class NavBar extends React.Component {
                                     </NavLink>
                                     <NavLink to="/explore" style={{"padding":"5px"}}><Icon name='compass outline'/>
                                     </NavLink>
-                                    <NavLink to="/messages" style={{"padding":"5px"}}><Icon name='comment alternate outline'/>
-                                    </NavLink>
                                     <NavLink to='/markets' style={{"padding":"5px"}}><Icon name='map marker alternate'/>
+                                    </NavLink>
+                                    <NavLink to="/messages" style={{"padding":"5px"}}><Icon name='comment alternate outline'/>
                                     </NavLink>
                                     <NavLink to='/orders' style={{"padding":"5px"}}><Icon name='envelope outline'/>
                                     </NavLink>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { getUsers } from '../redux/actions'
 import store from '../redux/store';
 import Timetable from './Timetable.js';
-import { Icon } from 'semantic-ui-react'
 
 // semantic-ui
 import { Header, Image, Grid, Segment } from 'semantic-ui-react'
@@ -13,13 +12,12 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
     componentDidMount() {
           this.props.fetchUsers()
         }
-        
     
     render() {
       
         return (
                  <>
-                  {/* <Grid celled>
+                  <Grid celled>
                     <Grid.Row>
                       <Grid.Column width={3}>
                         <Header as='h2'>Messages</Header>
@@ -45,7 +43,7 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
                       <Timetable/>
                       </Grid.Column>
                     </Grid.Row>
-                  </Grid> */}
+                  </Grid>
                 </>
         )
     }

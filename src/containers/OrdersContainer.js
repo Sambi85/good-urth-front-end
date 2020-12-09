@@ -1,14 +1,17 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import PaymentStats from '../components/PaymentStats.js';
+import ReceiptList from '../components/ReceiptList.js';
 
 class OrdersContainer extends React.Component {
 
     render(){
         return (
-            <>OrdersContainer</>
+            <>      
+            <PaymentStats/>
+            <ReceiptList/>     
+            </>
         )
     }
-
-}
+}   
 
 export default OrdersContainer; 
