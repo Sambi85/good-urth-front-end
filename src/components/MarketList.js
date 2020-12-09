@@ -18,7 +18,7 @@ class MarketList extends React.Component {
     }
 
     render() {
-        
+        console.log("market:", store.getState().markets)
         return(
                 <>          
                     <Grid container columns={4}>

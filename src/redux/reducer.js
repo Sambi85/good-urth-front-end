@@ -116,7 +116,7 @@ const rootReducer = combineReducers({
     schedules: scheduleReducer,
     farmers: farmerReducer,
     items: itemReducer,
-    itemOrders: itemOrderReducer,
+    itemOrders: itemOrderReducer, 
     messages: messageReducer,
     orders: orderReducer,
     reviews: reviewReducer,

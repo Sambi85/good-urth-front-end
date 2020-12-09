@@ -1,6 +1,6 @@
 import React from 'react';
 import store from '../redux/store';
-import { Label, Table } from 'semantic-ui-react'
+import { Icon, Label, Table } from 'semantic-ui-react'
 
 class ReceiptCard extends React.Component {
 
@@ -15,6 +15,8 @@ class ReceiptCard extends React.Component {
                             <Table.HeaderCell>Quantity</Table.HeaderCell>
                             <Table.HeaderCell>Price per unit</Table.HeaderCell>
                             <Table.HeaderCell>Price</Table.HeaderCell>
+                            {/* <Table.HeaderCell><Icon name='delete'/></Table.HeaderCell> */}
+                    
                         </Table.Row>
                     </Table.Header>
 

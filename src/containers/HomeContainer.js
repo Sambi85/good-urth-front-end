@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Dashboard from '../components/Dashboard.js'
 import { Grid,  Header, Segment } from 'semantic-ui-react'
 import Chart from '../components/Chart.js'
@@ -9,8 +10,7 @@ class HomeContainer extends React.Component {
     render() {
 
     return (       
-            <>
-        
+            <> 
             <Dashboard/>
                 <Grid celled='internally'>
                 <Grid.Row>
@@ -43,4 +43,4 @@ class HomeContainer extends React.Component {
     }
 }
 
-export default HomeContainer
+export default withRouter(HomeContainer); 

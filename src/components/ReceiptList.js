@@ -1,30 +1,29 @@
 import React from 'react';
-import ReceiptCard from '../cards/ReceiptCard.js';
 import { connect } from 'react-redux'
-import { getOrders } from '../redux/actions'
-import { Grid } from 'semantic-ui-react'
+import { getItemOrders } from '../redux/actions'
 import store from '../redux/store';  
+import ReceiptCard from '../cards/ReceiptCard.js';
+import { Grid } from 'semantic-ui-react'
 
 class ReceiptList extends React.Component {
 
-
     componentDidMount() {
 
-        const fetchedOrder = this.props.fetchOrders();
+        const fetchedItemOrder = this.props.fetchItemOrders();
    }
    
-    
-    orderIterator = () => {
-        let orders = store.getState().orders
-        return orders.map(order => <ReceiptCard key={order.id} order={order}/>)
+    itemOrderIterator = () => {
+        let itemOrders = store.getState().itemOrders
+        return itemOrders.map(itemOrder => <ReceiptCard key={itemOrder.id} itemOrder={itemOrder}/>)
     }
 
     render() {
-        console.log(store.getState().orders)
+        console.log("itemOrder:", store.getState().itemOrders)
         return(
             <>
-            <Grid container columns={4}> 
-                {this.orderIterator()}    
+            <Grid container columns={4}>
+                <ReceiptCard/>
+                {this.itemOrderIterator()}    
             </Grid>
             </>
         )
@@ -33,13 +32,13 @@ class ReceiptList extends React.Component {
 
 const msp = (state) => {
     return {
-           orders: state.orders
+           itemOrders: state.itemOrders
       }
    }
    
 const mdp = (dispatch) => {
    return {
-       fetchOrders: () => dispatch(getOrders())
+       fetchItemOrders: () => dispatch(getItemOrders())
       }
    }
    

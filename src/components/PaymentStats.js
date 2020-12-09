@@ -1,6 +1,6 @@
 import React from 'react';
 import { Label, Table } from 'semantic-ui-react';
-import { Grid, Image, Icon, Rail, Segment } from 'semantic-ui-react'
+import { Button, Grid, Image, Icon, Rail, Segment } from 'semantic-ui-react'
 
 class PaymentStats extends React.Component {
     render() {
@@ -32,6 +32,13 @@ class PaymentStats extends React.Component {
                                     
                                     <Table.Row>
                                         <Table.Cell>Taxes: $1.00</Table.Cell>
+                                    </Table.Row>
+
+                                    <Table.Row>
+                                        <Table.Cell>
+                                        <Button positive>Checkout</Button>
+                                        <Button negative>Empty Cart</Button>
+                                        </Table.Cell>
                                     </Table.Row>
                                 </Table.Body>
                             </Table>

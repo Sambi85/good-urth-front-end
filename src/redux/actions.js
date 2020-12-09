@@ -28,7 +28,7 @@ export const getItemOrders = (itemOrderObj) => {
         fetch('http://localhost:4000/item_orders')
         .then(resp => resp.json())
         // .then(console.log)
-        .then(data => dispatch({type: "fetched item orders", payload: data}) )
+        .then(data => dispatch({type: "fetched itemOrders", payload: data}) )
     }
 }
 
