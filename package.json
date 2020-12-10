@@ -13,6 +13,7 @@
     "date-fns": "^2.16.1",
     "fontsource-lekton": "^3.0.5",
     "fontsource-montserrat": "^3.0.9",
+    "format-money-js": "^1.3.3",
     "google-map-react": "^2.1.9",
     "google-maps-react": "^2.0.6",
     "material-components-web": "^8.0.0",

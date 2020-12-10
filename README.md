@@ -10,9 +10,10 @@
 4. Javascript
 
 # APIs & other cool stuff
-1. React Calender (MIT License)
-2. Pexels Api (Photos)
-3. Chrome Devtools
+1. React Calender (Calender, MIT License)
+2. Pexels Api (Cool Photos)
+3. Chrome Devtools (Design & Debugging)
+4. format-money-js (Formatting Decimals into USD Money Values)
 
 
 # Install

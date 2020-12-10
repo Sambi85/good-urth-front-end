@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import Dashboard from '../components/Dashboard.js'
 import { Grid,  Header, Segment } from 'semantic-ui-react'
 import Chart from '../components/Chart.js'
-import Weather from '../components/Weather.js'
+import InfoTab from '../components/InfoTab.js'
 
 class HomeContainer extends React.Component {
 
@@ -23,18 +23,8 @@ class HomeContainer extends React.Component {
                     </Grid.Column>
                     
                     <Grid.Column width={3}> 
-                        Weather
-                        <Weather/>
-                    </Grid.Column>
-                </Grid.Row>
-
-                <Grid.Row>
-                    <Grid.Column width={3}>
-                        Event Feed
-                    </Grid.Column>
-                    
-                    <Grid.Column width={3}>
-                        Order History
+                        Event Feed/ Order History
+                        <InfoTab/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>    

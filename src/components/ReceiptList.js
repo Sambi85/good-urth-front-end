@@ -3,22 +3,43 @@ import { connect } from 'react-redux'
 import { getItemOrders, getCurrentUser } from '../redux/actions'
 import store from '../redux/store';  
 import ReceiptCard from '../cards/ReceiptCard.js';
-import { Segment, Grid, Table } from 'semantic-ui-react'
+import { Segment, Grid, Label, Table } from 'semantic-ui-react'
 
 const itemOrders = store.getState().itemOrders
-const currentUser = store.getState().currentUser
+const currentUser = store.getState().currentUser[0]
+
+// converts to money //
+const { FormatMoney } = require('format-money-js');
+const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
 
+    state = {
+        itemOrders: [],
+        currentUser: []
+    }
+    
+    tally = () => {
+
+        let filteredItemOrders = itemOrders.filter(element => element.order.user_id === currentUser.id)
+
+        let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        return subtotal.reduce((a,b)=> { return a + b })
+    }
+
     componentDidMount() {
-
-        const fetchedItemOrder = this.props.fetchItemOrders(), 
-              fetchedCurrentUser = this.props.fetchCurrentUser();
-   }
-
+        
+        const fetchedItemOrder = this.props.fetchItemOrders(), fetchedCurrentUser = this.props.fetchCurrentUser();
+        
+        this.setState({
+            itemOrders: itemOrders,
+            currentUser: currentUser
+        })
+    }
+    
     itemOrderIterator = () => {
 
-        let filteredItemOrders =  itemOrders.filter(element => element.order.user_id === currentUser[0].id)
+        let filteredItemOrders =  this.state.itemOrders.filter(element => element.order.user_id === this.state.currentUser.id)
 
         return filteredItemOrders.map(itemOrder => <ReceiptCard 
             key={itemOrder.id} 
@@ -31,8 +52,8 @@ class ReceiptList extends React.Component {
     }
 
     render() {
-            // console.log("itemOrder:", itemOrders[0])
-            // console.log("currentUser:", currentUser[0].id)
+            // console.log("itemOrder:", this.state.itemOrders)
+            // console.log("currentUser:", this.state.currentUser)
         return(
             <>
             
@@ -58,8 +79,8 @@ class ReceiptList extends React.Component {
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
-                        <Table.Cell>Subtotal</Table.Cell>
-                        <Table.Cell>{`$100.00`}</Table.Cell>
+                        <Table.Cell><Label color='teal' size='huge'>Subtotal</Label></Table.Cell>
+                        <Table.Cell size='large'>{fm.from( this.tally(), { symbol: '$' })}</Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>

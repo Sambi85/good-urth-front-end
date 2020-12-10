@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getCurrentUser } from '../redux/actions'
 import store from '../redux/store';
 import Timetable from './Timetable.js';
+import Weather from '../components/Weather.js'
 
 // semantic-ui
 import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
@@ -47,6 +48,15 @@ import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
                               </Card.Content>
                           
                         </Grid.Column>
+
+                        <Grid.Column width={3}>
+                          <Weather/>
+                        </Grid.Column>
+
+                        <Grid.Column width={5}>
+                            <Timetable/>    
+                        </Grid.Column>
+                    
                     </Grid.Row>
                   </Grid>
                 </>

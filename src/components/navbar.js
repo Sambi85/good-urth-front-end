@@ -12,8 +12,8 @@ class NavBar extends React.Component {
                                 <Image src={Logo}/>
                             </Menu.Item>
                                 
-                                <Menu.Item position='center'>    
-                                </Menu.Item>
+                                {/* <Menu.Item position='center'>    
+                                </Menu.Item> */}
                             
                                 <Menu.Item position='right'>
                                     <NavLink to="/home" style={{"padding":"5px"}}><Icon name='home'/>
