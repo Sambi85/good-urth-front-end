@@ -6,6 +6,7 @@ import ReceiptList from '../components/ReceiptList.js';
 class OrdersContainer extends React.Component {
 
     render(){
+        
         return (
             <>      
             <PaymentStats/>

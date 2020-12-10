@@ -10,8 +10,8 @@ class HomeContainer extends React.Component {
     render() {
 
     return (       
-            <> 
-            <Dashboard/>
+            <>
+                 <Dashboard/>
                 <Grid celled='internally'>
                 <Grid.Row>
                     <Grid.Column width={10}>

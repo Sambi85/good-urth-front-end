@@ -1,47 +1,52 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getUsers } from '../redux/actions'
+import { getCurrentUser } from '../redux/actions'
 import store from '../redux/store';
 import Timetable from './Timetable.js';
 
 // semantic-ui
-import { Header, Image, Grid, Segment } from 'semantic-ui-react'
+import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
+
+  // const currentUser = store.getState().currentUser;
 
   class Dashboard extends React.Component {
+
+
+    state = {
+      currentUser: []
+    }
+
       
     componentDidMount() {
-          this.props.fetchUsers()
+          this.props.fetchCurrentUser()
+
+          this.setState({
+            currentUser: store.getState().currentUser[0]
+          })
         }
     
     render() {
-      
+          // console.log(currentUser)
         return (
                  <>
                   <Grid celled>
                     <Grid.Row>
+                   
                       <Grid.Column width={3}>
-                        <Header as='h2'>Messages</Header>
-                      </Grid.Column>
-                      
-                      <Grid.Column width={3}>  
-                      <Image style={{'font-size':42}}
-                               src={store.getState().users[0].avatar}
-                              rounded
-                              />
-                      </Grid.Column>
-
-                      <Grid.Column width={4}>
-                      <Segment>
-                          <Header>{store.getState().users[0].username}</Header> 
-                        </Segment>
-                        <Segment>
-                          {store.getState().users[0].bio}
-                        </Segment>
-                      </Grid.Column>
-
-                      <Grid.Column width={4}>
-                      <Timetable/>
-                      </Grid.Column>
+                            <Card.Content textAlign='center'> 
+                                <Card.Header textAlign='center'>{this.state.currentUser.username}</Card.Header>
+                                <Image src={this.state.currentUser.avatar}/>
+                                <Card.Meta>
+                                  
+                                </Card.Meta>
+                                <Card.Description textAlign='center'>
+                                {this.state.currentUser.bio}
+                                </Card.Description>
+                              </Card.Content>
+                              <Card.Content extra>
+                              </Card.Content>
+                          
+                        </Grid.Column>
                     </Grid.Row>
                   </Grid>
                 </>
@@ -51,13 +56,13 @@ import { Header, Image, Grid, Segment } from 'semantic-ui-react'
 
 const msp = (state) => {
     return {
-           users: state.users
+           currentUser: state.currentUser
       }
    }
    
 const mdp = (dispatch) => {
    return {
-       fetchUsers: () => dispatch(getUsers())
+       fetchCurrentUser: () => dispatch(getCurrentUser())
       }
    }
    

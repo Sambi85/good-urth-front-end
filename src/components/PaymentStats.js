@@ -5,13 +5,12 @@ import { Button, Grid, Image, Icon, Rail, Segment } from 'semantic-ui-react'
 class PaymentStats extends React.Component {
     render() {
         return (
-            <>      
-            <Grid centered columns={3}>
+            <>   
+            <Grid>
                 <Grid.Column>
                     <Segment>
-                        <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Patates.jpg/1200px-Patates.jpg' />
-
-                        <Rail close position='left'>
+                        <Image src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Patates.jpg/1200px-Patates.jpg' fluid='true' centered='true' />
+                        <Rail attached internal position='left' size='huge'>
                             <Table celled>
                                 <Table.Header>
                                     <Table.Row>
@@ -22,7 +21,7 @@ class PaymentStats extends React.Component {
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>
-                                            <Label ribbon color='red'>Grand Total: $ 10.00</Label>
+                                            <Label ribbon color='red' size='huge'>Grand Total: $ 10.00</Label>
                                         </Table.Cell>
                                     </Table.Row>
                                 <Table.Row>
@@ -42,11 +41,9 @@ class PaymentStats extends React.Component {
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
-
-                        </Rail>
-
-                        <Rail close position='right'>
-                            
+                            </Rail>
+                        
+                            <Rail attached internal position='right' size='huge'>
                             <Table celled>
                                 <Table.Header>
                                     <Table.Row>
@@ -77,8 +74,8 @@ class PaymentStats extends React.Component {
                                     </Table.Row>
                                 </Table.Body>
                             </Table>
+                            </Rail>
 
-                        </Rail>
                     </Segment>
                 </Grid.Column>
             </Grid>

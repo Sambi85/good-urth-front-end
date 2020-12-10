@@ -20,7 +20,7 @@ class ExploreContainer extends React.Component {
                 
                     <Grid.Column>
                         {/* <NycMap/> */}
-                        <div align='center'><Image src='https://snazzy-maps-cdn.azureedge.net/assets/8097-wy.png?v=20170626083314' size='Huge' /></div>
+                        <div align='center'><Image src='https://snazzy-maps-cdn.azureedge.net/assets/8097-wy.png?v=20170626083314' size='Huge'/></div>
                     </Grid.Column>
                     <Grid.Column columns={1}>
                         <Segment>

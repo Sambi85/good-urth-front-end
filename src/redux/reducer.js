@@ -9,7 +9,8 @@ let defaultState = {
     messages: [],
     orders: [],
     reviews: [],
-    users: []
+    users: [],
+    currentUser: []
 }
 
 function marketReducer(currentState = defaultState.markets, action) {
@@ -111,6 +112,17 @@ function userReducer(currentState = defaultState.users, action) {
     }
 }
 
+function currentUserReducer(currentState = defaultState.currentUser, action) {
+    switch (action.type) {
+              
+        case "fetched currentUser" :
+            return action.payload
+                
+        default :
+            return currentState
+    }
+}
+
 const rootReducer = combineReducers({
     markets: marketReducer,
     schedules: scheduleReducer,
@@ -120,7 +132,8 @@ const rootReducer = combineReducers({
     messages: messageReducer,
     orders: orderReducer,
     reviews: reviewReducer,
-    users: userReducer
+    users: userReducer,
+    currentUser: currentUserReducer
 })
 
 export default rootReducer

@@ -1,34 +1,49 @@
 import React from 'react';
 import store from '../redux/store';
-import { Icon, Label, Table } from 'semantic-ui-react'
+import { Button, Icon, Input, Label, Table } from 'semantic-ui-react';
 
 class ReceiptCard extends React.Component {
+    
+    state = {
+        farmerName: ""
+    };
+
+    componentDidMount() {
+        fetch(`http://localhost:4000/farmers/${this.props.farmerId}`)
+        .then(response => response.json())
+        .then(farmerData =>
+            
+            this.setState({
+                farmerName: farmerData.username
+            })
+        )    
+    }
 
     render(){
+
         return(
             <>
-           <h1>Blue Bell Farms</h1>
-              <Table striped>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Item</Table.HeaderCell>
-                            <Table.HeaderCell>Quantity</Table.HeaderCell>
-                            <Table.HeaderCell>Price per unit</Table.HeaderCell>
-                            <Table.HeaderCell>Price</Table.HeaderCell>
-                            {/* <Table.HeaderCell><Icon name='delete'/></Table.HeaderCell> */}
-                    
-                        </Table.Row>
-                    </Table.Header>
+                <Table.Row>
 
-                    <Table.Body>
-                        <Table.Row>
-                            <Table.Cell>Tomato</Table.Cell>
-                            <Table.Cell>x1</Table.Cell>
-                            <Table.Cell>$5.99</Table.Cell>
-                            <Table.Cell><Label ribbon color='green'>Sub Total: $ 10.00</Label></Table.Cell>
-                        </Table.Row>
-                    </Table.Body>
-            </Table>
+                    <Table.Cell>  <Button icon color='red'>
+    <Icon name='close' color='white' />
+  </Button></Table.Cell>
+                    <Table.Cell>{this.props.name}</Table.Cell>
+                    <Table.Cell>{this.state.farmerName}</Table.Cell>  
+                    <Table.Cell>{this.props.unit}</Table.Cell>
+                    <Table.Cell>
+                        <Button icon color='olive' circular='true' size='mini'>
+                            <Icon name='left arrow' />
+                        </Button>
+                        <Input size='mini' placeholder={`x${this.props.quantity}`} />
+                        <Button icon color='olive' circular='true' size='mini'>
+                            <Icon name='right arrow'/>
+                        </Button>
+                    </Table.Cell>
+                    <Table.Cell>{`$${this.props.price}`}</Table.Cell>
+                    <Table.Cell>{`$${this.props.price * this.props.quantity}`}</Table.Cell>
+                    
+                </Table.Row>
             </>
         )
     }

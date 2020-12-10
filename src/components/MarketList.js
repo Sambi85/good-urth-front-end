@@ -17,8 +17,7 @@ class MarketList extends React.Component {
         return  markets.map(market => <MarketCard key={market.id} market={market}/>)
     }
 
-    render() {
-        console.log("market:", store.getState().markets)
+    render() {   
         return(
                 <>          
                     <Grid container columns={4}>
