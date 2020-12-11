@@ -3,11 +3,16 @@ import { Card, Icon, Image, Grid } from 'semantic-ui-react'
 
 class MarketCard extends React.Component {
 
-    price = () => {
-        let number = `${this.props.market.phone_number}`
+    parsePhoneNumber = () => {
+        let cleaned = ('' + this.props.market.phone_number).replace(/\D/g, '')
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
         
-    
-    }
+        if (match) {
+          return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        }
+        
+        return null
+      }
 
 
     render(){
@@ -21,7 +26,7 @@ class MarketCard extends React.Component {
                         <Card.Header>{this.props.market.name}</Card.Header>
                 
                         <Card.Meta>
-                            <span className='number'> {this.props.market.phone_number}</span>
+                            <span className='number'> {this.parsePhoneNumber()}</span>
                         </Card.Meta>
       
                         <Card.Description>
