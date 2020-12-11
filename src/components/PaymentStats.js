@@ -66,7 +66,7 @@ class PaymentStats extends React.Component {
 
                                     <Table.Row>
                                         <Table.Cell>
-                                        <Button positive>Checkout</Button>
+                                        <Button positive>Confirm</Button>
                                         <Button negative>Empty Cart</Button>
                                         </Table.Cell>
                                     </Table.Row>
@@ -78,14 +78,14 @@ class PaymentStats extends React.Component {
                             <Table celled>
                                 <Table.Header>
                                     <Table.Row>
-                                    <Table.HeaderCell>Default Payment Option</Table.HeaderCell>
+                                    <Table.HeaderCell>Your Default Card</Table.HeaderCell>
                                     </Table.Row>
                                 </Table.Header>
 
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>
-                                            {/* <Label color='teal' size='huge'><Icon name='credit card'/>Card:{currentUser.cctype}</Label> */}
+                                            <Label color='teal' size='huge'><Icon name='credit card'/>Card: Master Card</Label>
                                         </Table.Cell>
                                     </Table.Row>
                                     
@@ -96,8 +96,22 @@ class PaymentStats extends React.Component {
                                     </Table.Row>
 
                                     <Table.Row> 
-                                        {/* <Table.Cell>{`Ending in ... ${currentUser.creditcard}`}</Table.Cell> */}
+                                        <Table.Cell> <p>Card Number:</p>Ending in... XXXX </Table.Cell>
                                     </Table.Row>
+
+                                    <Table.Row> 
+                                        <Table.Cell> <p>Exp Date:</p> 10/26 </Table.Cell>
+                                    </Table.Row>
+
+                                    <Table.Row> 
+                                        <Table.Cell> <p>Zipcode:</p> 11206 </Table.Cell>
+                                    </Table.Row>
+
+                                    <Table.Row> 
+                                        <Table.Cell><Button color='green' size='huge'>Update</Button></Table.Cell>
+                                    </Table.Row>
+                                
+                                
                                 
                                         
                                     <Table.Row>

@@ -79,8 +79,8 @@ class ReceiptList extends React.Component {
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
-                        <Table.Cell><Label color='teal' size='huge'>Subtotal</Label></Table.Cell>
-                        <Table.Cell size='large'>{fm.from( this.tally(), { symbol: '$' })}</Table.Cell>
+                        <Table.Cell></Table.Cell>
+                        <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: {fm.from( this.tally(), { symbol: '$' })}</Label></Table.Cell>
                         </Table.Row>
                     </Table.Body>
                 </Table>
