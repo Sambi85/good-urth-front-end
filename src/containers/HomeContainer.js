@@ -8,29 +8,29 @@ import InfoTab from '../components/InfoTab.js'
 class HomeContainer extends React.Component {
 
     render() {
-
-    return (       
-            <>
-                 <Dashboard/>
-                <Grid celled='internally'>
-                <Grid.Row>
-                    <Grid.Column width={10}>
-                    <Segment>
-                
-                          <Header>Check out what's in season</Header> 
-                        </Segment> 
-                        <Chart/>
-                    </Grid.Column>
-                    
-                    <Grid.Column width={3}> 
-                        Event Feed/ Order History
-                        <InfoTab/>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>    
-            </>
-        )
-    }
+        
+        return (       
+                <>
+                <Dashboard/>
+                        
+                    <Grid celled='internally'>
+                        <Grid.Row>
+                            <Grid.Column width={10}>
+                            <Segment>
+                        
+                                <Header>Check out what's in season</Header> 
+                                </Segment> 
+                                <Chart/>
+                            </Grid.Column>
+                            
+                            <Grid.Column width={3}> 
+                                <InfoTab/>
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>    
+                </>
+                )
+            }
 }
 
 export default withRouter(HomeContainer); 

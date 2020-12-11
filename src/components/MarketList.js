@@ -16,10 +16,6 @@ class MarketList extends React.Component {
     
     componentDidMount() {
         const fetchedMarkets = this.props.fetchMarkets();
-
-        this.setState({
-            markets: markets
-        })
     }
     
     // Toggles //
@@ -36,7 +32,7 @@ class MarketList extends React.Component {
 
     mainIterator = () => {
 
-        return  this.state.markets.map(market => <MarketCard key={market.id} market={market}/>)
+        return  this.state.markets.map(market => <MarketCard key={market.id} market={market} id={market.id}/>)
     }
 
     // Event Handlers for Toggles //

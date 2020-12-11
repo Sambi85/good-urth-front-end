@@ -6,28 +6,18 @@ import Timetable from './Timetable.js';
 import Weather from '../components/Weather.js'
 
 // semantic-ui
-import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
-
-  // const currentUser = store.getState().currentUser;
+import { Card, Image, Grid } from 'semantic-ui-react'
 
   class Dashboard extends React.Component {
 
-
-    state = {
-      currentUser: []
-    }
-
-      
     componentDidMount() {
-          this.props.fetchCurrentUser()
-
-          this.setState({
-            currentUser: store.getState().currentUser[0]
-          })
-        }
+    
+     this.props.fetchCurrentUser()
+      
+    }
     
     render() {
-          // console.log(currentUser)
+        console.log('currentUser', this.props.currentUser)
         return (
                  <>
                   <Grid celled>
@@ -35,13 +25,13 @@ import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
                    
                       <Grid.Column width={3}>
                             <Card.Content textAlign='center'> 
-                                <Card.Header textAlign='center'>{this.state.currentUser.username}</Card.Header>
-                                <Image src={this.state.currentUser.avatar}/>
+                                <Card.Header textAlign='center'>{this.props.currentUser[0].username}</Card.Header>
+                                <Image src={this.props.currentUser[0].avatar}/>
                                 <Card.Meta>
                                   
                                 </Card.Meta>
                                 <Card.Description textAlign='center'>
-                                {this.state.currentUser.bio}
+                                {this.props.currentUser[0].bio}
                                 </Card.Description>
                               </Card.Content>
                               <Card.Content extra>
@@ -50,11 +40,15 @@ import { Card, Header, Image, Grid, Segment } from 'semantic-ui-react'
                         </Grid.Column>
 
                         <Grid.Column width={3}>
+                        
                           <Weather/>
+                        
                         </Grid.Column>
 
                         <Grid.Column width={5}>
+
                             <Timetable/>    
+                        
                         </Grid.Column>
                     
                     </Grid.Row>

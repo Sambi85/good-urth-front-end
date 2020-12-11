@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Icon, Image, Grid } from 'semantic-ui-react'
+import { Card, Image, Grid } from 'semantic-ui-react'
 
 class MarketCard extends React.Component {
 
@@ -14,12 +14,18 @@ class MarketCard extends React.Component {
         return null
       }
 
+    marketClickHandler = () => {
+
+     return this.props.history.push(`/vendors/${this.props.id}`)
+    }
 
     render(){
+        console.log('id:', this.props.id)
+        console.log('this.props.history:', this.props.history)
         return(
             <>
              <Grid.Column>
-                <Card>
+                <Card onClick={this.marketClickHandler}>  
                     <Image src='https://previews.123rf.com/images/cosmaa/cosmaa1805/cosmaa180500171/102272550-vector-cartoon-illustration-of-market-stall-on-white-background-.jpg' wrapped ui={false} />
                     
                     <Card.Content>
@@ -33,13 +39,6 @@ class MarketCard extends React.Component {
                             Location: {this.props.market.location}
                         </Card.Description>
 
-                    </Card.Content>
-                
-                    <Card.Content extra>
-                        {/* <a>
-                        <Icon name='user' />
-                        22 Friends
-                        </a> */}
                     </Card.Content>
                 </Card>
             </Grid.Column>
