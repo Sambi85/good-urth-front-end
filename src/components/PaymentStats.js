@@ -2,10 +2,6 @@ import React from 'react';
 import { Button, Grid, Image, Icon, Label, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { getItemOrders, getCurrentUser } from '../redux/actions'
-import store from '../redux/store';  
-
-const itemOrders = store.getState().itemOrders
-const currentUser = store.getState().currentUser[0]
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -13,10 +9,16 @@ const fm = new FormatMoney({ decimals: 2 });
 const tax = 0.45;
 
 class PaymentStats extends React.Component {
+
+    componentDidMount() {
+        
+        this.props.fetchItemOrders();
+        this.props.fetchCurrentUser();
+    }
     
     tally = () => {
 
-        let filteredItemOrders = itemOrders.filter(element => element.order.user_id === currentUser.id)
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
 
         let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
         return subtotal.reduce((a,b)=> { return a + b })
@@ -31,8 +33,6 @@ class PaymentStats extends React.Component {
     }
 
     render() {
-        // console.log('order:', itemOrders[0].order.subtotal)
-        console.log('tally:', this.tally())
 
         return (
             <>   
@@ -91,7 +91,7 @@ class PaymentStats extends React.Component {
                                     
                                     <Table.Row>
                                             <Table.Cell>
-                                                <p>Name:</p>{currentUser.username}
+                                                <p>Name:</p>{this.props.currentUser[0].username}
                                             </Table.Cell>
                                     </Table.Row>
 
@@ -110,13 +110,11 @@ class PaymentStats extends React.Component {
                                     <Table.Row> 
                                         <Table.Cell><Button color='green' size='huge'>Update</Button></Table.Cell>
                                     </Table.Row>
-                                
-                                
-                                
                                         
                                     <Table.Row>
-        {/* <Table.Cell><p>Billing address:</p>{currentUser.address}</Table.Cell> */}
+                                    <Table.Cell><p>Billing address: 123 Sesame Street Apt 1F  10023 Manhattan, New York</p></Table.Cell>
                                     </Table.Row>
+
                                 </Table.Body>
                             </Table>
                             </Rail>
@@ -144,4 +142,3 @@ const mdp = (dispatch) => {
    }
    
 export default connect(msp, mdp)(PaymentStats);
-// export default PaymentStats; 

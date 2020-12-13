@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getMarkets } from '../redux/actions'
-import store from '../redux/store';
 import MarketCard from '../cards/MarketCard.js'
-import { Checkbox, Grid, Segment } from 'semantic-ui-react'
 
-const markets = store.getState().markets
+import { Checkbox, Grid, Segment } from 'semantic-ui-react'
 
 class MarketList extends React.Component {
     
@@ -15,21 +13,25 @@ class MarketList extends React.Component {
     }
     
     componentDidMount() {
-        const fetchedMarkets = this.props.fetchMarkets();
+        this.props.fetchMarkets();
+        
+        this.setState({
+            markets: this.props.markets
+        })
     }
     
     // Toggles //
-
-    allToggle = () => <Checkbox id='all' toggle={this.state.toggle} onClick={this.allClickHandler} toggle/>
-    manhattanToggle = () => <Checkbox id='manhattan' toggle="false" onClick={this.manhattanClickHandler} toggle/>
-    brooklynToggle = () => <Checkbox id='brooklyn' toggle={this.state.brooklynToggle} onClick={this.brooklynClickHandler} toggle/>
-    bronxToggle = () => <Checkbox id='bronx' toggle={this.state.toggle} onClick={this.bronxClickHandler} toggle/>
-    queensToggle = () => <Checkbox id='queens' toggle={this.state.toggle} onClick={this.queensClickHandler} toggle/>
-    statenIslandToggle = () => <Checkbox id='statenIsland' toggle={this.state.toggle} onClick={this.statenIslandClickHandler} toggle/>
     
-
+    allToggle = () => <Checkbox id='all' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    manhattanToggle = () => <Checkbox id='manhattan' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    brooklynToggle = () => <Checkbox id='brooklyn' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    bronxToggle = () => <Checkbox id='bronx' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    queensToggle = () => <Checkbox id='queens' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    statenIslandToggle = () => <Checkbox id='statenIsland' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
+    
+    
     // Iterator // 
-
+    
     mainIterator = () => {
 
         return  this.state.markets.map(market => <MarketCard key={market.id} market={market} id={market.id}/>)
@@ -37,129 +39,76 @@ class MarketList extends React.Component {
 
     // Event Handlers for Toggles //
     
-    allClickHandler = (event) => {
-
-       if (this.state.toggle === true ) {
-           this.setState({
-               toggle: !this.state.toggle,
-               markets: []
-           })
-
-       } else {
-           this.setState({
-               toggle: !this.state.toggle,
-               markets: markets
-           })
-       }
-    }
-
-    manhattanClickHandler = () => {
-        
-       let manhattan = markets.filter(element => element.borough === 'New York')
-
-       if (this.state.toggle === true ) {
-        this.setState({
-            toggle: !this.state.toggle,
-            markets: []
-        })
-
-        } else {
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: manhattan
-            })
-        }
-    }
-
-    brooklynClickHandler = () => {
-        
-        let brooklyn = markets.filter(element => element.borough === 'Kings')
-
-        if (this.state.toggle === true ) {
-
-        this.setState({
-            toggle: !this.state.toggle,
-            markets: []
-        })
+    clickHandler = (event) => {
     
-        } else {
-        
-        this.setState({
-            toggle: !this.state.toggle,
-            markets: brooklyn
-        })
-    }
-
-    }
-
-    bronxClickHandler = () => {
-        
-        let bronx = markets.filter(element => element.borough === 'Bronx')
+        let manhattan = this.props.markets.filter(element => element.borough === 'New York')
+        let brooklyn = this.props.markets.filter(element => element.borough === 'Kings')
+        let bronx = this.props.markets.filter(element => element.borough === 'Bronx')
+        let queens = this.props.markets.filter(element => element.borough === 'Queens')
+        let statenIsland = this.props.markets.filter(element => element.borough === 'Richmond')
 
         if (this.state.toggle === true ) {
-
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: []
-        })
-
-        } else {
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: bronx
-            })
-
-        }
-
-
-    }
-
-    queensClickHandler = () => {
-    
-        let queens = markets.filter(element => element.borough === 'Queens')
-        
-        if (this.state.toggle === true ) {
-
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: []
-            })
+                this.setState({
+                    toggle: !this.state.toggle,
+                    markets: []
+                })
 
         } else {
+            console.log(event)
+
+             switch (event.target.id) {
+
+                case "all" :
+                    this.setState({
+                       toggle: !this.state.toggle,
+                       markets: this.props.markets
+                })
+                break;
+
+                case "manhattan" :
+                     this.setState({
+                        toggle: !this.state.toggle,
+                        markets: manhattan
+                    })
+                break;
+
+                case "brooklyn" :
+                    this.setState({
+                       toggle: !this.state.toggle,
+                       markets: brooklyn
+                    })
+                break;
+
+                case "bronx" :
+                    this.setState({
+                       toggle: !this.state.toggle,
+                       markets: bronx
+                    })
+                break;
+
+                case "queens" :
+                    this.setState({
+                       toggle: !this.state.toggle,
+                       markets: queens
+                    })
+                break;
+
+                case "statenIsland" :
+                    this.setState({
+                       toggle: !this.state.toggle,
+                       markets: statenIsland
+                    })
+                break;
             
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: queens
-            })
-
-        }
-
-
-    }
-
-    statenIslandClickHandler = () => {
-    
-        let statenIsland = markets.filter(element => element.borough === 'Richmond')
-
-        if (this.state.toggle === true ) {
-        
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: statenIsland
-            })
-
-        } else {
-            this.setState({
-                toggle: !this.state.toggle,
-                markets: statenIsland
-            })
-        }
-
-
-    }
+                default:
+                    console.log("default!")
+                    break;
+            };
+        };
+    };
 
     render() { 
-        // console.log(this.state.toggle)
+    
         return(
                 <>          
                     <Grid.Column columns={1}>

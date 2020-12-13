@@ -1,6 +1,8 @@
 import React from 'react';
-import store from '../redux/store';
 import { Button, Icon, Input, Label, Table } from 'semantic-ui-react';
+import { connect } from 'react-redux'
+import { getFarmers } from '../redux/actions'
+
 
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({
@@ -9,19 +11,15 @@ const fm = new FormatMoney({
 
 class ReceiptCard extends React.Component {
     
-    state = {
-        farmerName: ""
-    };
-
     componentDidMount() {
-        fetch(`http://localhost:4000/farmers/${this.props.farmerId}`)
-        .then(response => response.json())
-        .then(farmerData =>
-            
-            this.setState({
-                farmerName: farmerData.username
-            })
-        )    
+
+        this.props.fetchFarmers();    
+        
+    }
+
+    farmerGrabber = () => {
+      let farmerName = this.props.farmers.filter(element => element.id === this.props.farmerId);
+        return farmerName.username
     }
 
     render(){
@@ -31,7 +29,7 @@ class ReceiptCard extends React.Component {
 
                     <Table.Cell>  <Button icon color='red'> <Icon name='close' color='white' /></Button> </Table.Cell>
                     <Table.Cell>{this.props.name}</Table.Cell>
-                    <Table.Cell>{this.state.farmerName}</Table.Cell>  
+                    <Table.Cell>{this.farmerGrabber()}</Table.Cell>  
                     <Table.Cell><Label size='large'>{this.props.unit}</Label> </Table.Cell>
                     <Table.Cell>
                         <Button icon color='olive' circular='true' size='mini'>
@@ -50,4 +48,16 @@ class ReceiptCard extends React.Component {
     }
 }
 
-export default ReceiptCard;
+const msp = (state) => {
+    return {
+           farmers: state.farmers,
+      }
+   }
+   
+const mdp = (dispatch) => {
+   return {
+       fetchFarmers: () => dispatch(getFarmers())
+      }
+   }
+   
+export default connect(msp, mdp)(ReceiptCard); 

@@ -1,26 +1,35 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getCurrentUser } from '../redux/actions'
-import store from '../redux/store';
-import Timetable from './Timetable.js';
-import Weather from '../components/Weather.js'
 
-// semantic-ui
+// Sub Component //
+import Timetable from './Timetable.js';
+import Weather from './Weather.js'
+
+// semantic-ui //
 import { Card, Image, Grid } from 'semantic-ui-react'
 
   class Dashboard extends React.Component {
 
     componentDidMount() {
     
-     this.props.fetchCurrentUser()
-      
+      this.props.fetchCurrentUser();
+   
     }
-    
-    render() {
-        console.log('currentUser', this.props.currentUser)
-        return (
-                 <>
-                  <Grid celled>
+
+    loading = () => {
+      return (
+              <div class="ui segment">
+                <div class="ui active dimmer">
+                    <div class="ui indeterminate text loader">Loading Explore Page...</div>
+                </div>
+              </div>
+      )
+    }    
+
+    renderDashboard = () => {
+      return(
+        <Grid celled>
                     <Grid.Row>
                    
                       <Grid.Column width={3}>
@@ -53,6 +62,15 @@ import { Card, Image, Grid } from 'semantic-ui-react'
                     
                     </Grid.Row>
                   </Grid>
+      )
+    }
+    
+    render() {
+
+      console.log("this.props.currentUser:",this.props.currentUser[0])
+        return (
+                 <>
+                 {this.props.currentUser.length === 0 ? this.loading() : this.renderDashboard()}
                 </>
         )
     }
@@ -66,7 +84,7 @@ const msp = (state) => {
    
 const mdp = (dispatch) => {
    return {
-       fetchCurrentUser: () => dispatch(getCurrentUser())
+        fetchCurrentUser: () => dispatch(getCurrentUser())
       }
    }
    

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Image, Grid } from 'semantic-ui-react'
+import { withRouter } from 'react-router-dom';
 
 class MarketCard extends React.Component {
 
@@ -16,12 +17,12 @@ class MarketCard extends React.Component {
 
     marketClickHandler = () => {
 
-     return this.props.history.push(`/vendors/${this.props.id}`)
+     this.props.history.push(`/markets/1`)
+    
     }
 
     render(){
-        console.log('id:', this.props.id)
-        console.log('this.props.history:', this.props.history)
+
         return(
             <>
              <Grid.Column>
@@ -47,4 +48,4 @@ class MarketCard extends React.Component {
     };
 };
 
-export default MarketCard;
+export default withRouter(MarketCard);

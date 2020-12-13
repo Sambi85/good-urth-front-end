@@ -1,12 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getItemOrders, getCurrentUser } from '../redux/actions'
-import store from '../redux/store';  
-import ReceiptCard from '../cards/ReceiptCard.js';
-import { Segment, Grid, Label, Table } from 'semantic-ui-react'
+import { Grid, Label, Table } from 'semantic-ui-react'
 
-const itemOrders = store.getState().itemOrders
-const currentUser = store.getState().currentUser[0]
+// Sub Component //
+import ReceiptCard from '../cards/ReceiptCard.js';
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -14,32 +12,24 @@ const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
 
-    state = {
-        itemOrders: [],
-        currentUser: []
+    componentDidMount() {
+        
+        this.props.fetchItemOrders();
+        this.props.fetchCurrentUser();
     }
     
     tally = () => {
 
-        let filteredItemOrders = itemOrders.filter(element => element.order.user_id === currentUser.id)
-
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
         let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
-        return subtotal.reduce((a,b)=> { return a + b })
+        
+            return subtotal.reduce((a,b)=> { return a + b })
     }
 
-    componentDidMount() {
-        
-        const fetchedItemOrder = this.props.fetchItemOrders(), fetchedCurrentUser = this.props.fetchCurrentUser();
-        
-        this.setState({
-            itemOrders: itemOrders,
-            currentUser: currentUser
-        })
-    }
     
     itemOrderIterator = () => {
 
-        let filteredItemOrders =  this.state.itemOrders.filter(element => element.order.user_id === this.state.currentUser.id)
+        let filteredItemOrders =  this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
 
         return filteredItemOrders.map(itemOrder => <ReceiptCard 
             key={itemOrder.id} 
@@ -52,8 +42,7 @@ class ReceiptList extends React.Component {
     }
 
     render() {
-            // console.log("itemOrder:", this.state.itemOrders)
-            // console.log("currentUser:", this.state.currentUser)
+      
         return(
             <>
             
@@ -101,7 +90,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
    return {
        fetchItemOrders: () => dispatch(getItemOrders()),
-       fetchCurrentUser: () => dispatch(getCurrentUser()),
+       fetchCurrentUser: () => dispatch(getCurrentUser())
       }
    }
    

@@ -10,7 +10,7 @@ export const getMarkets = (marketObj) => {
     }
 }
 
-export const getfarmers = (farmerObj) => {
+export const getFarmers = (farmerObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
         // console.log("nested function invoked")
@@ -105,6 +105,6 @@ export const getCurrentUser = (currentUserObj) => {
     fetch('http://localhost:4000/users/1')
     .then(resp => resp.json())
     // .then(console.log)
-    .then(data => dispatch({type: "fetched currentUser", payload: data}) )
+    .then(data => dispatch({type: "fetched currentUser", payload: data}))
     }
 }
