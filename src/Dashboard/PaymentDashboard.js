@@ -8,7 +8,7 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 const tax = 0.45;
 
-class PaymentStats extends React.Component {
+class PaymentDashboard extends React.Component {
 
     componentDidMount() {
         
@@ -141,4 +141,4 @@ const mdp = (dispatch) => {
       }
    }
    
-export default connect(msp, mdp)(PaymentStats);
+export default connect(msp, mdp)(PaymentDashboard);

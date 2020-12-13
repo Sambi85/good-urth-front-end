@@ -102,7 +102,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/1')
+    fetch('http://localhost:4000/users/6')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))

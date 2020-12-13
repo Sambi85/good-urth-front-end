@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { getCurrentUser } from '../redux/actions'
 
 // Sub Component //
-import Timetable from './Timetable.js';
-import Weather from './Weather.js'
+import Timetable from '../components/Timetable.js';
+import Weather from '../components/Weather.js'
 
 // semantic-ui //
-import { Card, Image, Grid } from 'semantic-ui-react'
+import { Dimmer, Card, Loader, Image, Grid, Segment } from 'semantic-ui-react';
 
   class Dashboard extends React.Component {
 
@@ -19,11 +19,15 @@ import { Card, Image, Grid } from 'semantic-ui-react'
 
     loading = () => {
       return (
-              <div class="ui segment">
-                <div class="ui active dimmer">
-                    <div class="ui indeterminate text loader">Loading Explore Page...</div>
+               <div>
+                  <Segment>
+                    <Dimmer active>
+                      <Loader indeterminate>Preparing Files</Loader>
+                    </Dimmer>
+              
+                    <Image src='/images/wireframe/short-paragraph.png' />
+                  </Segment>
                 </div>
-              </div>
       )
     }    
 

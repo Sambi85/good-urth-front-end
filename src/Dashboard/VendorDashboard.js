@@ -36,26 +36,33 @@ class VendorDashboard extends React.Component {
 
     }
 
-    operationsConverter = (string) => {
+    operationsConverter = () => {
+        let string = this.props.markets[0].operation_months_code
 
             if (string === "P") {
                
                 return "Open in the Spring/Summer"
+            } 
             
-            } else if (string === "YR") {
+            if (string === "YR") {
                 
                 return "Year Round"
 
-            } else if (string === "X") {
+            }
+            
+            if (string === "X") {
 
                 return "Open till December"
 
-            } else if (string === "W") {
+            }
+            
+            if (string === "W") {
 
                 return "Open thru the Winter"
+            } else {
+                return "None Declared"
             }
     }
-    // <p>{this.props.markets[0].operation_months_code}</p>
 
     loadingVendorDashboard = () => {
         return (
@@ -135,7 +142,7 @@ class VendorDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                        <p> Seasons Open: {this.operationsConverter(this.props.markets[0].operation_month_code)}</p>
+                                        <p> Seasons Open: {this.operationsConverter()}</p>
                                     </Table.Cell>
                                 </Table.Row>
 

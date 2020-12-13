@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid, Image } from 'semantic-ui-react'
 import NycMap from '../components/NycMap.js';
-import MarketList from '../components/MarketList.js';
+import MarketList from '../lists/MarketList.js';
 
 class ExploreContainer extends React.Component {
     

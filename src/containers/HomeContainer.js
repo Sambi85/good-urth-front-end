@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Grid,  Header, Segment } from 'semantic-ui-react'
 
 // Sub Component //
-import Dashboard from '../components/Dashboard.js'
+import Dashboard from '../Dashboard/Dashboard.js'
 import Chart from '../components/Chart.js'
 import InfoTab from '../components/InfoTab.js'
 

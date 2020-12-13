@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import PaymentStats from '../components/PaymentStats.js';
-import ReceiptList from '../components/ReceiptList.js';
+import PaymentDashboard from '../Dashboard/PaymentDashboard.js';
+import ReceiptList from '../lists/ReceiptList.js';
 
 class OrdersContainer extends React.Component {
 
@@ -9,7 +9,7 @@ class OrdersContainer extends React.Component {
         
         return (
             <>      
-            <PaymentStats/>
+            <PaymentDashboard/>
             <ReceiptList/>     
             </>
         )

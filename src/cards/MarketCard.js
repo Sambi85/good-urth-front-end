@@ -17,7 +17,7 @@ class MarketCard extends React.Component {
 
     marketClickHandler = () => {
 
-     this.props.history.push(`/markets/1`)
+     this.props.history.push(`/markets/${this.props.id}`)
     
     }
 

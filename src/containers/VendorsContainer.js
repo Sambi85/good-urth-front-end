@@ -1,8 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Grid } from 'semantic-ui-react'
-import VendorDashboard from '../components/VendorDashboard.js'
-import VendorList from '../components/VendorList.js'
+import VendorDashboard from '../Dashboard/VendorDashboard.js'
+import VendorList from '../lists/VendorList.js'
 
 class VendorsContainer extends React.Component {
 
@@ -13,7 +13,7 @@ class VendorsContainer extends React.Component {
                         <Grid.Column>
                             <VendorDashboard/>  
                         </Grid.Column>
-                            {/* <VendorList/> */}
+                            <VendorList/>
                     </Grid.Row>
                 </Grid>
             )

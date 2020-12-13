@@ -54,7 +54,6 @@ class MarketList extends React.Component {
                 })
 
         } else {
-            console.log(event)
 
              switch (event.target.id) {
 
