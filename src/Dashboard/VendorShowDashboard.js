@@ -30,8 +30,6 @@ class VendorShowDashboard extends React.Component {
         
         let hours = parseInt(cleanedString[0]);
         let minutes = cleanedString[1];
-        console.log("hours:",hours)
-        console.log("minutes:",minutes)
 
         if (hours > 12) {
 
@@ -54,7 +52,7 @@ class VendorShowDashboard extends React.Component {
                 <Loader indeterminate>Preparing Farmer Dashboard...</Loader>
               </Dimmer>
         
-              <Image src='/images/wireframe/short-paragraph.png' />
+              <Image src='/images/wireframe/short-paragraph.png'/>
             </Segment>
           </div>
         )
@@ -143,13 +141,7 @@ class VendorShowDashboard extends React.Component {
                                             mail: {this.props.farmers[0].address}
                                         </Table.Cell>
                                     </Table.Row>
-    
-                                    <Table.Row> 
-                                        <Table.Cell>
-                                          
-                                        </Table.Cell>
-                                    </Table.Row>
-    
+
                                 </Table.Body>
                             </Table>
                             </Rail>

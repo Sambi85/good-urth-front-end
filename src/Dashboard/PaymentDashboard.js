@@ -1,7 +1,8 @@
 import React from 'react';
-import { Button, Grid, Image, Icon, Label, Rail, Segment, Table } from 'semantic-ui-react'
+import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { getItemOrders, getCurrentUser } from '../redux/actions'
+
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -32,7 +33,21 @@ class PaymentDashboard extends React.Component {
         return this.tally() + this.tally() * tax
     }
 
-    render() {
+    loadingPaymentDashboard = () => {
+        return (
+                <div>
+                    <Segment>
+                        <Dimmer active>
+                            <Loader indeterminate>Preparing Files</Loader>
+                        </Dimmer>
+                
+                        <Image src='/images/wireframe/short-paragraph.png' />
+                    </Segment>
+                </div>
+        )
+    }
+
+    renderPaymentDashboard = () => {
 
         return (
             <>   
@@ -123,6 +138,16 @@ class PaymentDashboard extends React.Component {
                 </Grid.Column>
             </Grid>
         </>
+        )
+
+    }
+
+    render() {
+
+        return (
+                <>   
+                     {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()}
+                </>
         )
     }
 }

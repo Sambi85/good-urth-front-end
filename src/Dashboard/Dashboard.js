@@ -70,8 +70,7 @@ import { Dimmer, Card, Loader, Image, Grid, Segment } from 'semantic-ui-react';
     }
     
     render() {
-
-      console.log("this.props.currentUser:",this.props.currentUser[0])
+      
         return (
                  <>
                  {this.props.currentUser.length === 0 ? this.loading() : this.renderDashboard()}

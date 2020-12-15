@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getItemOrders, getCurrentUser } from '../redux/actions'
-import { Grid, Label, Table } from 'semantic-ui-react'
+import { Dimmer, Grid, Image, Label, Loader, Segment, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import ReceiptCard from '../cards/ReceiptCard.js';
@@ -41,8 +41,22 @@ class ReceiptList extends React.Component {
             />)
     }
 
-    render() {
-      
+    loadingReceiptList = () => {
+        return (
+            <div>
+                <Segment>
+                    <Dimmer active>
+                        <Loader indeterminate>Preparing Files</Loader>
+                    </Dimmer>
+            
+                    <Image src='/images/wireframe/short-paragraph.png' />
+                </Segment>
+            </div>
+        )
+    }
+
+    renderReceiptList = () => {
+
         return(
             <>
             
@@ -75,6 +89,16 @@ class ReceiptList extends React.Component {
                 </Table>
             </Grid>
             
+            </>
+        )
+
+    }
+
+
+    render() {
+        return(
+            <>
+                {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList()}
             </>
         )
     }

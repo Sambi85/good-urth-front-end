@@ -1,17 +1,32 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import VendorShowList from '../lists/VendorShowList.js';
+import ItemsList from '../lists/ItemsList.js';
 import VendorShowDashboard from '../Dashboard/VendorShowDashboard.js';
-
 
 class VendorShowContainer extends React.Component {
 
+state = {
+    pathName: ''
+}
+
+componentDidMount() {
+    
+    this.setState({
+            pathName: this.props.history.location.pathname
+    })
+}
+
+    parsePathname = () => {
+        let fileName = this.state.pathName.replace(/^.*[\\\/]/, '')
+        return fileName
+}
+    
     render(){
 
         return (
             <>
             <VendorShowDashboard/>
-            <VendorShowList/>
+            <ItemsList id={this.parsePathname()}/>
             </>
         )
     }

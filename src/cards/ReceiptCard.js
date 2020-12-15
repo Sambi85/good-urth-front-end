@@ -3,7 +3,7 @@ import { Button, Icon, Input, Label, Table } from 'semantic-ui-react';
 import { connect } from 'react-redux'
 import { getFarmers } from '../redux/actions'
 
-
+// converts to money //
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({
   decimals: 2
