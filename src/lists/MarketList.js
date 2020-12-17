@@ -34,7 +34,7 @@ class MarketList extends React.Component {
     
     mainIterator = () => {
 
-        return  this.state.markets.map(market => <MarketCard key={market.id} market={market} id={market.id}/>)
+        return  this.state.markets.map(market => <MarketCard key={market.id} market={market}/>)
     }
 
     // Event Handlers for Toggles //

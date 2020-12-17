@@ -25,7 +25,7 @@ componentDidMount() {
 
         return (
             <>
-            <VendorShowDashboard/>
+            <VendorShowDashboard id={this.parsePathname()}/>
             <ItemsList id={this.parsePathname()}/>
             </>
         )

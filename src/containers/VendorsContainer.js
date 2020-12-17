@@ -6,14 +6,31 @@ import VendorList from '../lists/VendorList.js'
 
 class VendorsContainer extends React.Component {
 
+    state = {
+        pathName: ''
+    }
+    
+    componentDidMount() {
+        
+        this.setState({
+                pathName: this.props.history.location.pathname
+        })
+    }
+    
+        parsePathname = () => {
+            let fileName = this.state.pathName.replace(/^.*[\\\/]/, '')
+            return fileName
+    }
+
     render(){
+        
         return (
                 <Grid divided='vertically'>
                     <Grid.Row columns={1}>
                         <Grid.Column>
-                            <VendorDashboard/>  
+                            <VendorDashboard id={this.parsePathname()}/>  
                         </Grid.Column>
-                            <VendorList/>
+                            <VendorList id={this.parsePathname()}/>
                     </Grid.Row>
                 </Grid>
             )

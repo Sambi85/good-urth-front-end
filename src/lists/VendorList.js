@@ -8,7 +8,7 @@ class VendorList extends React.Component {
 
     componentDidMount() {
 
-        // this.props.fetchFarmers();
+        this.props.fetchFarmers();
         this.props.fetchSchedules();
     }
 
@@ -27,14 +27,17 @@ class VendorList extends React.Component {
     }
 
     renderVendorCard = () => {
-        
-        let filteredFarmers = this.props.farmers.filter(element => element.id === this.props.schedules.farmer_id)
+
+        let filteredSchedules = this.props.schedules.filter(element => element.market_id === this.props.id)
+        debugger
+        let filteredFarmers = this.props.farmers.filter(element => element.id === filteredSchedules.farmer_id)
 
         return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} />)
 
     }
 
     render() {
+        console.log("VendorList:", this.props)
         return(
             <>
                 <Grid container columns={4}>
@@ -49,13 +52,14 @@ class VendorList extends React.Component {
 const msp = (state) => {
     return {
            farmers: state.farmers,
-           schedules: state.schedules
+           schedules: state.schedules,
+           
       }
    }
    
 const mdp = (dispatch) => {
    return {
-            // fetchFarmers: () => dispatch(getFarmers()),
+            fetchFarmers: () => dispatch(getFarmers()),
             fetchSchedules: () => dispatch(getSchedules())
       }
    }

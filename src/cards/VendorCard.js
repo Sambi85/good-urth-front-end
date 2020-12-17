@@ -11,6 +11,7 @@ class VendorCard extends React.Component {
     }
 
     render() {
+        console.log('Vendor card PROPS:', this.props)
         return(
             <>
                 <Grid.Column>
