@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getFarmers } from '../redux/actions'
+// import { getFarmers } from '../redux/actions'
 import { Dimmer, Grid, Image, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 
 class VendorShowDashboard extends React.Component {
 
     componentDidMount() {
 
-        this.props.fetchFarmers();
+        // this.props.fetchFarmers();
     }
 
     currentlyOpen = (boolean) => {
@@ -168,10 +168,10 @@ const msp = (state) => {
       }
    }
    
-const mdp = (dispatch) => {
-   return {
-       fetchFarmers: () => dispatch(getFarmers())
-      }
-   }
+// const mdp = (dispatch) => {
+//    return {
+//        fetchFarmers: () => dispatch(getFarmers())
+//       }
+//    }
 
-export default connect(msp, mdp)(VendorShowDashboard); 
+export default connect(msp, null)(VendorShowDashboard); 

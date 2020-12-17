@@ -62,6 +62,16 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
               
         case "fetched itemOrders" :
             return action.payload
+
+        case "increment item" :
+            let currentItemOrders = [...currentState]
+            const itemIndex = currentItemOrders.indexOf(action.payload)
+        
+            currentItemOrders[itemIndex].quantity = currentItemOrders[itemIndex].quantity + 1     
+        
+            defaultState.itemOrders =  currentItemOrders
+                console.log("currentItemOrders REDUCER:",currentItemOrders)
+            return currentState
                 
         default :
             return currentState

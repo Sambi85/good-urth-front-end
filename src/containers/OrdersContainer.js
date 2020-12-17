@@ -7,6 +7,8 @@ import { Grid } from 'semantic-ui-react'
 class OrdersContainer extends React.Component {
 
     render(){
+
+        console.log("OrdersContaienr Props:",this.props)
         
         return (
                  <>
@@ -14,7 +16,9 @@ class OrdersContainer extends React.Component {
                         <Grid.Row columns={1}>
                         
                             <Grid.Column>
+
                                 <PaymentDashboard/>                   
+                            
                             </Grid.Column>
                             
                                 <ReceiptList/>     

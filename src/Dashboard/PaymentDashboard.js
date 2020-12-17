@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { getItemOrders, getCurrentUser } from '../redux/actions'
-
+import { getCurrentUser } from '../redux/actions'
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -13,8 +12,7 @@ class PaymentDashboard extends React.Component {
 
     componentDidMount() {
         
-        this.props.fetchItemOrders();
-        this.props.fetchCurrentUser();
+        this.props.fetchcurrentUser();
     }
     
     tally = () => {
@@ -38,7 +36,7 @@ class PaymentDashboard extends React.Component {
                 <div>
                     <Segment>
                         <Dimmer active>
-                            <Loader indeterminate>Preparing Files</Loader>
+                            <Loader indeterminate>Loading Payment Dashboard...</Loader>
                         </Dimmer>
                 
                         <Image src='/images/wireframe/short-paragraph.png' />
@@ -106,30 +104,29 @@ class PaymentDashboard extends React.Component {
                                     
                                     <Table.Row>
                                             <Table.Cell>
-                                                <p>Name:</p>{this.props.currentUser[0].username}
+                                                Name: {this.props.currentUser[0].username}
                                             </Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row> 
-                                        <Table.Cell> <p>Card Number:</p>Ending in... XXXX </Table.Cell>
+                                        <Table.Cell> Card Number:  Ending in... XXXX </Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row> 
-                                        <Table.Cell> <p>Exp Date:</p> 10/26 </Table.Cell>
+                                        <Table.Cell> Exp Date: 10/26 </Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row> 
-                                        <Table.Cell> <p>Zipcode:</p> 11206 </Table.Cell>
+                                        <Table.Cell> Zipcode: 11206 </Table.Cell>
+                                    </Table.Row>
+                                        
+                                    <Table.Row>
+                                    <Table.Cell><p>Billing address:</p> 123 Sesame Street Apt 1F  10023 Manhattan, New York</Table.Cell>
                                     </Table.Row>
 
                                     <Table.Row> 
                                         <Table.Cell><Button color='green' size='huge'>Update</Button></Table.Cell>
                                     </Table.Row>
-                                        
-                                    <Table.Row>
-                                    <Table.Cell><p>Billing address: 123 Sesame Street Apt 1F  10023 Manhattan, New York</p></Table.Cell>
-                                    </Table.Row>
-
                                 </Table.Body>
                             </Table>
                             </Rail>
@@ -143,6 +140,7 @@ class PaymentDashboard extends React.Component {
     }
 
     render() {
+       
 
         return (
                 <>   
@@ -158,12 +156,11 @@ const msp = (state) => {
            currentUser: state.currentUser
       }
    }
-   
 const mdp = (dispatch) => {
    return {
-       fetchItemOrders: () => dispatch(getItemOrders()),
-       fetchCurrentUser: () => dispatch(getCurrentUser()),
+       fetchcurrentUser: () => dispatch(getCurrentUser())
       }
    }
+   
    
 export default connect(msp, mdp)(PaymentDashboard);

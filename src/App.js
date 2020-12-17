@@ -5,7 +5,6 @@ import NavBar from './components/NavBar.js'
 // Containers //
 import HomeContainer from './containers/HomeContainer.js'
 import ExplorerContainer from './containers/ExploreContainer.js'
-import MarketsContainer from './containers/MarketsContainer.js'
 import OrdersContainer from './containers/OrdersContainer.js'
 import MessagesContainer from './containers/MessagesContainer.js'
 import SettingsContainer from './containers/SettingsContainer.js'
@@ -22,7 +21,6 @@ class App extends React.Component {
                 {/* <Route exact path="/" render={}/> */}
                 <Route exact path="/home" render={() => <HomeContainer/>}/>
                   <Route exact path="/explore" render={() => <ExplorerContainer/>}/>
-                  <Route exact path="/markets" render={() => <MarketsContainer/>}/>
                   <Route exact path="/markets/:id" render={() => <VendorsContainer/>}/>
                   <Route exact path="/farmers/:id" render={() => <VendorShowContainer/>}/>
                   <Route exact path="/orders" render={() => <OrdersContainer/>}/>

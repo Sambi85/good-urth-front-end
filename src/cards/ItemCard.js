@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getCurrentUser } from '../redux/actions'
 import { Button, Card, Dimmer, Form, Grid, Icon, Image, Input, Label, Loader, Segment } from 'semantic-ui-react'
 
 // converts to money //
@@ -15,17 +14,14 @@ class ItemCard extends React.Component {
         item: [],
         placeholder: 0,
         orderId: 0,
-        currentUser: 0
     }
 
     componentDidMount() {
 
         return ( 
-            this.props.fetchCurrentUser(),
              
                 this.setState({
-                    item: this.props.item,
-                    currentUser: this.props.currentUser[0]
+                    item: this.props.item
             })
         )
     }
@@ -126,7 +122,7 @@ class ItemCard extends React.Component {
                 },
                 body: JSON.stringify({
                     
-                    user_id: currentUserId,
+                    user_id: this.props.currentUser[0].id,
                     subtotal: this.props.item.price,
                     tax: 0,
                     total: 0,
@@ -245,10 +241,4 @@ const msp = (state) => {
       }
    }
    
-const mdp = (dispatch) => {
-   return {
-        fetchCurrentUser: () => dispatch(getCurrentUser())
-      }
-   }
-   
-export default connect(msp, mdp)(ItemCard); 
+export default connect(msp, null)(ItemCard); 

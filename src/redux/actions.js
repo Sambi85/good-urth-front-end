@@ -106,5 +106,10 @@ export const getCurrentUser = (currentUserObj) => {
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
-    }
+    } 
+}
+
+export const increment = (item) => {
+
+    return { type: "increment item", payload: item}
 }

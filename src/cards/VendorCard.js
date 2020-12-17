@@ -6,21 +6,9 @@ class VendorCard extends React.Component {
 
     vendorClickHandler = () => {
 
-        this.props.history.push(`/farmers/${this.props.id}`)
+        this.props.history.push(`/farmers/${this.props.vendor.id}`)
        
     }
-
-    // parsePhoneNumber = () => {
-    //     let cleaned = ('' + this.props.vendor.phone_number).replace(/\D/g, '')
-    //     let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
-        
-    //     if (match) {
-    //       return '(' + match[1] + ') ' + match[2] + '-' + match[3]
-    //     }
-        
-    //     return null
-    //  }
-
 
     render() {
         return(

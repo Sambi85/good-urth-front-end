@@ -8,7 +8,7 @@ class VendorList extends React.Component {
 
     componentDidMount() {
 
-        this.props.fetchFarmers();
+        // this.props.fetchFarmers();
         this.props.fetchSchedules();
     }
 
@@ -30,8 +30,8 @@ class VendorList extends React.Component {
         
         let filteredFarmers = this.props.farmers.filter(element => element.id === this.props.schedules.farmer_id)
 
-        // return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} id={vendor.id}/>)
-        return this.props.farmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} id={vendor.id}/>)
+        return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} />)
+
     }
 
     render() {
@@ -55,7 +55,7 @@ const msp = (state) => {
    
 const mdp = (dispatch) => {
    return {
-            fetchFarmers: () => dispatch(getFarmers()),
+            // fetchFarmers: () => dispatch(getFarmers()),
             fetchSchedules: () => dispatch(getSchedules())
       }
    }
