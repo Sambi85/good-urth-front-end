@@ -1,9 +1,12 @@
+import { AcUnit } from '@material-ui/icons'
 import { combineReducers } from 'redux'
+import { getFarmerId } from './actions'
 
 let defaultState = {
     markets: [],
     schedules: [],
     farmers: [],
+    farmerId: "",
     items: [],
     itemOrders: [],
     messages: [],
@@ -46,6 +49,17 @@ function farmerReducer(currentState = defaultState.farmers, action) {
     }
 }
 
+function getFarmerIdReducer(currentState = defaultState.farmerId, action) {
+
+    switch (action.type) {
+        case "get farmer id" :
+            return action.payload
+
+        default : 
+            return currentState 
+    }
+}
+
 function itemReducer(currentState = defaultState.items, action) {
     switch (action.type) {
               
@@ -63,17 +77,38 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
         case "fetched itemOrders" :
             return action.payload
 
-        case "increment item" :
+        case "increment itemOrder" :
+
             let currentItemOrders = [...currentState]
-            const itemIndex = currentItemOrders.indexOf(action.payload)
+            const itemIndex1 = currentItemOrders.indexOf(action.payload)
         
-            currentItemOrders[itemIndex].quantity = currentItemOrders[itemIndex].quantity + 1     
-        
+            currentItemOrders[itemIndex1].quantity = currentItemOrders[itemIndex1].quantity + 1     
             defaultState.itemOrders =  currentItemOrders
-                console.log("currentItemOrders REDUCER:",currentItemOrders)
+             
             return currentState
+        
+        case "decrement itemOrder" :
+            
+            let currentItemOrdersA = [...currentState]
+            const itemIndex2 = currentItemOrdersA.indexOf(action.payload)
+            
+            currentItemOrdersA[itemIndex2].quantity = currentItemOrdersA[itemIndex2].quantity - 1 
+            defaultState.itemOrders =  currentItemOrdersA
+            
+            return currentState
+
+        case "destroy itemOrder" : 
+        
+        let newArray = [...currentState]
+        let foundIndex = newArray.findIndex(element => element.id === action.payload)
+        let splicedArray = newArray.splice(foundIndex, 1)    
+        
+        defaultState.itemOrders =  newArray
+
+        return currentState       
                 
         default :
+
             return currentState
     }
 }
@@ -137,6 +172,7 @@ const rootReducer = combineReducers({
     markets: marketReducer,
     schedules: scheduleReducer,
     farmers: farmerReducer,
+    farmerId: getFarmerIdReducer,
     items: itemReducer,
     itemOrders: itemOrderReducer, 
     messages: messageReducer,

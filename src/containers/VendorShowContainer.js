@@ -6,7 +6,8 @@ import VendorShowDashboard from '../Dashboard/VendorShowDashboard.js';
 class VendorShowContainer extends React.Component {
 
 state = {
-    pathName: ''
+    pathName: '',
+    farmer:[]
 }
 
 componentDidMount() {
@@ -16,13 +17,14 @@ componentDidMount() {
     })
 }
 
-    parsePathname = () => {
-        let fileName = this.state.pathName.replace(/^.*[\\\/]/, '')
+
+    parsePathname = (string) => {
+        let fileName = this.props.history.location.pathname.replace(/^.*[\\\/]/, '')
         return fileName
 }
     
     render(){
-
+            console.log("this.state VENDORSHOW CONTAINER LEVEL:", this.parsePathname())
         return (
             <>
             <VendorShowDashboard id={this.parsePathname()}/>

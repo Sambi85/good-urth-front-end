@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card, Image, Grid } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom';
-
+import { connect } from 'react-redux'
+import { getFarmerId } from '../redux/actions';
 class VendorCard extends React.Component {
 
     vendorClickHandler = () => {
-
-        this.props.history.push(`/farmers/${this.props.vendor.id}`)
-       
+        this.props.getFarmerId(this.props.vendor.id, this.props.history) 
+            
     }
 
     render() {
@@ -39,6 +39,12 @@ class VendorCard extends React.Component {
         )
     }
 }
-
-export default withRouter(VendorCard);
+   
+const mdp = (dispatch) => {
+   return {
+            getFarmerId: (id, history) => dispatch(getFarmerId(id, history))
+      }
+   }
+   
+export default connect(null, mdp)(withRouter(VendorCard));
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { increment, getFarmers } from '../redux/actions'
+import { increment, decrement, getFarmers, destroyItemOrder } from '../redux/actions'
 import { Dimmer, Button, Icon, Input, Image, Label, Loader, Table, Segment } from 'semantic-ui-react';
 
 // converts to money //
@@ -10,19 +10,20 @@ const fm = new FormatMoney({
 });
 
 class ReceiptCard extends React.Component {
-        
+
+    state = {
+        placeholder: `x${this.props.itemOrder.quantity}`
+    }
+
     componentDidMount() {
 
-            return (
-               this.props.fetchFarmers(),
-               this.props.itemOrderIdGrabber(this.props.itemOrder.id),
-               this.props.orderIdGrabber(this.props.itemOrder.order.id)
+        return (
+               this.props.fetchFarmers()
         )        
     }
                                             
     deleteButton = () => {
-                                                
-                     return this.props.delete()
+        this.props.destroyItemOrder(this.props.itemOrder.id)                   
     }
                                             
     loadingReceiptCard = () => {
@@ -45,6 +46,7 @@ class ReceiptCard extends React.Component {
         let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.itemOrder.id)
         let farmer_id = targetItemOrder[0].item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
+       
         return farmer_name
     }
 
@@ -71,6 +73,49 @@ class ReceiptCard extends React.Component {
         
         )
     }
+
+    incrementButton = () => {
+        console.log("increment!")
+
+        if (this.props.itemOrder.quantity < this.props.itemOrder.item.stock_amount) {
+            
+            return (  
+            this.props.increment(this.props.itemOrder),
+            this.setState({
+                placeholder: `x${this.props.itemOrder.quantity}`
+            })
+        )
+
+        } else {
+            
+            return (  
+                this.setState({
+                    placeholder: `x${this.props.itemOrder.quantity}`
+                })
+            )
+        }
+    }
+
+    decrementButton = () => {
+        console.log("decrement!")
+
+        if (this.props.itemOrder.quantity === 0) {
+
+        return (
+            this.setState({
+                placeholder: `x${this.props.itemOrder.quantity}`
+                })
+            )
+        } else {
+
+            return (
+                this.props.decrement(this.props.itemOrder),
+                this.setState({
+                    placeholder: `x${this.props.itemOrder.quantity}`
+                })
+             )
+        }
+    }
     
     renderReceiptCard = () => {
         
@@ -84,13 +129,13 @@ class ReceiptCard extends React.Component {
                     
                     <Table.Cell><Label size='large'>{this.props.itemOrder.item.purchase_unit}</Label> </Table.Cell>
                     <Table.Cell>
-                        <Button  icon size='mini'>
+                        <Button  icon size='mini' onClick={this.decrementButton}>
                             <Icon name='left arrow'/>
                         </Button>
-                        <Button icon size='mini'>
-                            <Icon onClick={this.props.increment(this.props.itemOrder)} name='right arrow'/>
+                        <Button icon size='mini' onClick={this.incrementButton}>
+                            <Icon name='right arrow'/>
                         </Button>
-                    <Input size='mini' placeholder={`x${this.props.itemOrder.quantity}`} size='mini'/>
+                    <Input id='input' size='mini' placeholder={this.state.placeholder} size='mini'/>
                     </Table.Cell>
                     <Table.Cell>
                         <Label color='teal' tag size='medium'>
@@ -104,8 +149,7 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
-        console.log("receipt card PRICE",this.props.itemOrder.item.price)
-        console.log("receipt card UNIT",this.props.itemOrder.item.purchase_unit)
+
         return(
             <>
                 {this.props.itemOrder.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
@@ -124,8 +168,10 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        increment: (item) => dispatch(increment(item)),
         fetchFarmers: () => dispatch(getFarmers()),
+        increment: (itemOrder) => dispatch(increment(itemOrder)),
+        decrement: (itemOrder) => dispatch(decrement(itemOrder)),
+        destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId))
     }
 }
 

@@ -107,7 +107,7 @@ class MarketList extends React.Component {
     };
 
     render() { 
-    
+        
         return(
                 <>          
                     <Grid.Column columns={1}>

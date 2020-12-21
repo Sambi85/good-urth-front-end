@@ -32,6 +32,18 @@ export const getItemOrders = (itemOrderObj) => {
     }
 }
 
+export const destroyItemOrder = (itemOrderId) => {
+
+    return function (dispatch) {
+
+        let options = { method: "DELETE" }
+        
+        fetch(`http://localhost:4000/item_orders/${itemOrderId}`, options)
+        .then(resp => resp.json())
+        .then(data => dispatch({type: "destroy itemOrder", payload: itemOrderId}) )
+    }
+}
+
 export const getItems = (itemObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
@@ -102,14 +114,29 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/1')
+    fetch('http://localhost:4000/users/4')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 
 }
 
-export const increment = (item) => {
+export const increment = (itemOrder) => {
 
-    return { type: "increment item", payload: item}
+    return { type: "increment itemOrder", payload: itemOrder}
+}
+
+export const decrement = (itemOrder) => {
+
+    return { type: "decrement itemOrder", payload: itemOrder}
+}
+
+export const getFarmerId  = (id, history) => {
+
+    return function (dispatch) {
+        dispatch({ type: "get farmer id", payload: id})
+        history.push(`/farmers/${id}`)  
+
+    }
+        
 }

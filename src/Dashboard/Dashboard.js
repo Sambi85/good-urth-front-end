@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getCurrentUser } from '../redux/actions'
 
 // Sub Component //
 import Timetable from '../components/Timetable.js';
@@ -10,12 +9,6 @@ import Weather from '../components/Weather.js'
 import { Dimmer, Card, Loader, Image, Grid, Segment } from 'semantic-ui-react';
 
   class Dashboard extends React.Component {
-
-    componentDidMount() {
-    
-      this.props.fetchCurrentUser();
-   
-    }
 
     loading = () => {
       return (
@@ -85,10 +78,4 @@ const msp = (state) => {
       }
    }
    
-const mdp = (dispatch) => {
-   return {
-        fetchCurrentUser: () => dispatch(getCurrentUser())
-      }
-   }
-   
-export default connect(msp, mdp)(Dashboard); 
+export default connect(msp, null)(Dashboard); 

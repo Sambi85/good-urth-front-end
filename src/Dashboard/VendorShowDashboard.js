@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
-// import { getFarmers } from '../redux/actions'
 import { Dimmer, Grid, Image, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 
 class VendorShowDashboard extends React.Component {
 
-    componentDidMount() {
-
-        // this.props.fetchFarmers();
-    }
 
     currentlyOpen = (boolean) => {
         
@@ -39,8 +34,13 @@ class VendorShowDashboard extends React.Component {
 
             return `${hours}:${minutes} am` 
         }
+    }
 
-
+    targetFarmer = () => {
+    
+        let filteredFarmer = this.props.farmers.filter(element => element.id === parseInt(this.props.id));
+            
+        return filteredFarmer[0]
     }
 
     loadingFarmersDashboard = () => {
@@ -80,19 +80,19 @@ class VendorShowDashboard extends React.Component {
 
                                         <Table.Row>
                                             <Table.Cell>
-                                          {this.props.farmers[0].username}     
+                                          {this.targetFarmer().username}     
                                             </Table.Cell>
                                         </Table.Row>
 
                                         <Table.Row>
                                             <Table.Cell>
-                                         Our Bio: <p>{this.props.farmers[0].bio}</p>     
+                                         Our Bio: <p>{this.targetFarmer().bio}</p>     
                                             </Table.Cell>
                                         </Table.Row>
                                             
                                         <Table.Row>
                                             <Table.Cell>
-                                           Days: {this.props.farmers[0].days_open}     
+                                           Days: {this.targetFarmer().days_open}     
                                             </Table.Cell>
                                         </Table.Row>
                                 
@@ -126,19 +126,19 @@ class VendorShowDashboard extends React.Component {
                                 <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>
-                                          phone: {this.props.farmers[0].phone_number}     
+                                          phone: {this.targetFarmer().phone_number}     
                                         </Table.Cell>
                                     </Table.Row>
     
                                     <Table.Row>
                                         <Table.Cell>
-                                            email: {this.props.farmers[0].email}   
+                                            email: {this.targetFarmer().email}   
                                         </Table.Cell>
                                     </Table.Row>
     
                                     <Table.Row> 
                                         <Table.Cell>
-                                            mail: {this.props.farmers[0].address}
+                                            mail: {this.targetFarmer().address}
                                         </Table.Cell>
                                     </Table.Row>
 
@@ -167,11 +167,5 @@ const msp = (state) => {
            farmers: state.farmers
       }
    }
-   
-// const mdp = (dispatch) => {
-//    return {
-//        fetchFarmers: () => dispatch(getFarmers())
-//       }
-//    }
 
 export default connect(msp, null)(VendorShowDashboard); 

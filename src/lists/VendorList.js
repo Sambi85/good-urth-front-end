@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getFarmers, getSchedules } from '../redux/actions'
+import { getSchedules } from '../redux/actions'
 import { Dimmer, Grid, Loader, Image, Segment } from 'semantic-ui-react'
 import VendorCard from '../cards/VendorCard.js'
 
@@ -8,7 +8,6 @@ class VendorList extends React.Component {
 
     componentDidMount() {
 
-        this.props.fetchFarmers();
         this.props.fetchSchedules();
     }
 
@@ -28,38 +27,40 @@ class VendorList extends React.Component {
 
     renderVendorCard = () => {
 
-        let filteredSchedules = this.props.schedules.filter(element => element.market_id === this.props.id)
-        debugger
-        let filteredFarmers = this.props.farmers.filter(element => element.id === filteredSchedules.farmer_id)
+        let num = this.props.id === '' ? this.props.farmerId : +this.props.id 
+
+        let farmer = this.props.schedules.filter(element => element.market_id === parseInt(num))
+
+        let farmerId = farmer[0].farmer_id
+        let filteredFarmers = this.props.farmers.filter(element => element.id === farmerId)
 
         return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} />)
-
     }
 
     render() {
-        console.log("VendorList:", this.props)
+        // console.log("VendorList PROPS:", this.props)
         return(
             <>
                 <Grid container columns={4}>
-                    {this.props.farmers.length === 0 ? this.loadingVendorCard() : this.renderVendorCard()}
+                    {this.props.schedules.length === 0 ? this.loadingVendorCard() : this.renderVendorCard()}
                 </Grid>
             </>
         )
     }
-
 }
 
 const msp = (state) => {
     return {
            farmers: state.farmers,
-           schedules: state.schedules,
+           farmerId: state.farmerId,
+           schedules: state.schedules
            
       }
    }
    
 const mdp = (dispatch) => {
    return {
-            fetchFarmers: () => dispatch(getFarmers()),
+
             fetchSchedules: () => dispatch(getSchedules())
       }
    }

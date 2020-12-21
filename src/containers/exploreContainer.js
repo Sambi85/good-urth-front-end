@@ -3,8 +3,20 @@ import { withRouter } from 'react-router-dom';
 import { Grid, Image } from 'semantic-ui-react'
 import NycMap from '../components/NycMap.js';
 import MarketList from '../lists/MarketList.js';
+import { connect } from 'react-redux'
+import { getMarkets } from '../redux/actions'
 
 class ExploreContainer extends React.Component {
+
+    componentDidMount() {
+        
+        if (this.props.markets.length){
+            
+            return (
+                this.props.fetchMarkets()
+            )
+        }
+    }  
     
     render(){
         return (
@@ -27,5 +39,17 @@ class ExploreContainer extends React.Component {
     }
 }
 
-export default withRouter(ExploreContainer); 
+const msp = (state) => {
+    return {
+           markets: state.markets,
+      }
+   }
+   
+const mdp = (dispatch) => {
+   return {
+       fetchMarkets: () => dispatch(getMarkets()),
+      }
+   }
+  
+  export default connect(msp,mdp)(withRouter(ExploreContainer)); 
 
