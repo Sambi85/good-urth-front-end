@@ -1,6 +1,5 @@
-import { AcUnit } from '@material-ui/icons'
 import { combineReducers } from 'redux'
-import { getFarmerId } from './actions'
+import { getFarmerId, findItemOrder } from './actions'
 
 let defaultState = {
     markets: [],
@@ -9,6 +8,7 @@ let defaultState = {
     farmerId: "",
     items: [],
     itemOrders: [],
+    targetItemOrder:[],
     messages: [],
     orders: [],
     reviews: [],
@@ -99,16 +99,36 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
 
         case "destroy itemOrder" : 
         
-        let newArray = [...currentState]
-        let foundIndex = newArray.findIndex(element => element.id === action.payload)
-        let splicedArray = newArray.splice(foundIndex, 1)    
+            let newArray = [...currentState]
+            let foundIndex = newArray.findIndex(element => element.id === action.payload)
+            let splicedArray = newArray.splice(foundIndex, 1) 
         
-        defaultState.itemOrders =  newArray
+            defaultState.itemOrders =  currentItemOrders
 
-        return currentState       
+            return currentState
                 
         default :
 
+            return currentState
+    }
+}
+
+function targetItemOrderReducer(currentState = defaultState.targetItemOrder, action) {
+    switch (action.type) {
+        
+        case "find itemOrder" :
+            console.log("inside targetItem Reducer:")
+
+            // debugger
+            // let currentItemOrdersB = [...defaultState.itemOrders]
+            // let target = currentItemOrdersB.filter(element => element.id === action.payload)
+            // console.log("target:",target)
+            
+            // defaultState.targetItemOrder = target
+    
+            return action.payload
+                
+        default :
             return currentState
     }
 }
@@ -174,7 +194,8 @@ const rootReducer = combineReducers({
     farmers: farmerReducer,
     farmerId: getFarmerIdReducer,
     items: itemReducer,
-    itemOrders: itemOrderReducer, 
+    itemOrders: itemOrderReducer,
+    targetItemOrder: targetItemOrderReducer,
     messages: messageReducer,
     orders: orderReducer,
     reviews: reviewReducer,

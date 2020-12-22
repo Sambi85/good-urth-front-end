@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { increment, decrement, getFarmers, destroyItemOrder } from '../redux/actions'
+import { increment, decrement, getFarmers, destroyItemOrder, findItemOrder } from '../redux/actions'
 import { Dimmer, Button, Icon, Input, Image, Label, Loader, Table, Segment } from 'semantic-ui-react';
 
 // converts to money //
@@ -10,20 +10,21 @@ const fm = new FormatMoney({
 });
 
 class ReceiptCard extends React.Component {
-
+    
     state = {
-        placeholder: `x${this.props.itemOrder.quantity}`
+        placeholder: `x${this.props.itemOrder.quantity}`,
+        itemOrderId: this.props.itemOrder.id
     }
-
+    
     componentDidMount() {
-
+        
         return (
-               this.props.fetchFarmers()
+            this.props.fetchFarmers()
         )        
     }
                                             
     deleteButton = () => {
-        this.props.destroyItemOrder(this.props.itemOrder.id)                   
+        this.props.destroyItemOrder(this.state.itemOrderId)                   
     }
                                             
     loadingReceiptCard = () => {
@@ -39,6 +40,11 @@ class ReceiptCard extends React.Component {
                                     </Segment>
                                 </div>
         )
+    }
+
+    itemOrderGrabber = () => {
+        
+        return this.props.itemOrder[0]
     }
 
     farmerGrabber = () => {
@@ -124,10 +130,10 @@ class ReceiptCard extends React.Component {
 
                 <Table.Row>
                     <Table.Cell>  <Button onClick={this.deleteButton}  color='red'> <Icon name='close' color='white' /></Button> </Table.Cell>
-                    <Table.Cell>{this.props.itemOrder.item.name}</Table.Cell>
+                    {/* <Table.Cell>{this.itemOrderGrabber().item.name}</Table.Cell> */}
                         {this.props.farmers.length === 0 ? this.loadingFarmerGrabber() : this.renderFarmerGrabber()}
                     
-                    <Table.Cell><Label size='large'>{this.props.itemOrder.item.purchase_unit}</Label> </Table.Cell>
+                    {/* <Table.Cell><Label size='large'>{this.itemOrderGrabber().item.purchase_unit}</Label> </Table.Cell> */}
                     <Table.Cell>
                         <Button  icon size='mini' onClick={this.decrementButton}>
                             <Icon name='left arrow'/>
@@ -139,17 +145,18 @@ class ReceiptCard extends React.Component {
                     </Table.Cell>
                     <Table.Cell>
                         <Label color='teal' tag size='medium'>
-                                {fm.from(parseInt(this.props.itemOrder.item.price), { symbol: '$' })}
+                                {/* {fm.from(parseInt(this.itemOrderGrabber().item.price), { symbol: '$' })} */}
                         </Label>
                     </Table.Cell>
-                    <Table.Cell>{fm.from(parseInt(this.props.itemOrder.item.price) * this.props.itemOrder.quantity, { symbol: '$' })}</Table.Cell>
+                    {/* <Table.Cell>{fm.from(parseInt(this.itemOrderGrabber().item.pri  ce) * this.itemOrderGrabber().quantity, { symbol: '$' })}</Table.Cell> */}
                 </Table.Row>
             </>
         )
     }
     
     render(){
-
+        console.log("find itemOrder:", this.props.findItemOrder(this.state.itemOrderId))
+        console.log("state:",this.state.itemOrderId)
         return(
             <>
                 {this.props.itemOrder.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
@@ -168,10 +175,13 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
+
         fetchFarmers: () => dispatch(getFarmers()),
         increment: (itemOrder) => dispatch(increment(itemOrder)),
         decrement: (itemOrder) => dispatch(decrement(itemOrder)),
-        destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId))
+        destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId)),
+        findItemOrder: (itemOrderId) => dispatch(findItemOrder(itemOrderId))
+    
     }
 }
 

@@ -20,7 +20,7 @@ class OrdersContainer extends React.Component {
     }         
         
     render(){
-        console.log("this.props ORDERS CONTAINER:", this.props)
+        
         return (
                  <>
                     <Grid divided='vertically'>
