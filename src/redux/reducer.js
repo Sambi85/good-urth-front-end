@@ -119,7 +119,6 @@ function targetItemOrderReducer(currentState = defaultState.targetItemOrder, act
         case "find itemOrder" :
             console.log("inside targetItem Reducer:")
 
-            // debugger
             // let currentItemOrdersB = [...defaultState.itemOrders]
             // let target = currentItemOrdersB.filter(element => element.id === action.payload)
             // console.log("target:",target)
