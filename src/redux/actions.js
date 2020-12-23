@@ -53,18 +53,6 @@ export const destroyItemOrder = (itemOrderId) => {
     }
 }
 
-export const findItemOrder = (itemOrderId, itemOrders) => {
-
-    return function (dispatch) {
-        
-        let target = [...itemOrders].filter(element => element.id === itemOrderId)
-        // debugger
-        console.log("target:",target)
-        dispatch({ type: "find ItemOrder", payload: target})
-        
-    }
-}
-
 export const getItems = (itemObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
@@ -135,7 +123,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/4')
+    fetch('http://localhost:4000/users/5')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
