@@ -155,7 +155,8 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
-        console.log("find itemOrder:", this.props.findItemOrder(this.state.itemOrderId))
+        console.log("find itemOrder:", this.props.findItemOrder(this.state.itemOrderId, this.props.itemOrders))
+        // console.log("find itemOrder:", this.props.destroyItemOrder(this.state.itemOrderId)
         console.log("state:",this.state.itemOrderId)
         return(
             <>
@@ -180,7 +181,7 @@ const mdp = (dispatch) => {
         increment: (itemOrder) => dispatch(increment(itemOrder)),
         decrement: (itemOrder) => dispatch(decrement(itemOrder)),
         destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId)),
-        findItemOrder: (itemOrderId) => dispatch(findItemOrder(itemOrderId))
+        findItemOrder: (itemOrderId, itemOrders) => dispatch(findItemOrder(itemOrderId, itemOrders))
     
     }
 }

@@ -30,7 +30,7 @@ export const getFarmerId  = (id, history) => {
     }
 }
 
-    export const getItemOrders = (itemOrderObj) => {
+export const getItemOrders = (itemOrderObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
         // console.log("nested function invoked")
@@ -53,10 +53,15 @@ export const destroyItemOrder = (itemOrderId) => {
     }
 }
 
-export const findItemOrder = (itemOrderId) => {
+export const findItemOrder = (itemOrderId, itemOrders) => {
 
     return function (dispatch) {
-        dispatch({ type: "find ItemOrder", payload: itemOrderId})
+        
+        let target = [...itemOrders].filter(element => element.id === itemOrderId)
+        // debugger
+        console.log("target:",target)
+        dispatch({ type: "find ItemOrder", payload: target})
+        
     }
 }
 
