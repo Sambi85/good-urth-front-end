@@ -10,7 +10,7 @@ export const getMarkets = (marketObj) => {
     }
 }
 
-export const getfarmers = (farmerObj) => {
+export const getFarmers = (farmerObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
         // console.log("nested function invoked")
@@ -21,14 +21,42 @@ export const getfarmers = (farmerObj) => {
     }
 }
 
-export const getItemOrders = (itemOrderObj) => {
+export const getFarmerId  = (id, history) => {
+
+    return function (dispatch) {
+        dispatch({ type: "get farmer id", payload: id})
+        history.push(`/farmers/${id}`)  
+
+    }
+}
+
+    export const getItemOrders = (itemOrderObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
         // console.log("nested function invoked")
         fetch('http://localhost:4000/item_orders')
         .then(resp => resp.json())
         // .then(console.log)
-        .then(data => dispatch({type: "fetched item orders", payload: data}) )
+        .then(data => dispatch({type: "fetched itemOrders", payload: data}) )
+    }
+}
+
+export const destroyItemOrder = (itemOrderId) => {
+
+    return function (dispatch) {
+
+        let options = { method: "DELETE" }
+        
+        fetch(`http://localhost:4000/item_orders/${itemOrderId}`, options)
+        .then(resp => resp.json())
+        .then(data => dispatch({type: "destroy itemOrder", payload: itemOrderId}) )
+    }
+}
+
+export const findItemOrder = (itemOrderId) => {
+
+    return function (dispatch) {
+        dispatch({ type: "find ItemOrder", payload: itemOrderId})
     }
 }
 
@@ -97,3 +125,30 @@ export const getUsers = (userObj) => {
         .then(data => dispatch({type: "fetched users", payload: data}) )
     }
 }
+
+export const getCurrentUser = (currentUserObj) => {
+    // console.log("first dispatch invoked")
+    return function (dispatch) {
+    // console.log("nested function invoked")
+    fetch('http://localhost:4000/users/4')
+    .then(resp => resp.json())
+    // .then(console.log)
+    .then(data => dispatch({type: "fetched currentUser", payload: data}))
+    } 
+}
+
+// Additional Actions // -------------------------------------
+
+export const increment = (itemOrder) => {
+
+    return { type: "increment itemOrder", payload: itemOrder}
+}
+
+export const decrement = (itemOrder) => {
+
+    return { type: "decrement itemOrder", payload: itemOrder}
+}
+
+
+
+        

@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class settingsContainer extends React.Component {
+class SettingsContainer extends React.Component {
 
     render(){
         return (
-            <>settingsContainer</>
+            <>SettingsContainer</>
         )
     }
 
 }
 
-export default settingsContainer; 
+export default SettingsContainer; 
