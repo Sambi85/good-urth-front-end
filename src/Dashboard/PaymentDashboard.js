@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
@@ -26,6 +27,19 @@ class PaymentDashboard extends React.Component {
 
     total = () => {
         return this.tally() + this.tally() * tax
+    }
+
+    confirmHandler = () => {
+
+    }
+
+    emptyCartHandler = () => {
+
+    }
+
+    updateHandler = () => {
+
+       this.props.history.push(`/settings`)
     }
 
     loadingPaymentDashboard = () => {
@@ -75,8 +89,8 @@ class PaymentDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                    <Button positive>Confirm</Button>
-                                    <Button negative>Empty Cart</Button>
+                                    <Button onClick={this.confirmHandler} positive>Confirm</Button>
+                                    <Button onClick={this.emptyCartHandler} negative>Empty Cart</Button>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
@@ -121,7 +135,7 @@ class PaymentDashboard extends React.Component {
                                 </Table.Row>
 
                                 <Table.Row> 
-                                    <Table.Cell><Button color='green' size='huge'>Update</Button></Table.Cell>
+                                    <Table.Cell><Button onClick={this.updateHandler} color='green' size='huge'>Update</Button></Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
@@ -149,4 +163,4 @@ const msp = (state) => {
       }
    }
    
-export default connect(msp,null)(PaymentDashboard);
+export default connect(msp, null)(withRouter(PaymentDashboard)); 

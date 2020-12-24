@@ -30,7 +30,7 @@ export const getFarmerId  = (id, history) => {
     }
 }
 
-    export const getItemOrders = (itemOrderObj) => {
+export const getItemOrders = (itemOrderObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
         // console.log("nested function invoked")
@@ -50,13 +50,6 @@ export const destroyItemOrder = (itemOrderId) => {
         fetch(`http://localhost:4000/item_orders/${itemOrderId}`, options)
         .then(resp => resp.json())
         .then(data => dispatch({type: "destroy itemOrder", payload: itemOrderId}) )
-    }
-}
-
-export const findItemOrder = (itemOrderId) => {
-
-    return function (dispatch) {
-        dispatch({ type: "find ItemOrder", payload: itemOrderId})
     }
 }
 
@@ -130,7 +123,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/4')
+    fetch('http://localhost:4000/users/5')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
