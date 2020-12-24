@@ -53,6 +53,21 @@ export const destroyItemOrder = (itemOrderId) => {
     }
 }
 
+// export const destroyAllItemOrder = (idArray) => {
+
+//     return function (dispatch) {
+
+//         let options = { method: "DELETE" }
+
+//         idArray.forEach(id =>
+        
+//         fetch(`http://localhost:4000/item_orders/${id}`, options)
+//         .then(resp => resp.json())
+//         .then(data => dispatch({type: "destroy itemOrder", payload: idArray}) )
+//         )
+//     }
+// }
+
 export const getItems = (itemObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {

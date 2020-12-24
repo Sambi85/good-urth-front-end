@@ -19,17 +19,15 @@ class ReceiptList extends React.Component {
     tally = () => {
         
         const user = this.props.currentUser[0]
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-        let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        // let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+        let subtotal = this.props.itemOrders.map(itemOrder => itemOrder.order.subtotal)
       
         return subtotal.reduce((a,b) => a + b )
     }
 
     itemOrderIterator = () => {
-            
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
         
-        return filteredItemOrders.map(itemOrder => <ReceiptCard 
+        return this.props.itemOrders.map(itemOrder => <ReceiptCard 
                 key={itemOrder.id} 
                 itemOrder={itemOrder}
             />)
