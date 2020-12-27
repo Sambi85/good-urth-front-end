@@ -45,7 +45,7 @@ export const destroyItemOrder = (itemOrderId) => {
 
     return function (dispatch) {
 
-        let options = { method: "DELETE" }
+        let options = { method: "DELETE", body: { ids: itemOrderId } }
         
         fetch(`http://localhost:4000/item_orders/${itemOrderId}`, options)
         .then(resp => resp.json())
@@ -53,20 +53,18 @@ export const destroyItemOrder = (itemOrderId) => {
     }
 }
 
-// export const destroyAllItemOrder = (idArray) => {
+export const destroyTargetItemOrders = (idArray) => {
 
-//     return function (dispatch) {
+    return function (dispatch) {
 
-//         let options = { method: "DELETE" }
-
-//         idArray.forEach(id =>
+        let options = { method: "DELETE", ids: idArray }
         
-//         fetch(`http://localhost:4000/item_orders/${id}`, options)
-//         .then(resp => resp.json())
-//         .then(data => dispatch({type: "destroy itemOrder", payload: idArray}) )
-//         )
-//     }
-// }
+        fetch(`http://localhost:4000/item_orders/`, options)
+        .then(resp => resp.json())
+        .then(data => 
+            dispatch({type: "destroy target itemOrders", payload: data}))
+    }
+}
 
 export const getItems = (itemObj) => {
     // console.log("first dispatch invoked")
@@ -138,7 +136,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/5')
+    fetch('http://localhost:4000/users/6')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))

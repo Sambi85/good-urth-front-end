@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Dimmer, Grid, Image, Label, Loader, Segment, Table } from 'semantic-ui-react'
+import { Dimmer, Grid, Image, Label, Item, Segment, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import ReceiptCard from '../cards/ReceiptCard.js';
@@ -11,37 +11,43 @@ const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
 
-    state = {
-        orderId: 0,
-        itemOrderId: 0,
-    }
-
     tally = () => {
         
         const user = this.props.currentUser[0]
-        // let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-        let subtotal = this.props.itemOrders.map(itemOrder => itemOrder.order.subtotal)
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+        let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
       
         return subtotal.reduce((a,b) => a + b )
     }
 
     itemOrderIterator = () => {
         
-        return this.props.itemOrders.map(itemOrder => <ReceiptCard 
+        const user = this.props.currentUser[0]
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+
+        return filteredItemOrders.map(itemOrder => <ReceiptCard 
                 key={itemOrder.id} 
                 itemOrder={itemOrder}
             />)
     }
     
     loadingReceiptList = () => {
+
+        const items = [
+            {
+              childKey: 0,
+              image: '/images/wireframe/image.png',
+              header: 'Empty Cart',
+              description: '"An empty sack cannot stand up right !" - English proverb',
+              meta: "Try finding a farmer's market or a vendor through the explore page!"
+            }
+          ]
+
         return (
             <div>
-                <Segment>
-                    <Dimmer active>
-                        <Loader indeterminate>Loading ReceiptList...</Loader>
-                    </Dimmer>
-            
-                    <Image src='/images/wireframe/short-paragraph.png' />
+                <Segment floated='left'>
+                        <Item.Group items={items} />
+                    <Image src={'/images/wireframe/short-paragraph.png'}/>
                 </Segment>
             </div>
         )

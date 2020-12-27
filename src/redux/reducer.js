@@ -106,27 +106,12 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
            
             return currentState
 
-        case "user item orders" : 
-            
-        // let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
-        //     let newArrayA = [...currentState]
-        //     let targetItemOrders = newArrayA.filter(element => element.id === defaultState.currentUser[0].id)
-            
-        //     defaultState.userItemOrders = targetItemOrders
-        //     currentState = defaultState.userItemOrders
-           
-        //     return currentState
-
-
-        // case "destroy all itemOrder" : 
+        case "destroy target itemOrders" : 
         
-        // let newArray = [...currentState]
-        // let idArray = action.payload
-        // let foundIndex = newArray.findIndex(element => element.id === action.payload)
-        // newArray.splice(foundIndex, 1) 
-        // defaultState.itemOrders = newArray
-        // currentState = defaultState.itemOrders
-        // return currentState
+            defaultState.itemOrders = action.payload
+            currentState = defaultState.itemOrders
+        
+        return currentState
                 
         default :
 
