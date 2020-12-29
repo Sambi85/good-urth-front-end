@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Dimmer, Grid, Image, Label, Loader, Segment, Table } from 'semantic-ui-react'
+import { Container, Grid, Image, Label, Item, Segment, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import ReceiptCard from '../cards/ReceiptCard.js';
@@ -10,11 +10,6 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
-
-    state = {
-        orderId: 0,
-        itemOrderId: 0,
-    }
 
     tally = () => {
         
@@ -26,9 +21,10 @@ class ReceiptList extends React.Component {
     }
 
     itemOrderIterator = () => {
-            
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === this.props.currentUser[0].id)
         
+        const user = this.props.currentUser[0]
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+
         return filteredItemOrders.map(itemOrder => <ReceiptCard 
                 key={itemOrder.id} 
                 itemOrder={itemOrder}
@@ -36,15 +32,22 @@ class ReceiptList extends React.Component {
     }
     
     loadingReceiptList = () => {
+
+        const items = [
+            {
+              childKey: 0,
+              image:'https://previews.123rf.com/images/stoonn/stoonn1908/stoonn190800144/130409165-empty-burlap-sack-bag-on-white-background.jpg',
+              header: 'Empty Cart',
+              description: '"An empty sack cannot stand up right !" - English proverb',
+              meta: "Try finding a farmer's market or a vendor through the explore page!"
+            }
+          ]
+
         return (
             <div>
-                <Segment>
-                    <Dimmer active>
-                        <Loader indeterminate>Loading ReceiptList...</Loader>
-                    </Dimmer>
-            
-                    <Image src='/images/wireframe/short-paragraph.png' />
-                </Segment>
+                <Container>
+                        <Item.Group items={items} />
+                </Container>
             </div>
         )
     }

@@ -3,6 +3,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar.js'
 import { connect } from 'react-redux'
 import { getFarmers, getCurrentUser, getItemOrders } from './redux/actions'
+import { Image } from 'semantic-ui-react'
 
 // Containers //
 import HomeContainer from './containers/HomeContainer.js'
@@ -28,7 +29,7 @@ class App extends React.Component {
               <div>    
                 <NavBar/>
                 <Switch>
-                {/* <Route exact path="/" render={}/> */}
+                <Route exact path="/" render={() => <Image src={'https://wallpaperaccess.com/full/453367.jpg'}/>}/>
                 <Route exact path="/home" render={() => <HomeContainer/>}/>
                   <Route exact path="/explore" render={() => <ExplorerContainer/>}/>
                   <Route exact path="/markets/:id" render={() => <VendorsContainer/>}/>

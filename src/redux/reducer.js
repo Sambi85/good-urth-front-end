@@ -73,6 +73,7 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
     switch (action.type) {
               
         case "fetched itemOrders" :
+            
             return action.payload
 
         case "increment itemOrder" :
@@ -102,7 +103,22 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
             newArray.splice(foundIndex, 1) 
             defaultState.itemOrders = newArray
             currentState = defaultState.itemOrders
+           
             return currentState
+
+        case "destroy target itemOrders" : 
+        
+        let newArrayA = [...currentState]
+        let idArray = action.payload
+
+            for (let id of idArray) {
+                newArrayA.splice(id, 1)
+            }
+    
+            defaultState.itemOrders = newArrayA
+            currentState = defaultState.itemOrders
+        
+        return currentState
                 
         default :
 
