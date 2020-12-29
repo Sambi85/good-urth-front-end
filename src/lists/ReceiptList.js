@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Dimmer, Grid, Image, Label, Item, Segment, Table } from 'semantic-ui-react'
+import { Container, Grid, Image, Label, Item, Segment, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import ReceiptCard from '../cards/ReceiptCard.js';
@@ -36,7 +36,7 @@ class ReceiptList extends React.Component {
         const items = [
             {
               childKey: 0,
-              image: '/images/wireframe/image.png',
+              image:'https://previews.123rf.com/images/stoonn/stoonn1908/stoonn190800144/130409165-empty-burlap-sack-bag-on-white-background.jpg',
               header: 'Empty Cart',
               description: '"An empty sack cannot stand up right !" - English proverb',
               meta: "Try finding a farmer's market or a vendor through the explore page!"
@@ -45,10 +45,9 @@ class ReceiptList extends React.Component {
 
         return (
             <div>
-                <Segment floated='left'>
+                <Container>
                         <Item.Group items={items} />
-                    <Image src={'/images/wireframe/short-paragraph.png'}/>
-                </Segment>
+                </Container>
             </div>
         )
     }

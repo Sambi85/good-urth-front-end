@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { destroyTargetItemOrders } from '../redux/actions'
-import { CodeOutlined } from '@material-ui/icons';
+
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -16,10 +16,18 @@ class PaymentDashboard extends React.Component {
 
         const user = this.props.currentUser[0]
         let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-        let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        console.log(this.props.itemOrders)
+        console.log(filteredItemOrders)
+        if (filteredItemOrders === []) {
+            
+            return 0
+
+        } else if(filteredItemOrders.length > 0){
         
-        return subtotal.reduce((a,b)=> { return a + b })
-    }
+            let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        
+            return subtotal.reduce((a,b)=> { return a + b })
+    }}
 
     tax = () => {
         return this.tally() * tax
@@ -40,7 +48,7 @@ class PaymentDashboard extends React.Component {
         let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
         let filteredIds = filteredItemOrders.map(element => element.id)
         console.log(filteredIds)
-        // this.props.destroyTargetItemOrders(filteredIds)
+        this.props.destroyTargetItemOrders(filteredIds)
 
     }
 
