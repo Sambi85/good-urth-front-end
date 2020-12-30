@@ -45,11 +45,11 @@ export const destroyItemOrder = (itemOrderId) => {
 
     return function (dispatch) {
 
-        let options = { method: "DELETE", body: { ids: itemOrderId } }
+        let options = { method: "DELETE" }
         
         fetch(`http://localhost:4000/item_orders/${itemOrderId}`, options)
         .then(resp => resp.json())
-        .then(data => dispatch({type: "destroy itemOrder", payload: itemOrderId}) )
+        .then(data => dispatch({type: "destroy itemOrder", payload: data}) )
     }
 }
 
@@ -57,8 +57,7 @@ export const destroyTargetItemOrders = (idArray) => {
 
     return function (dispatch) {
 
-        let options = { method: "DELETE", ids: idArray }
-        console.log("Id Array Actions:",idArray)
+        let options = { method: "DELETE", body: { ids: idArray } }
         
         fetch(`http://localhost:4000/item_orders/`, options)
         .then(resp => resp.json())
@@ -137,7 +136,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/10')
+    fetch('http://localhost:4000/users/14')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
