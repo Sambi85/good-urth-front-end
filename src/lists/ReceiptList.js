@@ -11,13 +11,26 @@ const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
 
-    tally = () => {
+    tallyHandler = () => { 
         
         const user = this.props.currentUser[0]
         let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-        let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
-      
-        return subtotal.reduce((a,b) => a + b )
+        
+        if (filteredItemOrders.length > 0) {
+            let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+            let subtotal = subtotalArray.reduce((a,b) => a + b )
+
+            return(<>
+             <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label></Table.Cell>
+            
+            </>)
+        
+        } else {
+
+            return(<>
+            <Table.Cell size='large'><Label color='grey' size='huge'>Your Cart is Currently Empty</Label></Table.Cell>
+            </>)
+        }
     }
 
     itemOrderIterator = () => {
@@ -82,7 +95,8 @@ class ReceiptList extends React.Component {
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
                         <Table.Cell></Table.Cell>
-                        <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: {fm.from( this.tally(), { symbol: '$' })}</Label></Table.Cell>
+                        {/* <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: { this.tally() }</Label></Table.Cell> */}
+                        {this.tallyHandler()}
                         </Table.Row>
                     </Table.Body>
                 </Table>
@@ -92,9 +106,8 @@ class ReceiptList extends React.Component {
         )
     }
 
-
     render() {
-        console.log("this.props RECEIPT LIST:",this.props)
+
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }

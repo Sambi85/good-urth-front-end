@@ -8,33 +8,74 @@ import { destroyTargetItemOrders } from '../redux/actions'
 // converts to money //
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
-const tax = 0.45;
 
 class PaymentDashboard extends React.Component {
     
-    tally = () => {
+    // tally = () => {
 
+    //     const user = this.props.currentUser[0]
+    //     let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+    //     console.log(this.props.itemOrders)
+    //     console.log(filteredItemOrders)
+    //     if (filteredItemOrders === []) {
+            
+    //         return 0
+
+    //     } else if(filteredItemOrders.length > 0){
+        
+    //         let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        
+    //         return subtotal.reduce((a,b)=> { return a + b })
+    // }}
+
+    tally = () => { 
+        
+        const tax = 0.45;
         const user = this.props.currentUser[0]
         let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-        console.log(this.props.itemOrders)
-        console.log(filteredItemOrders)
-        if (filteredItemOrders === []) {
-            
-            return 0
-
-        } else if(filteredItemOrders.length > 0){
         
-            let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+        if(filteredItemOrders.length > 0) {
+            let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+            let subtotal = subtotalArray.reduce((a,b) => a + b )
+
+        return(
+            <>
+                <Table.Row>
+                    <Table.Cell>
+                        <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$'})}</Label>
+                    </Table.Cell>
+                </Table.Row>
+                                
+                <Table.Row>
+                    <Table.Cell>Sub Total: {fm.from( subtotal, { symbol: '$' })}</Table.Cell>
+                </Table.Row>
+                                
+                <Table.Row>
+                    <Table.Cell>Tax ({tax * 10}%) {fm.from( subtotal * tax, { symbol: '$' })}</Table.Cell>
+                </Table.Row>
+            </>
+                )
         
-            return subtotal.reduce((a,b)=> { return a + b })
-    }}
+        } else {
 
-    tax = () => {
-        return this.tally() * tax
-    }
-
-    total = () => {
-        return this.tally() + this.tally() * tax
+            return(
+                    <>
+                        <Table.Row>
+                            <Table.Cell>
+                                <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(0, { symbol: '$'})}</Label>
+                            </Table.Cell>
+                        </Table.Row>
+                                        
+                        <Table.Row>
+                            <Table.Cell>Sub Total: {fm.from(0, { symbol: '$' })}</Table.Cell>
+                        </Table.Row>
+                                        
+                        <Table.Row>
+                            <Table.Cell>Tax ({tax * 10}%) {fm.from(0, { symbol: '$' })}</Table.Cell>
+                        </Table.Row>
+                </>
+            )
+        }
     }
 
     confirmHandler = () => {
@@ -83,24 +124,13 @@ class PaymentDashboard extends React.Component {
                         <Table celled>
                             <Table.Header>
                                 <Table.Row>
-                                <Table.HeaderCell>Ready to Saddle Up ?</Table.HeaderCell>
+                                <Table.HeaderCell>Your Cart</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
                             <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell>
-                                    <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(this.total(), { symbol: '$'})}</Label>
-                                    </Table.Cell>
-                                </Table.Row>
-                                
-                                <Table.Row>
-                                    <Table.Cell>Sub Total: {fm.from( this.tally(), { symbol: '$' })}</Table.Cell>
-                                </Table.Row>
-                                
-                                <Table.Row>
-                                    <Table.Cell>Tax ({tax * 10}%) {fm.from( this.tax(), { symbol: '$' })}</Table.Cell>
-                                </Table.Row>
+
+                                {this.tally()}
 
                                 <Table.Row>
                                     <Table.Cell>
