@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { destroyTargetItemOrders } from '../redux/actions'
+import ConfirmButton from '../components/ConfirmButton.js' 
 
 
 // converts to money //
@@ -11,23 +12,13 @@ const fm = new FormatMoney({ decimals: 2 });
 
 class PaymentDashboard extends React.Component {
     
-    // tally = () => {
-
-    //     const user = this.props.currentUser[0]
-    //     let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
-    //     console.log(this.props.itemOrders)
-    //     console.log(filteredItemOrders)
-    //     if (filteredItemOrders === []) {
-            
-    //         return 0
-
-    //     } else if(filteredItemOrders.length > 0){
-        
-    //         let subtotal = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
-        
-    //         return subtotal.reduce((a,b)=> { return a + b })
-    // }}
-
+    state = { open: false, result: 'show the modal to capture a result' }
+    
+    show = () => this.setState({ open: true })
+    handleConfirm = () => this.setState({ result: 'confirmed', open: false })
+    handleCancel = () => this.setState({ result: 'cancelled', open: false })
+    
+    
     tally = () => { 
         
         const tax = 0.45;
@@ -37,9 +28,9 @@ class PaymentDashboard extends React.Component {
         if(filteredItemOrders.length > 0) {
             let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
             let subtotal = subtotalArray.reduce((a,b) => a + b )
-
-        return(
-            <>
+            
+            return(
+                <>
                 <Table.Row>
                     <Table.Cell>
                         <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$'})}</Label>
@@ -55,10 +46,10 @@ class PaymentDashboard extends React.Component {
                 </Table.Row>
             </>
                 )
-        
-        } else {
-
-            return(
+                
+            } else {
+                
+                return(
                     <>
                         <Table.Row>
                             <Table.Cell>
@@ -77,10 +68,13 @@ class PaymentDashboard extends React.Component {
             )
         }
     }
+    
+    // confirmHandler = () => {
 
-    confirmHandler = () => {
-
-    }
+    //     return (
+        
+    //       )
+    // }
 
     emptyCartHandler = () => {
         console.log("EMPTY CART")
@@ -113,7 +107,6 @@ class PaymentDashboard extends React.Component {
     }
 
     renderPaymentDashboard = () => {
-
         return (
             
             <Grid>
@@ -124,7 +117,7 @@ class PaymentDashboard extends React.Component {
                         <Table celled>
                             <Table.Header>
                                 <Table.Row>
-                                <Table.HeaderCell>Your Cart</Table.HeaderCell>
+                                <Table.HeaderCell><Icon name='shopping cart'/> Your Cart </Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
@@ -134,8 +127,8 @@ class PaymentDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                    <Button onClick={this.confirmHandler} positive>Confirm</Button>
-                                    <Button onClick={this.emptyCartHandler} negative>Empty Cart</Button>
+                                     <ConfirmButton/>
+                                     <Button onClick={this.emptyCartHandler} negative>Empty Cart</Button>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
@@ -194,7 +187,7 @@ class PaymentDashboard extends React.Component {
     }
     
     render() {
-        
+
         return (
                 <> {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
         )
