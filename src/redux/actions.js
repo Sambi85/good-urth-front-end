@@ -68,8 +68,37 @@ export const destroyTargetItemOrders = (idArray) => {
             .catch(error => {
                 console.error('Error:', error);
             });
+        }   
+    }  
+}
+
+export const paidItemOrders = (idArray) => {
+
+    return function (dispatch) {
+            console.log(idArray)
+            debugger
+        let options = {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Accepts": "application/json"
+            },
+
+            body: JSON.stringify({
+                paid: true
+            })
         }
-        
+
+        for (let id of idArray) {
+
+            fetch(`http://localhost:4000/item_orders/${id}`, options)
+            .then(resp => resp.json())
+            .then(data => { console.log(data)
+                dispatch({type: "paid itemOrders", payload: data})  })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }        
     }
 }
 
@@ -143,7 +172,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/18')
+    fetch('http://localhost:4000/users/22')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
