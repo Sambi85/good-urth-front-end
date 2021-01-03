@@ -1,23 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { destroyTargetItemOrders } from '../redux/actions'
-import ConfirmButton from '../components/ConfirmButton.js' 
+import { destroyTargetItemOrders, paidItemOrders } from '../redux/actions'
+import ConfirmButton from '../components/ConfirmButton.js'
+import EmptyButton from '../components/EmptyButton.js' 
 
+import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table } from 'semantic-ui-react'
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class PaymentDashboard extends React.Component {
-    
-    state = { open: false, result: 'show the modal to capture a result' }
-    
-    show = () => this.setState({ open: true })
-    handleConfirm = () => this.setState({ result: 'confirmed', open: false })
-    handleCancel = () => this.setState({ result: 'cancelled', open: false })
-    
     
     tally = () => { 
         
@@ -68,21 +62,24 @@ class PaymentDashboard extends React.Component {
             )
         }
     }
-    
-    // confirmHandler = () => {
+     
+    confirmCartHandler = () => {
+            
+            const user = this.props.currentUser[0]
 
-    //     return (
-        
-    //       )
-    // }
+            let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+            let filteredIds = filteredItemOrders.map(element => element.id)
+            
+            this.props.paidItemOrders(filteredIds)
+    }
 
     emptyCartHandler = () => {
-        console.log("EMPTY CART")
 
         const user = this.props.currentUser[0]
+
         let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
         let filteredIds = filteredItemOrders.map(element => element.id)
-        console.log(filteredIds)
+
         this.props.destroyTargetItemOrders(filteredIds)
 
     }
@@ -127,8 +124,8 @@ class PaymentDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                     <ConfirmButton/>
-                                     <Button onClick={this.emptyCartHandler} negative>Empty Cart</Button>
+                                        <ConfirmButton onConfirm={this.confirmCartHandler}/>
+                                        <EmptyButton onConfirm={this.emptyCartHandler}/>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
@@ -203,7 +200,8 @@ const msp = (state) => {
 
 const mdp = (dispatch) => {
     return {
-        destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds))
+        destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
+        paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds))
        }
     }
    
