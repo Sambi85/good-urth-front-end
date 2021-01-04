@@ -36,7 +36,9 @@ class ReceiptList extends React.Component {
     itemOrderIterator = () => {
         
         const user = this.props.currentUser[0]
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        console.log(notPaid)
+        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
 
         return filteredItemOrders.map(itemOrder => <ReceiptCard 
                 key={itemOrder.id} 
