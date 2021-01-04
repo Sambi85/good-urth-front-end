@@ -22,7 +22,7 @@ class EmptyButton extends React.Component {
             open={open}
             header="You clicked on empty your cart !"
             onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
+            onConfirm={this.handleConfirm, this.props.emptyCartHandler}
             />
       </div>
     )

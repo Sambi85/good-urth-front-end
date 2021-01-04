@@ -66,7 +66,7 @@ class PaymentDashboard extends React.Component {
     confirmCartHandler = () => {
             
             const user = this.props.currentUser[0]
-
+            // let notPaid = this.props.itemOrders.map(itemOrder => itemOrder.paid === false)
             let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
             let filteredIds = filteredItemOrders.map(element => element.id)
             
@@ -124,8 +124,8 @@ class PaymentDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                        <ConfirmButton onConfirm={this.confirmCartHandler}/>
-                                        <EmptyButton onConfirm={this.emptyCartHandler}/>
+                                        <ConfirmButton confirmCartHandler={this.confirmCartHandler}/>
+                                        <EmptyButton emptyCartHandler={this.emptyCartHandler}/>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
