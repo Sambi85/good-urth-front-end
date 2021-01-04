@@ -1,14 +1,41 @@
 import React from 'react';
-import { Divider, Tab } from 'semantic-ui-react'
+import { Divider, Tab, Table } from 'semantic-ui-react'
 
 const colors = [
-    'red',
+    'olive',
   ]
   
   const panes = [
     {
       menuItem: 'Order History',
-      render: () => <Tab.Pane attached={false}>Tab 1 Content</Tab.Pane>,
+      render: () => <Tab.Pane attached={false}>
+        <div>
+    {colors.map((color) => (
+      <Table color={color} key={color} sortable={true} inverted>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell>Total</Table.HeaderCell>
+            <Table.HeaderCell>Farm</Table.HeaderCell>
+            <Table.HeaderCell>Date</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+
+        <Table.Body>
+          <Table.Row>
+            <Table.Cell>Apples</Table.Cell>
+            <Table.Cell>200</Table.Cell>
+            <Table.Cell>0g</Table.Cell>
+          </Table.Row>
+          <Table.Row>
+            <Table.Cell>Orange</Table.Cell>
+            <Table.Cell>310</Table.Cell>
+            <Table.Cell>0g</Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table>
+    ))}
+  </div>
+      </Tab.Pane>,
     },
     {
       menuItem: 'Feed',
@@ -32,13 +59,7 @@ class InfoTab extends React.Component {
         
         return(
             <div>
-            {/* <select onChange={this.handleColorChange}>
-              {_.map(colors, (c) => (
-                <option key={c} value={c}>
-                  {_.startCase(c)}
-                </option>
-              ))}
-            </select> */}
+              
     
             <Divider hidden />
     
