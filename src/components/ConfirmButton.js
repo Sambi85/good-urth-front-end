@@ -22,7 +22,7 @@ class ConfirmButton extends React.Component {
             open={open}
             header="You clicked on check out !"
             onCancel={this.handleCancel}
-            onConfirm={this.handleConfirm}
+            onConfirm={this.handleConfirm, this.props.confirmCartHandler}
             />
       </div>
     )

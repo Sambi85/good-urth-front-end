@@ -124,8 +124,8 @@ class PaymentDashboard extends React.Component {
 
                                 <Table.Row>
                                     <Table.Cell>
-                                        <ConfirmButton onConfirm={this.confirmCartHandler}/>
-                                        <EmptyButton onConfirm={this.emptyCartHandler}/>
+                                        <ConfirmButton confirmCartHandler={this.confirmCartHandler}/>
+                                        <EmptyButton emptyCartHandler={this.emptyCartHandler}/>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>
