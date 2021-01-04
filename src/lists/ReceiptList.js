@@ -14,7 +14,8 @@ class ReceiptList extends React.Component {
     tallyHandler = () => { 
         
         const user = this.props.currentUser[0]
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
         
         if (filteredItemOrders.length > 0) {
             let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
