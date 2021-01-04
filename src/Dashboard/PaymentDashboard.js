@@ -66,8 +66,8 @@ class PaymentDashboard extends React.Component {
     confirmCartHandler = () => {
             
             const user = this.props.currentUser[0]
-            // let notPaid = this.props.itemOrders.map(itemOrder => itemOrder.paid === false)
-            let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+            let notPaid = this.props.itemOrders.map(itemOrder => itemOrder.paid === false)
+            let filteredItemOrders = this.props.notPaid.filter(element => element.order.user_id === user.id)
             let filteredIds = filteredItemOrders.map(element => element.id)
             
             this.props.paidItemOrders(filteredIds)
@@ -77,7 +77,8 @@ class PaymentDashboard extends React.Component {
 
         const user = this.props.currentUser[0]
 
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.order.user_id === user.id)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
         let filteredIds = filteredItemOrders.map(element => element.id)
 
         this.props.destroyTargetItemOrders(filteredIds)
