@@ -9,7 +9,7 @@ import { Image } from 'semantic-ui-react'
 import HomeContainer from './containers/HomeContainer.js'
 import ExplorerContainer from './containers/ExploreContainer.js'
 import OrdersContainer from './containers/OrdersContainer.js'
-import MessagesContainer from './containers/MessagesContainer.js'
+// import MessagesContainer from './containers/MessagesContainer.js'
 import SettingsContainer from './containers/SettingsContainer.js'
 import VendorsContainer from './containers/VendorsContainer.js'
 import VendorShowContainer from './containers/VendorShowContainer.js'
@@ -35,7 +35,7 @@ class App extends React.Component {
                   <Route exact path="/markets/:id" render={() => <VendorsContainer/>}/>
                   <Route exact path="/farmers/:id" render={() => <VendorShowContainer/>}/>
                   <Route exact path="/orders" render={() => <OrdersContainer/>}/>
-                  <Route exact path="/messages" render={() => <MessagesContainer/>}/>
+                  {/* <Route exact path="/messages" render={() => <MessagesContainer/>}/> */}
                   <Route exact path="/settings" render={() => <SettingsContainer/>}/>
                 </Switch>
               </div>  
