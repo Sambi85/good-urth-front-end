@@ -176,7 +176,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
 
-        fetchFarmers: () => dispatch(getFarmers()),
+        fetchFarmers:() => dispatch(getFarmers()),
         increment: (itemOrder) => dispatch(increment(itemOrder)),
         decrement: (itemOrder) => dispatch(decrement(itemOrder)),
         destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId))
