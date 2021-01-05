@@ -1,11 +1,14 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
+import InfoTabRows from './InfoTabRows.js'
 import { Divider, Tab, Table } from 'semantic-ui-react'
 
 const colors = [
     'olive',
   ]
   
-  const panes = [
+const panes = [
     {
       menuItem: 'Order History',
       render: () => <Tab.Pane attached={false}>
@@ -14,23 +17,16 @@ const colors = [
       <Table color={color} key={color} sortable={true} inverted>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Total</Table.HeaderCell>
             <Table.HeaderCell>Farm</Table.HeaderCell>
+            <Table.HeaderCell>Total</Table.HeaderCell>
             <Table.HeaderCell>Date</Table.HeaderCell>
+            <Table.HeaderCell>Let's Go</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>Apples</Table.Cell>
-            <Table.Cell>200</Table.Cell>
-            <Table.Cell>0g</Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>Orange</Table.Cell>
-            <Table.Cell>310</Table.Cell>
-            <Table.Cell>0g</Table.Cell>
-          </Table.Row>
+            <InfoTabRows/>
+            {this.rowsWithIds()}
         </Table.Body>
       </Table>
     ))}
@@ -42,6 +38,12 @@ const colors = [
       render: () => <Tab.Pane attached={false}>Tab 2 Content</Tab.Pane>,
     }
   ]
+
+const rowsWithIds = () => {
+  let paid = this.props.itemOrders.map(element => element.paid === true)
+  let infoTabRows = paid.map(element => <InfoTabRows key={element.id} id={element.id}/>) 
+  return infoTabRows
+}
 
 class InfoTab extends React.Component {
 
@@ -72,4 +74,12 @@ class InfoTab extends React.Component {
     }
 }
 
-export default InfoTab
+const msp = (state) => {
+  return {
+         itemOrders: state.itemOrders,
+         farmers: state.farmers,
+         currentUser: state.currentUser
+    }
+ }
+ 
+export default connect(msp, null)(withRouter(InfoTab)); 
