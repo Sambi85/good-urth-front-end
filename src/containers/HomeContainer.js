@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Grid,  Header, Segment } from 'semantic-ui-react'
+import { Grid, Header, Segment } from 'semantic-ui-react'
 
 // Sub Component //
 import Dashboard from '../Dashboard/Dashboard.js'
 import Chart from '../components/Chart.js'
-import InfoTab from '../components/InfoTab.js'
+import RecentFarmers from '../components/RecentFarmers.js'
 
 class HomeContainer extends React.Component {
     
@@ -26,7 +26,7 @@ class HomeContainer extends React.Component {
                             </Grid.Column>
                             
                             <Grid.Column width={3}> 
-                                <InfoTab/>
+                                <RecentFarmers/>
                             </Grid.Column>
                         
                         </Grid.Row>
@@ -37,4 +37,3 @@ class HomeContainer extends React.Component {
 }
 
 export default withRouter(HomeContainer); 
-// 
