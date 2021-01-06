@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Card, Dimmer, Form, Grid, Image, Input, Loader, Segment } from 'semantic-ui-react'
+import { Card, Dimmer, Grid, Image, Loader, Segment } from 'semantic-ui-react'
 
 class RecentCard extends Component {
 
@@ -30,7 +30,7 @@ class RecentCard extends Component {
                     
                     <Card.Content>
                         <Card.Header>
-                         
+                         {}
                         </Card.Header>
                 
                         <Card.Meta>                     
@@ -50,6 +50,7 @@ class RecentCard extends Component {
     }
 
     render () {
+        console.log(this.props.id)
         return(
             <>
                 { this.props.farmers ? this.renderRecentCard : this.loadingItemCard }
@@ -58,4 +59,11 @@ class RecentCard extends Component {
     }
 
 }
-export default RecentCard
+
+const msp = (state) => {
+    return {
+           farmers: state.farmers
+      }
+   }
+
+export default connect(msp, null)(withRouter(RecentCard)); 

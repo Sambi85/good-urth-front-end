@@ -67,10 +67,10 @@ class PaymentDashboard extends React.Component {
     confirmCartHandler = () => {
             
             const user = this.props.currentUser[0]
-            let notPaid = this.props.itemOrders.map(itemOrder => itemOrder.paid === false)
+            let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+            
             let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
             let filteredIds = filteredItemOrders.map(element => element.id)
-            
             this.props.paidItemOrders(filteredIds)
     }
 

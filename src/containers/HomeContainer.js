@@ -18,14 +18,17 @@ class HomeContainer extends React.Component {
                         <Grid.Row>
                             <Grid.Column width={10}>
                                 <Segment>
-                                     <Header>Check out what's in season</Header> 
+                                     <Header>Seasonal Chart</Header> 
                                 </Segment> 
                                 
                                 <Chart/>
                             
                             </Grid.Column>
                             
-                            <Grid.Column width={3}> 
+                            <Grid.Column width={6}>
+                                <Segment>
+                                     <Header>Recent Farms</Header> 
+                                </Segment> 
                                 <RecentFarmers/>
                             </Grid.Column>
                         
