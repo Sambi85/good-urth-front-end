@@ -28,17 +28,16 @@ class VendorList extends React.Component {
     renderVendorCard = () => {
 
         let num = this.props.id === '' ? this.props.farmerId : +this.props.id 
+    
+        let targetSchedule = this.props.schedules.filter(element => element.market_id === parseInt(num))
 
-        let farmer = this.props.schedules.filter(element => element.market_id === parseInt(num))
-
-        let farmerId = farmer[0].farmer_id
+        let farmerId = targetSchedule[0].farmer_id
         let filteredFarmers = this.props.farmers.filter(element => element.id === farmerId)
-
         return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} />)
     }
 
     render() {
-        // console.log("VendorList PROPS:", this.props)
+        console.log("VendorList PROPS:", this.props)
         return(
             <>
                 <Grid container columns={4}>

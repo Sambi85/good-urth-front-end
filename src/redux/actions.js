@@ -75,8 +75,7 @@ export const destroyTargetItemOrders = (idArray) => {
 export const paidItemOrders = (idArray) => {
 
     return function (dispatch) {
-            console.log(idArray)
-            debugger
+
         let options = {
             method: "PATCH",
             headers: {
@@ -172,7 +171,7 @@ export const getCurrentUser = (currentUserObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
     // console.log("nested function invoked")
-    fetch('http://localhost:4000/users/28')
+    fetch('http://localhost:4000/users/1')
     .then(resp => resp.json())
     // .then(console.log)
     .then(data => dispatch({type: "fetched currentUser", payload: data}))

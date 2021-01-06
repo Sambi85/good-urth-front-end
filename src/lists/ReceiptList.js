@@ -39,11 +39,17 @@ class ReceiptList extends React.Component {
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-
+        
+        if (filteredItemOrders.length > 0) {
+            
         return filteredItemOrders.map(itemOrder => <ReceiptCard 
                 key={itemOrder.id} 
                 itemOrder={itemOrder}
             />)
+
+        } else {
+            return this.loadingReceiptList()
+        }
     }
     
     loadingReceiptList = () => {
