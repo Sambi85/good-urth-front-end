@@ -94,7 +94,7 @@ class ReceiptList extends React.Component {
 
                     <Table.Body>
                         
-                            {this.itemOrderIterator()}
+                            { this.itemOrderIterator() }
                         
                         <Table.Row>
                         <Table.Cell></Table.Cell>
@@ -115,7 +115,7 @@ class ReceiptList extends React.Component {
     }
 
     render() {
-
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
