@@ -13,11 +13,12 @@ recentFarmerIterator = () => {
     let filteredItemOrders = paid.filter(element => element.order.user_id === user.id)
     let itemIds = filteredItemOrders.map(element => element.item_id)
     let targetItems = this.props.items.filter(element => itemIds.includes(element.id))
+    
     let farmerIds = targetItems.filter(element => element.farmer_id)
     let targetFarmers = this.props.farmers.filter(element => farmerIds.includes(element.id))
-
-    if (targetFarmers === []) {
-        // debugger
+    // debugger
+    
+    if (targetFarmers.length > 0) {
     return (
         targetFarmers.map(element => <RecentCard key={element.id} id={element.id} />)
     )
@@ -48,7 +49,6 @@ emptyFarmers = () => {
         </Grid>
         )
     }
-
 }
 
 const msp = (state) => {
