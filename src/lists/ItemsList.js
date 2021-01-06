@@ -6,7 +6,6 @@ import ItemCard from '../cards/ItemCard.js'
 
 class ItemsList extends React.Component {
 
-
     componentDidMount() {
         
         return (
@@ -22,7 +21,7 @@ class ItemsList extends React.Component {
     }
     
     render(){
-    
+        // console.log(this.props.items)
         return(
                 <>
                    <Grid container columns={4}>

@@ -12,14 +12,18 @@ const fm = new FormatMoney({
 class ReceiptCard extends React.Component {
     
     state = {
-        placeholder: `x${this.props.itemOrder.quantity}`,
-        itemOrderId: this.props.itemOrder.id
+        placeholder: '',
+        itemOrderId: []
     }
     
     componentDidMount() {
         
         return (
-            this.props.fetchFarmers()
+            this.props.fetchFarmers(),
+            this.setState({
+                placeholder: `x${this.props.itemOrder.quantity}`,
+                itemOrderId: this.props.itemOrder.id
+            })
         )        
     }
                                             
@@ -155,7 +159,6 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
-        // debugger
 
         return(
             <>
