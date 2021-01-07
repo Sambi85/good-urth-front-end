@@ -26,21 +26,21 @@ class RecentCard extends Component {
     
         <Grid.Column>
                 <Card>  
-                    <Image src={this.state.item.url} wrapped ui={false} />
+                    <Image src={} wrapped ui={false} />
                     
                     <Card.Content>
                         <Card.Header>
-                         {}
+                         {"HELLO"}
                         </Card.Header>
                 
                         <Card.Meta>                     
-                            <span>asdads</span>
-                            <p>asdasd</p>
+                            <span>HELLO</span>
+                            <p>Hello</p>
                         </Card.Meta>
 
                     
                         <Card.Description>
-                            aasd
+                            Hello
                         </Card.Description>
 
                     </Card.Content>
@@ -50,10 +50,12 @@ class RecentCard extends Component {
     }
 
     render () {
-        console.log(this.props.id)
+        console.log("RecentCard PROPS:", this.props)
         return(
             <>
-                { this.props.farmers ? this.renderRecentCard : this.loadingItemCard }
+               {this.renderRecentCard()}
+               {"HELLO"}
+                {/* { this.props.itemOrders ? this.renderRecentCard(): this.loadingItemCard() } */}
             </>
         )
     }

@@ -1,19 +1,10 @@
 import React from 'react';
 import { Grid, Label, Image} from 'semantic-ui-react'
 import { connect } from 'react-redux'
-// import { getItems, getItemOrders } from '../redux/actions'
 import { withRouter } from 'react-router-dom';
-import RecentCard from '../cards/ReceiptCard.js';
+import RecentCard from '../cards/RecentCard.js';
 
 class RecentFarmers extends React.Component {
-
-    // componentDidMount() {
-        
-    //     return (
-    //             this.props.fetchItems(),
-    //             this.props.fetchItemOrders()       
-    //     )
-    // }
 
 recentFarmerIterator = () => {
     
@@ -27,9 +18,10 @@ recentFarmerIterator = () => {
     let targetFarmers = this.props.farmers.filter(element => farmerIds.includes(element.id))
     
     if (targetFarmers.length > 0) {
-    return (
-        targetFarmers.map(element => <RecentCard key={element.id} id={element.id} />)
-    )
+        console.log('targetFarmers:', targetFarmers)
+        
+        return targetFarmers.map(element => <RecentCard key={element.id} id={element.id}/>)
+
     } else {
        return this.emptyFarmers();
     }
@@ -45,12 +37,11 @@ emptyFarmers = () => {
 }
 
     render() {
-        console.log(this.props)
         return (
             <Grid divided='vertically'>
             <Grid.Row columns={1}>
                 <Grid.Column>
-                    {this.props.items.length > 0? this.recentFarmerIterator() : this.emptyFarmers}
+                    {this.props.itemOrders.length > 0 ? this.recentFarmerIterator() : this.emptyFarmers()}
                 </Grid.Column> 
             
             </Grid.Row>
@@ -67,11 +58,5 @@ const msp = (state) => {
            farmers: state.farmers
       }
    }
-
-// const mdp = (dispatch) => {
-//     return {
-//          fetchItems: () => dispatch(getItems()),
-//        }
-//     }
 
 export default connect(msp, null)(withRouter(RecentFarmers)); 

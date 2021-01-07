@@ -63,7 +63,7 @@ import { Dimmer, Card, Loader, Image, Grid, Segment } from 'semantic-ui-react';
     }
     
     render() {
-      console.log("Dashboard Props:",this.props)
+      
         return (
                  <>
                  {this.props.currentUser.length === 0 ? this.loading() : this.renderDashboard()}
