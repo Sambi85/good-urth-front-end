@@ -1,17 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { getItems } from '../redux/actions'
+// import { getItems } from '../redux/actions'
 import { Grid } from 'semantic-ui-react'
 import ItemCard from '../cards/ItemCard.js'
 
 class ItemsList extends React.Component {
 
-    componentDidMount() {
+    // componentDidMount() {
         
-        return (
-                this.props.fetchItems()       
-        )
-    }
+    //     return (
+    //             this.props.fetchItems()       
+    //     )
+    // }
 
     itemsIterator = () => {
 
@@ -21,7 +21,7 @@ class ItemsList extends React.Component {
     }
     
     render(){
-        // console.log(this.props.items)
+        
         return(
                 <>
                    <Grid container columns={4}>
@@ -38,10 +38,10 @@ const msp = (state) => {
       }
    }
    
-const mdp = (dispatch) => {
-   return {
-        fetchItems: () => dispatch(getItems())
-      }
-   }
+// const mdp = (dispatch) => {
+//    return {
+//         fetchItems: () => dispatch(getItems())
+//       }
+//    }
    
-export default connect(msp, mdp)(ItemsList); 
+export default connect(msp, null)(ItemsList); 
