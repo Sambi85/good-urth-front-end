@@ -1,18 +1,19 @@
 import React from 'react';
 import { Grid, Label, Image} from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { getItems } from '../redux/actions'
+// import { getItems, getItemOrders } from '../redux/actions'
 import { withRouter } from 'react-router-dom';
 import RecentCard from '../cards/ReceiptCard.js';
 
 class RecentFarmers extends React.Component {
 
-    componentDidMount() {
+    // componentDidMount() {
         
-        return (
-                this.props.fetchItems()       
-        )
-    }
+    //     return (
+    //             this.props.fetchItems(),
+    //             this.props.fetchItemOrders()       
+    //     )
+    // }
 
 recentFarmerIterator = () => {
     
@@ -24,7 +25,6 @@ recentFarmerIterator = () => {
     
     let farmerIds = targetItems.map(element => element.farmer_id)
     let targetFarmers = this.props.farmers.filter(element => farmerIds.includes(element.id))
-    // debugger
     
     if (targetFarmers.length > 0) {
     return (
@@ -68,10 +68,10 @@ const msp = (state) => {
       }
    }
 
-const mdp = (dispatch) => {
-    return {
-         fetchItems: () => dispatch(getItems())
-       }
-    }
+// const mdp = (dispatch) => {
+//     return {
+//          fetchItems: () => dispatch(getItems()),
+//        }
+//     }
 
-export default connect(msp, mdp)(withRouter(RecentFarmers)); 
+export default connect(msp, null)(withRouter(RecentFarmers)); 
