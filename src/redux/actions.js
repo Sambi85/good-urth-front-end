@@ -157,12 +157,11 @@ export const getSchedules = (scheduleObj) => {
 }
 
 export const getUsers = (userObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/users/')
         .then(resp => resp.json())
-    
         .then(data => dispatch({type: "fetched users", payload: data}) )
     }
 }
