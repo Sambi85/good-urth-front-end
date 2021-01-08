@@ -1,9 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Divider, Dimmer, Grid, Image, Label, Loader, Segment } from 'semantic-ui-react'
+import { Button, Divider, Dimmer, Grid, Image, Label, Loader, Segment } from 'semantic-ui-react'
 
 class RecentCard extends React.Component {
+
+    clickHandler = () => {
+       return this.props.history.push(`/farmers/${this.props.id}`)
+    }
 
     loadingItemCard = () => {
  
@@ -30,10 +34,13 @@ class RecentCard extends React.Component {
     
         <Grid.Column>
             <div>
-                <Image src={src} size='tiny' verticalAlign='middle' />
-                    <Label color='green' ribbon>{`Total: $10.00` }</Label>
-                    <Label color='grey'>{farmer[0].username}</Label>
-                    <Label color='blue'> Let's Go </Label>
+                <div><Image src={src} size='tiny' verticalAlign='middle' /></div>
+                <Label color='green' ribbon>{`Total: $10.00` }</Label>
+                
+                <div>
+                <Button onClick={this.clickHandler} color='blue'> Let's Go </Button>
+                <Label size='large' color='orange'>{farmer[0].username}</Label>
+                </div>
                 <Divider />
             </div>
         </Grid.Column>

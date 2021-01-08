@@ -36,21 +36,18 @@ class Weather extends React.Component {
         
         return (
         <>{console.log(this.state.condition.icon)}
-        <Grid columns={2} divided>
+        <Grid columns={1} divided>
             <Grid.Row stretched>
                 <Grid.Column>
-                    <Card
+                    <Card x
                         image={this.state.condition.icon}
                         header={this.state.city}
-                        meta={`Currently: ${this.state.temp}F`}
-                        description={`Feels Like: ${this.state.feels}F`}
-                        
                         />
                 </Grid.Column>
                 <Grid.Column>
                     <Segment>{`Wind: ${this.state.wind} MPH`}</Segment>
-                    <Segment>{`Humidity: ${this.state.humidity}%`}</Segment>
-                    <Segment>{`Humidity: ${this.state.humidity}%`}</Segment>
+                    <Segment>{`Currently: ${this.state.temp}F`}</Segment>
+                    <Segment>{`Feels Like: ${this.state.feels}F`}</Segment>
                 </Grid.Column>
             </Grid.Row>  
         </Grid>
