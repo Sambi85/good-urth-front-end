@@ -188,3 +188,8 @@ export const decrement = (itemOrder) => {
     return { type: "decrement itemOrder", payload: itemOrder}
 }
 
+export const totalGrabber = (totalBill) => {
+    
+    return { type: 'total', payload: totalBill}
+}
+
