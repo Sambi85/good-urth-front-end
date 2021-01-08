@@ -9,8 +9,10 @@ class RecentFarmers extends React.Component {
 recentFarmerIterator = () => {
     
     const user = this.props.currentUser[0]
+    
     let paid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
     let filteredItemOrders = paid.filter(element => element.order.user_id === user.id)
+    
     let itemIds = filteredItemOrders.map(element => element.item_id)
     let targetItems = this.props.items.filter(element => itemIds.includes(element.id))
     

@@ -31,7 +31,7 @@ import { Dimmer, Card, Loader, Image, Grid, Segment } from 'semantic-ui-react';
                    
                       <Grid.Column width={3}>
                             <Card.Content textAlign='center'> 
-                                <Card.Header textAlign='center'>{this.props.currentUser[0].username}</Card.Header>
+                                <Card.Header textAlign='center'><h2>{this.props.currentUser[0].username}</h2></Card.Header>
                                 <Image src={this.props.currentUser[0].avatar}/>
                                 <Card.Meta>
                                   
