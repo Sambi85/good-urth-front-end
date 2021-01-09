@@ -135,7 +135,7 @@ export const getOrders = (orderObj) => {
 }
 
 export const getReviews = (reviewObj) => {
-    // console.log("first dispatch invoked")
+    
     return function (dispatch) {
         
         fetch('http://localhost:4000/reviews')
