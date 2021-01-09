@@ -137,7 +137,7 @@ export const getOrders = (orderObj) => {
 export const getReviews = (reviewObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/reviews')
         .then(resp => resp.json())
         .then(data => dispatch({type: "fetched reviews", payload: data}) )
