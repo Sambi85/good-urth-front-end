@@ -202,7 +202,13 @@ function billTotalReducer (currentState = defaultState.billTotal, action) {
     switch (action.type) {
               
         case "billTotal" :
-            return action.payload
+
+            let totalsContainer = [];
+            
+            defaultState.billTotal = totalsContainer.push(action.payload) 
+            currentState = defaultState.billTotal
+
+            return currentState
                 
         default :
             return currentState

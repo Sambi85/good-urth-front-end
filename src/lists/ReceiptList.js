@@ -16,7 +16,7 @@ class ReceiptList extends React.Component {
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        
+        console.log(filteredItemOrders)
         if (filteredItemOrders.length > 0) {
             let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
             let subtotal = subtotalArray.reduce((a,b) => a + b )
@@ -39,7 +39,7 @@ class ReceiptList extends React.Component {
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-            console.log("filteredItemOrders:", filteredItemOrders)
+        console.log(filteredItemOrders)
             return filteredItemOrders.map(itemOrder => <ReceiptCard 
                    key={itemOrder.id} 
                    id={itemOrder.id}
@@ -108,7 +108,7 @@ class ReceiptList extends React.Component {
     }
 
     render() {
-    
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
