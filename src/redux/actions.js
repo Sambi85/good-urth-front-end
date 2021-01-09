@@ -148,7 +148,7 @@ export const getReviews = (reviewObj) => {
 export const getSchedules = (scheduleObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
-        // console.log("nested function invoked")
+
         fetch('http://localhost:4000/schedules')
         .then(resp => resp.json())
         .then(data => dispatch({type: "fetched schedules", payload: data}) )
