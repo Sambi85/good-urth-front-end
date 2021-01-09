@@ -6,21 +6,29 @@ import RecentCard from '../cards/RecentCard.js';
 
 class RecentFarmers extends React.Component {
 
-recentFarmerIterator = () => {
-    
+filteredItemOrders = () => {
+
     const user = this.props.currentUser[0]
-    
     let paid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
     let filteredItemOrders = paid.filter(element => element.order.user_id === user.id)
-    
-    let itemIds = filteredItemOrders.map(element => element.item_id)
+
+    return filteredItemOrders
+}
+
+filteredItemIds = () => {
+
+    let itemIds = this.filteredItemOrders().map(element => element.item_id)
     let targetItems = this.props.items.filter(element => itemIds.includes(element.id))
-    
     let farmerIds = targetItems.map(element => element.farmer_id)
-    let targetFarmers = this.props.farmers.filter(element => farmerIds.includes(element.id))
+    
+    return farmerIds
+}
+
+recentFarmerIterator = () => {
+    
+    let targetFarmers = this.props.farmers.filter(element => this.filteredItemOrders().includes(element.id))
     
     if (targetFarmers.length > 0) {
-        console.log('targetFarmers:', targetFarmers)
         
         return targetFarmers.map(element => <RecentCard key={element.id} id={element.id}/>)
 
