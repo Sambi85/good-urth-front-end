@@ -140,7 +140,6 @@ export const getReviews = (reviewObj) => {
         // console.log("nested function invoked")
         fetch('http://localhost:4000/reviews')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched reviews", payload: data}) )
     }
 }
