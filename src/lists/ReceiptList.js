@@ -11,36 +11,39 @@ const fm = new FormatMoney({ decimals: 2 });
 
 class ReceiptList extends React.Component {
 
-    tallyHandler = () => { 
+    filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        console.log(filteredItemOrders)
-        if (filteredItemOrders.length > 0) {
-            let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
-            let subtotal = subtotalArray.reduce((a,b) => a + b )
+        
+        return filteredItemOrders
+
+    }
+
+    tally = () => {
+    
+        let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
+        let subtotal = subtotalArray.reduce((a,b) => a + b )
+
+        return subtotal
+
+    }
+
+    tallyHandler = () => { 
+
+            let subtotal = this.tally();
 
             return(<>
              <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label></Table.Cell>
             
-            </>)
+            </>)     
         
-        } else {
-
-            return(<>
-            <Table.Cell size='large'><Label color='grey' size='huge'>Your Cart is Currently Empty</Label></Table.Cell>
-            </>)
-        }
     }
 
     itemOrderIterator = () => {
         
-        const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        console.log(filteredItemOrders)
-            return filteredItemOrders.map(itemOrder => <ReceiptCard 
+            return this.filteredItemOrders().map(itemOrder => <ReceiptCard 
                    key={itemOrder.id} 
                    id={itemOrder.id}
                />)
@@ -108,7 +111,7 @@ class ReceiptList extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
@@ -117,7 +120,6 @@ class ReceiptList extends React.Component {
     }
 }
 
-// listens
 const msp = (state) => {
     return {
            itemOrders: state.itemOrders,
