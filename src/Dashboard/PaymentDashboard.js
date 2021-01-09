@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { destroyTargetItemOrders, paidItemOrders } from '../redux/actions'
+import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber } from '../redux/actions'
 import ConfirmButton from '../components/ConfirmButton.js'
 import EmptyButton from '../components/EmptyButton.js' 
 
@@ -23,6 +23,7 @@ class PaymentDashboard extends React.Component {
         if(filteredItemOrders.length > 0) {
             let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
             let subtotal = subtotalArray.reduce((a,b) => a + b )
+            this.props.billTotalGrabber(subtotal + (subtotal * tax))
             
             return(
                 <>
@@ -202,7 +203,8 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
-        paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds))
+        paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
+        totalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill))
        }
     }
    

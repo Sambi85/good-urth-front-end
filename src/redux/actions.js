@@ -137,21 +137,19 @@ export const getOrders = (orderObj) => {
 export const getReviews = (reviewObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/reviews')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched reviews", payload: data}) )
     }
 }
 
 export const getSchedules = (scheduleObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
-        // console.log("nested function invoked")
+
         fetch('http://localhost:4000/schedules')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched schedules", payload: data}) )
     }
 }
@@ -180,11 +178,16 @@ export const getCurrentUser = (currentUserObj) => {
 
 export const increment = (itemOrder) => {
 
-    return { type: "increment itemOrder", payload: itemOrder}
+    return { type: "increment itemOrder", payload: itemOrder }
 }
 
 export const decrement = (itemOrder) => {
 
-    return { type: "decrement itemOrder", payload: itemOrder}
+    return { type: "decrement itemOrder", payload: itemOrder }
+}
+
+export const billTotalGrabber = (billTotal) => {
+        console.log(billTotal)
+    return { type: 'billTotal', payload: billTotal }
 }
 
