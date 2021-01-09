@@ -14,8 +14,6 @@ class Weather extends React.Component {
         weather: {}
     }
 
-// weather api key ' ab29d7e108a64196a9112440200412'
-
     componentDidMount() {     
             fetch('http://api.weatherapi.com/v1/current.json?key=f853f2a7522d4bf68cf13732200412&q=New York City')
             .then(response => response.json())

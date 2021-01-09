@@ -11,6 +11,7 @@ let defaultState = {
     orders: [],
     reviews: [],
     users: [],
+    billTotal: [],
     currentUser: []
 }
 
@@ -197,6 +198,18 @@ function currentUserReducer(currentState = defaultState.currentUser, action) {
     }
 }
 
+function billTotalReducer (currentState = defaultState.billTotal, action) {
+    switch (action.type) {
+              
+        case "billTotal" :
+            return action.payload
+                
+        default :
+            return currentState
+    }
+
+}
+
 const rootReducer = combineReducers({
     markets: marketReducer,
     schedules: scheduleReducer,
@@ -208,7 +221,8 @@ const rootReducer = combineReducers({
     orders: orderReducer,
     reviews: reviewReducer,
     users: userReducer,
-    currentUser: currentUserReducer
+    currentUser: currentUserReducer,
+    billTotal: billTotalReducer
 })
 
 export default rootReducer
