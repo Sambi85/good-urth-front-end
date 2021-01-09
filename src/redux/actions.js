@@ -129,7 +129,7 @@ export const getOrders = (orderObj) => {
         // console.log("nested function invoked")
         fetch('http://localhost:4000/orders')
         .then(resp => resp.json())
-        // .then(console.log)
+        
         .then(data => dispatch({type: "fetched orders", payload: data}) )
     }
 }
