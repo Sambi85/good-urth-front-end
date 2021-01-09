@@ -24,8 +24,8 @@ class PaymentDashboard extends React.Component {
      }
 
      tally = () => {
-         let filteredItemOrders = this.filteredItemOrders();
-         let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
+
+         let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
          let subtotal = subtotalArray.reduce((a,b) => a + b )
          
          return subtotal
@@ -64,14 +64,8 @@ class PaymentDashboard extends React.Component {
     
     emptyCartHandler = () => {
         
-        const user = this.props.currentUser[0]
-        
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        let filteredIds = filteredItemOrders.map(element => element.id)
-
+        let filteredIds = this.filteredItemOrders().map(element => element.id)
         this.props.destroyTargetItemOrders(filteredIds)
-
     }
 
     updateHandler = () => {
