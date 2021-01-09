@@ -146,7 +146,7 @@ export const getReviews = (reviewObj) => {
 }
 
 export const getSchedules = (scheduleObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
 
         fetch('http://localhost:4000/schedules')
