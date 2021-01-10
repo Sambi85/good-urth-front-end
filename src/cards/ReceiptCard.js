@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { increment, decrement, getFarmers, destroyItemOrder } from '../redux/actions'
 import { Dimmer, Button, Icon, Input, Image, Label, Loader, Table, Segment } from 'semantic-ui-react';
-import { convertNwSeToNeSw } from 'google-map-react';
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -45,12 +44,28 @@ class ReceiptCard extends React.Component {
         )
     }
 
-    farmerGrabber = () => {
+    filteredItemOrder = () => {
+        
+        const user = this.props.currentUser[0]
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        
+        return filteredItemOrders
+    }
+    
+    itemOrderGrabber = () => {
 
-        let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.itemOrder.id)
+        let itemOrder = this.filteredItemOrder().filter(element => element.id === this.props.id)
+        return itemOrder[0]
+
+    }
+
+    farmerGrabber = () => {
+        
+        let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
         let farmer_id = targetItemOrder[0].item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
-       
+        
         return farmer_name
     }
 
@@ -69,14 +84,6 @@ class ReceiptCard extends React.Component {
         )
     }
 
-    renderFarmerGrabber = () => {
-
-        return (
-    
-                   <> <Table.Cell>{this.farmerGrabber()}</Table.Cell> </>
-        
-        )
-    }
 
     incrementButton = () => {
         console.log("increment!")
@@ -121,30 +128,21 @@ class ReceiptCard extends React.Component {
         }
     }
 
-    itemOrderGrabber = () => {
-
-        const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        let itemOrder = filteredItemOrders.filter(element => element.id === this.props.id)
-        
-        return itemOrder
-    }
     
     renderReceiptCard = () => {
 
        let itemOrder = this.itemOrderGrabber()
-        
-        if (itemOrder > 0) {
+       let price = parseInt(itemOrder.item.price)
+        if (itemOrder !== null) {
 
         return (
             <>
                 <Table.Row>
                     <Table.Cell>  <Button onClick={this.deleteButton}  color='red'> <Icon name='close' color='white' /></Button> </Table.Cell>
-                    <Table.Cell>{this.itemOrder.item.name}</Table.Cell>
-                        {this.props.farmers.length === 0 ? this.loadingFarmerGrabber() : this.renderFarmerGrabber()}
+                    <Table.Cell>{itemOrder.item.name}</Table.Cell>
+                    <Table.Cell>{this.farmerGrabber()}</Table.Cell>
                     
-                    <Table.Cell><Label size='large'>{this.itemOrder.item.purchase_unit}</Label> </Table.Cell>
+                    <Table.Cell><Label size='large'>{itemOrder.item.purchase_unit}</Label> </Table.Cell>
                     <Table.Cell>
                         <Button  icon size='mini' onClick={this.decrementButton}>
                             <Icon name='left arrow'/>
@@ -156,10 +154,10 @@ class ReceiptCard extends React.Component {
                     </Table.Cell>
                     <Table.Cell>
                         <Label color='teal' tag size='medium'>
-                                {fm.from(parseInt(this.itemOrder.item.price), { symbol: '$' })}
+                                {fm.from(price, { symbol: '$' })}
                         </Label>
                     </Table.Cell>
-                    <Table.Cell>{fm.from(parseInt(this.itemOrder.item.price) * this.itemOrder.quantity, { symbol: '$' })}</Table.Cell>
+                    <Table.Cell>{fm.from(price * itemOrder.quantity, { symbol: '$' })}</Table.Cell>
                 </Table.Row>
                     
             </>
@@ -168,6 +166,7 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}

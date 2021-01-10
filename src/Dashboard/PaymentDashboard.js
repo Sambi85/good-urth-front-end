@@ -10,23 +10,35 @@ import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
+const tax = 0.45;
 
 class PaymentDashboard extends React.Component {
-    
-    tally = () => { 
+
+    filteredItemOrders = () => {
         
-        const tax = 0.45;
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
         
-        if(filteredItemOrders.length > 0) {
-            let subtotalArray = filteredItemOrders.map(itemOrder => itemOrder.order.subtotal)
-            let subtotal = subtotalArray.reduce((a,b) => a + b )
-            this.props.billTotalGrabber(subtotal + (subtotal * tax))
+        return filteredItemOrders
+     }
+
+     tally = () => {
+
+         let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
+         let subtotal = subtotalArray.reduce((a,b) => a + b )
+         
+         return subtotal
+        }
+        
+    dashboard = () => { 
             
-            return(
-                <>
+        let subtotal = 0;    
+            
+        if (this.filteredItemOrders().length > 0) subtotal = this.tally(); 
+                
+           return (
+               <>
                 <Table.Row>
                     <Table.Cell>
                         <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$'})}</Label>
@@ -41,49 +53,19 @@ class PaymentDashboard extends React.Component {
                     <Table.Cell>Tax ({tax * 10}%) {fm.from( subtotal * tax, { symbol: '$' })}</Table.Cell>
                 </Table.Row>
             </>
-                )
-                
-            } else {
-                
-                return(
-                    <>
-                        <Table.Row>
-                            <Table.Cell>
-                                <Label ribbon color='teal' size='huge'>Grand Total: {fm.from(0, { symbol: '$'})}</Label>
-                            </Table.Cell>
-                        </Table.Row>
-                                        
-                        <Table.Row>
-                            <Table.Cell>Sub Total: {fm.from(0, { symbol: '$' })}</Table.Cell>
-                        </Table.Row>
-                                        
-                        <Table.Row>
-                            <Table.Cell>Tax ({tax * 10}%) {fm.from(0, { symbol: '$' })}</Table.Cell>
-                        </Table.Row>
-                </>
-            )
-        }
+        ) 
     }
-     
+    
     confirmCartHandler = () => {
-            
-            const user = this.props.currentUser[0]
-            let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false) 
-            let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-            let filteredIds = filteredItemOrders.map(element => element.id)
-            this.props.paidItemOrders(filteredIds)
+        
+        let filteredIds = this.filteredItemOrders().map(element => element.id)
+        this.props.paidItemOrders(filteredIds)
     }
-
+    
     emptyCartHandler = () => {
-
-        const user = this.props.currentUser[0]
-
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        let filteredIds = filteredItemOrders.map(element => element.id)
-
+        
+        let filteredIds = this.filteredItemOrders().map(element => element.id)
         this.props.destroyTargetItemOrders(filteredIds)
-
     }
 
     updateHandler = () => {
@@ -122,7 +104,7 @@ class PaymentDashboard extends React.Component {
 
                             <Table.Body>
 
-                                {this.tally()}
+                                {this.dashboard()}
 
                                 <Table.Row>
                                     <Table.Cell>
@@ -186,7 +168,7 @@ class PaymentDashboard extends React.Component {
     }
     
     render() {
-
+        
         return (
                 <> {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
         )
@@ -204,7 +186,7 @@ const mdp = (dispatch) => {
     return {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
         paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
-        totalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill))
+        billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill))
        }
     }
    

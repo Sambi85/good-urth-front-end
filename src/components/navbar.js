@@ -20,11 +20,11 @@ class NavBar extends React.Component {
                                     </NavLink>
                                     <NavLink to="/explore" style={{"padding":"5px"}}><Icon name='compass outline'/>
                                     </NavLink>
-                                    {/* <NavLink to='/markets' style={{"padding":"5px"}}><Icon name='map marker alternate'/> */}
-                                    {/* </NavLink> */}
                                     {/* <NavLink to="/messages" style={{"padding":"5px"}}><Icon name='comment alternate outline'/> */}
                                     {/* </NavLink> */}
                                     <NavLink to='/orders' style={{"padding":"5px"}}><Icon name='envelope outline'/>
+                                    </NavLink>
+                                    <NavLink to='/order_history' style={{"padding":"5px"}}><Icon name='map marker alternate'/>
                                     </NavLink>
                                     <NavLink to='/settings' style={{"padding":"5px"}}><Icon name='setting'/>
                                     </NavLink>
