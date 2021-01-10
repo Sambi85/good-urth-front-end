@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Container, Grid, Image, Label, Item, Segment, Table } from 'semantic-ui-react'
+import { Container, Grid, Label, Item, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import ReceiptCard from '../cards/ReceiptCard.js';
