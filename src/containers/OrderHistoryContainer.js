@@ -5,18 +5,7 @@ import OrderHistoryList from '../lists/OrderHistoryList.js'
 import OrderHistoryDashboard from '../Dashboard/OrderHistoryDashboard.js'
 
  
-class OrderHistoryContainer extends React.Component {
-
-    componentDidMount() {
-        
-        if (this.props.itemOrders.length){
-            
-            return (
-                this.props.fetchItemOrders(),   
-                this.props.fetchCurrentUser()
-            )
-        }
-    }         
+class OrderHistoryContainer extends React.Component {       
         
     render(){
             
