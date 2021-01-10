@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 
 // import PaymentDashboard from '../Dashboard/PaymentDashboard.js';
+import OrderHistoryDashboard from '../Dashboard/OrderHistoryDashboard.js'
 // import ReceiptList from '../lists/ReceiptList.js';
  
 class OrderHistoryContainer extends React.Component {
@@ -29,11 +30,10 @@ class OrderHistoryContainer extends React.Component {
                         <Grid.Row columns={1}>
                         
                             <Grid.Column>
-                                ORDER HISTORY PAGE              
-                            
+                                <OrderHistoryDashboard/>
                             </Grid.Column>
                                
-
+                                ORDER LIST
                         </Grid.Row>
                     </Grid>
                 </>
