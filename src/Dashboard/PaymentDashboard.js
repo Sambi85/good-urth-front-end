@@ -50,7 +50,7 @@ class PaymentDashboard extends React.Component {
                 </Table.Row>
                                 
                 <Table.Row>
-                    <Table.Cell>Tax ({tax * 10}%) {fm.from( subtotal * tax, { symbol: '$' })}</Table.Cell>
+                    <Table.Cell>Tax ({tax * 100}%) {fm.from( subtotal * tax, { symbol: '$' })}</Table.Cell>
                 </Table.Row>
             </>
         ) 
@@ -188,7 +188,7 @@ const mdp = (dispatch) => {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
         paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
         billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill)),
-        datePurchasedHandler: (id) => disptach(datePurchasedHandler(id))
+        datePurchasedHandler: (idArray) => dispatch(datePurchasedHandler(idArray))
        }
     }
    
