@@ -9,14 +9,14 @@ import OrderHistoryCard from '../cards/OrderHistoryCard.js';
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
-class ReceiptList extends React.Component {
+class OrderHistoryList extends React.Component {
 
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        
+            console.log(filteredItemOrders)
         return filteredItemOrders
 
     }
@@ -129,4 +129,4 @@ const msp = (state) => {
       }
    }
 
-export default connect(msp, null)(ReceiptList); 
+export default connect(msp, null)(OrderHistoryList); 
