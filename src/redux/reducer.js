@@ -101,13 +101,7 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
         
             let newArrayB = [...currentState]
             let data = action.payload
-            console.log(data)
-            // for (let id of idArray) {
-            //     let foundIndex = newArrayA.findIndex(element => element.id === id)
-            //     newArrayA.splice(foundIndex, 1)
-            // }
-            //     console.log(newArrayA)
-            //     defaultState.itemOrders = newArrayA
+
                 currentState = defaultState.itemOrders
             
             return currentState
