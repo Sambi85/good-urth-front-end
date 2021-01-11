@@ -101,18 +101,9 @@ export const paidItemOrders = (idArray) => {
     }
 }
 
-export const getItems = (itemObj) => {
-    // console.log("first dispatch invoked")
-    return function (dispatch) {
-        // console.log("nested function invoked")
-        fetch('http://localhost:4000/items')
-        .then(resp => resp.json())
-        // .then(console.log)
-        .then(data => dispatch({type: "fetched items", payload: data}) )
-    }
-}
-
 export const datePurchasedHandler = (idArray) => {
+
+    return function (dispatch) {
 
     let options = {
         method: "PATCH",
@@ -131,13 +122,25 @@ export const datePurchasedHandler = (idArray) => {
         fetch(`http://localhost:4000/item_orders/${id}`, options)
         .then(resp => resp.json())
         .then(data => { console.log(data)
-            dispatch({type: "purchase_data", payload: data})
-            })
+            dispatch({type: "purchase_data", payload: data})  })
         .catch(error => {
             console.error('Error:', error);
         });
+        }
     }        
 }
+
+export const getItems = (itemObj) => {
+    // console.log("first dispatch invoked")
+    return function (dispatch) {
+        // console.log("nested function invoked")
+        fetch('http://localhost:4000/items')
+        .then(resp => resp.json())
+        // .then(console.log)
+        .then(data => dispatch({type: "fetched items", payload: data}) )
+    }
+}
+
 
 export const getMessages = (messageObj) => {
     // console.log("first dispatch invoked")
@@ -195,7 +198,7 @@ export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/5')
+    fetch('http://localhost:4000/users/3')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 
