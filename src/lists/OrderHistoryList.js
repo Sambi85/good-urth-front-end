@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Container, Grid, Label, Item, Table } from 'semantic-ui-react'
 
 // Sub Component //
-import ReceiptCard from '../cards/ReceiptCard.js';
+import OrderHistoryCard from '../cards/OrderHistoryCard.js';
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -33,9 +33,13 @@ class ReceiptList extends React.Component {
     tallyHandler = () => { 
 
             let subtotal = this.tally();
+            let tax = 0.045
 
             return(<>
-             <Table.Cell size='large'><Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label></Table.Cell>
+             <Table.Cell textAlign='left' size='large'>
+                 <Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label><Label color='teal' size='huge'> Tax(4.5%): {fm.from(tax * subtotal, { symbol: '$' })}</Label>
+                 <Label color='teal' size='huge'> Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$' })}</Label>
+            </Table.Cell>
             
             </>)     
         
@@ -43,7 +47,7 @@ class ReceiptList extends React.Component {
 
     itemOrderIterator = () => {
         
-            return this.filteredItemOrders().map(itemOrder => <ReceiptCard 
+            return this.filteredItemOrders().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
                />)

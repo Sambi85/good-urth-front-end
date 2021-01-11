@@ -187,7 +187,34 @@ export const decrement = (itemOrder) => {
 }
 
 export const billTotalGrabber = (billTotal) => {
-        console.log(billTotal)
+        
     return { type: 'billTotal', payload: billTotal }
+}
+
+export const datePurchasedHandler = (idArray) => {
+
+    let options = {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json"
+        },
+
+        body: JSON.stringify({
+            date_purchased: new Date.now()
+        })
+    }
+
+    for (let id of idArray) {
+
+        fetch(`http://localhost:4000/item_orders/${id}`, options)
+        .then(resp => resp.json())
+        .then(data => { console.log(data)
+            dispatch({type: "paid itemOrders", payload: data})  })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }        
+}
 }
 
