@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber } from '../redux/actions'
+import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber, datePurchasedHandler } from '../redux/actions'
 import ConfirmButton from '../components/ConfirmButton.js'
 import EmptyButton from '../components/EmptyButton.js' 
 
@@ -10,7 +10,7 @@ import { Button, Dimmer, Grid, Image, Icon, Label, Loader, Rail, Segment, Table 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
-const tax = 0.45;
+const tax = 0.045;
 
 class PaymentDashboard extends React.Component {
 
@@ -60,6 +60,7 @@ class PaymentDashboard extends React.Component {
         
         let filteredIds = this.filteredItemOrders().map(element => element.id)
         this.props.paidItemOrders(filteredIds)
+        this.props.datePurchasedHandler(filteredIds)
     }
     
     emptyCartHandler = () => {
@@ -186,7 +187,8 @@ const mdp = (dispatch) => {
     return {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
         paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
-        billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill))
+        billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill)),
+        datePurchasedHandler: (id) => disptach(datePurchasedHandler(id))
        }
     }
    

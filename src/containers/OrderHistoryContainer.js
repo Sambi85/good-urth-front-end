@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
 import OrderHistoryList from '../lists/OrderHistoryList.js'
 import OrderHistoryDashboard from '../Dashboard/OrderHistoryDashboard.js'
-
  
 class OrderHistoryContainer extends React.Component {       
         
