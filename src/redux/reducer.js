@@ -100,14 +100,17 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
         case "paid itemOrders" : 
         
             let newArrayB = [...currentState]
-            let data = action.payload
-            console.log(data)
-            // for (let id of idArray) {
-            //     let foundIndex = newArrayA.findIndex(element => element.id === id)
-            //     newArrayA.splice(foundIndex, 1)
-            // }
-            //     console.log(newArrayA)
-            //     defaultState.itemOrders = newArrayA
+            
+                defaultState.itemOrders = action.payload
+                currentState = defaultState.itemOrders
+            
+            return currentState
+
+        case "purchase_data" : 
+        
+            let newArrayC = [...currentState]
+            
+                defaultState.itemOrders = action.payload
                 currentState = defaultState.itemOrders
             
             return currentState
