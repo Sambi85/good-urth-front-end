@@ -131,7 +131,7 @@ export const datePurchasedHandler = (idArray) => {
         fetch(`http://localhost:4000/item_orders/${id}`, options)
         .then(resp => resp.json())
         .then(data => { console.log(data)
-            dispatch({type: "paid itemOrders", payload: data})
+            dispatch({type: "purchase_data", payload: data})
             })
         .catch(error => {
             console.error('Error:', error);

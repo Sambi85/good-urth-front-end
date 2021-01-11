@@ -100,8 +100,17 @@ function itemOrderReducer(currentState = defaultState.itemOrders, action) {
         case "paid itemOrders" : 
         
             let newArrayB = [...currentState]
-            let data = action.payload
+            
+                defaultState.itemOrders = action.payload
+                currentState = defaultState.itemOrders
+            
+            return currentState
 
+        case "purchase_data" : 
+        
+            let newArrayC = [...currentState]
+            
+                defaultState.itemOrders = action.payload
                 currentState = defaultState.itemOrders
             
             return currentState
