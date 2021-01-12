@@ -23,11 +23,12 @@ class ReceiptList extends React.Component {
     tally = () => {
         
         if (this.filteredItemOrders().length > 0) {
-            
-            let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
-            let subtotal = subtotalArray.reduce((a,b) => a + b )
-    
+        
+            let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
+            let subtotal = helper.reduce((a,b) => a + b )
+        
             return subtotal
+        
         } else {
 
             return 0;

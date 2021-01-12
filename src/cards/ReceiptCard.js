@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { increment, decrement, getFarmers, destroyItemOrder } from '../redux/actions'
 import { Dimmer, Button, Icon, Input, Image, Label, Loader, Table, Segment } from 'semantic-ui-react';
+import { ContactsOutlined } from '@material-ui/icons';
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -44,16 +45,16 @@ class ReceiptCard extends React.Component {
         )
     }
 
-    filteredItemOrder = () => {
+    // filteredItemOrder = () => {
 
-        let filteredItemOrders = this.props.itemOrders.filter(element => element.id === this.props.id)
-        console.log(this.props.id)
-        return filteredItemOrders
-    }
+    //     let filteredItemOrders = this.props.itemOrders.filter(element => element.id === this.props.id)
+
+    //     return filteredItemOrders
+    // }
     
     itemOrderGrabber = () => {
 
-        let itemOrder = this.filteredItemOrder().filter(element => element.id === this.props.id)
+        let itemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
         
         return itemOrder[0]
 
@@ -61,10 +62,10 @@ class ReceiptCard extends React.Component {
 
     farmerGrabber = () => {
         
-        let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
-        let farmer_id = targetItemOrder[0].item.farmer_id
+        // let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
+        let farmer_id = this.itemOrderGrabber().item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
-        
+        console.log(farmer_name)
         return farmer_name
     }
 
@@ -131,7 +132,7 @@ class ReceiptCard extends React.Component {
     renderReceiptCard = () => {
 
        let itemOrder = this.itemOrderGrabber()
-       
+       console.log(itemOrder)
        let price = parseInt(itemOrder.item.price)
         if (itemOrder !== null) {
 
