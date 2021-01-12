@@ -16,15 +16,14 @@ class ReceiptList extends React.Component {
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        return filteredItemOrders
         
-            return filteredItemOrders
-
     }
-
+    
     tally = () => {
-
+        
         if (this.filteredItemOrders().length > 0) {
-
+            
             let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
             let subtotal = subtotalArray.reduce((a,b) => a + b )
     

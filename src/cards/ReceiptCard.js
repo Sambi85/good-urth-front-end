@@ -45,17 +45,16 @@ class ReceiptCard extends React.Component {
     }
 
     filteredItemOrder = () => {
-        
-        const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        
+
+        let filteredItemOrders = this.props.itemOrders.filter(element => element.id === this.props.id)
+        console.log(this.props.id)
         return filteredItemOrders
     }
     
     itemOrderGrabber = () => {
 
         let itemOrder = this.filteredItemOrder().filter(element => element.id === this.props.id)
+        
         return itemOrder[0]
 
     }
@@ -132,6 +131,7 @@ class ReceiptCard extends React.Component {
     renderReceiptCard = () => {
 
        let itemOrder = this.itemOrderGrabber()
+       
        let price = parseInt(itemOrder.item.price)
         if (itemOrder !== null) {
 
@@ -166,7 +166,7 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
-        
+
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
