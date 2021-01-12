@@ -22,12 +22,19 @@ class OrderHistoryList extends React.Component {
     }
 
     tally = () => {
+
+        if (this.filteredItemOrders() > 0) {
     
         let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
         let subtotal = subtotalArray.reduce((a,b) => a + b )
+        
+            return subtotal
 
-        return subtotal
+        } else {
 
+            return 0;
+        
+        }
     }
 
     tallyHandler = () => { 

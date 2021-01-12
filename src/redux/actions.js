@@ -113,7 +113,7 @@ export const datePurchasedHandler = (idArray) => {
         },
 
         body: JSON.stringify({
-            date_purchased: new Date.now()
+            date_purchased: new Date()
         })
     }
 
@@ -143,23 +143,21 @@ export const getItems = (itemObj) => {
 
 
 export const getMessages = (messageObj) => {
-    // console.log("first dispatch invoked")
+ 
     return function (dispatch) {
-        // console.log("nested function invoked")
+       
         fetch('http://localhost:4000/messages')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched messages", payload: data}) )
     }
 }
 
 export const getOrders = (orderObj) => {
-    // console.log("first dispatch invoked")
+ 
     return function (dispatch) {
-        // console.log("nested function invoked")
+   
         fetch('http://localhost:4000/orders')
-        .then(resp => resp.json())
-        
+        .then(resp => resp.json())   
         .then(data => dispatch({type: "fetched orders", payload: data}) )
     }
 }
