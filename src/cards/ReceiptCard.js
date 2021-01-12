@@ -132,7 +132,7 @@ class ReceiptCard extends React.Component {
     renderReceiptCard = () => {
 
        let itemOrder = this.itemOrderGrabber()
-       console.log(itemOrder)
+
        let price = parseInt(itemOrder.item.price)
         if (itemOrder !== null) {
 
