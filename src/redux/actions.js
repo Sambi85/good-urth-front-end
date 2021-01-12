@@ -148,18 +148,16 @@ export const getMessages = (messageObj) => {
        
         fetch('http://localhost:4000/messages')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched messages", payload: data}) )
     }
 }
 
 export const getOrders = (orderObj) => {
-    // console.log("first dispatch invoked")
+ 
     return function (dispatch) {
-        // console.log("nested function invoked")
+   
         fetch('http://localhost:4000/orders')
-        .then(resp => resp.json())
-        
+        .then(resp => resp.json())   
         .then(data => dispatch({type: "fetched orders", payload: data}) )
     }
 }
