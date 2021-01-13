@@ -17,7 +17,7 @@ class OrderHistoryCard extends React.Component {
                                 <div>
                                     <Segment>
                                         <Dimmer active>
-                                            <Loader indeterminate>Loading Receipt Card ...</Loader>
+                                            <Loader indeterminate>Loading Order History ...</Loader>
                                         </Dimmer>
                                 
                                         <Image src='/images/wireframe/short-paragraph.png' />
@@ -29,9 +29,9 @@ class OrderHistoryCard extends React.Component {
     filteredItemOrder = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        
+            
         return filteredItemOrders
     }
     
@@ -57,7 +57,7 @@ class OrderHistoryCard extends React.Component {
                   <div>
                     <Segment>
                         <Dimmer active>
-                            <Loader indeterminate>Loading Farmer's Name ...</Loader>
+                            <Loader indeterminate>Loading Order ...</Loader>
                         </Dimmer>
                                 
                         <Image src='/images/wireframe/short-paragraph.png' />

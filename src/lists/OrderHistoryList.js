@@ -14,9 +14,9 @@ class OrderHistoryList extends React.Component {
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-            console.log(filteredItemOrders)
+        
         return filteredItemOrders
 
     }
@@ -25,8 +25,8 @@ class OrderHistoryList extends React.Component {
 
         if (this.filteredItemOrders() > 0) {
     
-        let subtotalArray = this.filteredItemOrders().map(itemOrder => itemOrder.order.subtotal)
-        let subtotal = subtotalArray.reduce((a,b) => a + b )
+            let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
+            let subtotal = helper.reduce((a,b) => a + b )
         
             return subtotal
 
@@ -53,11 +53,19 @@ class OrderHistoryList extends React.Component {
     }
 
     itemOrderIterator = () => {
+
+        if (this.filteredItemOrders().length > 0) {
         
             return this.filteredItemOrders().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
                />)
+       
+        } else {
+
+            return this.loadingReceiptList()
+
+        }
     }
     
     loadingReceiptList = () => {
@@ -67,8 +75,8 @@ class OrderHistoryList extends React.Component {
               childKey: 0,
               image:'https://imagevars.gulfnews.com/2020/01/20/Auto-fuel_16fc32751ba_medium.jpg',
               header: "Empty",
-              description: 'You currently have no Item Orders',
-              meta: "Try finding a farmer's market or a vendor through the explore page!"
+              description: 'Go buy something !',
+              meta: "You currently have no orders in your history"
             }
           ]
 
@@ -82,6 +90,8 @@ class OrderHistoryList extends React.Component {
     }
     
     renderReceiptList = () => {
+
+        if (this.filteredItemOrders().length > 0) {
         
         return(
             <>
@@ -117,6 +127,11 @@ class OrderHistoryList extends React.Component {
             
             </>
         )
+        } else {
+
+            return this.loadingReceiptList()
+        
+        }
     }
 
     render() {
