@@ -10,7 +10,11 @@ const fm = new FormatMoney({
 });
 
 class OrderHistoryCard extends React.Component {
-                                                
+
+    unique = (value, index, self) => {
+        return self.indexOf(value) === index;
+    }
+                                         
     loadingReceiptCard = () => {
                                                 
                             return (
@@ -39,12 +43,12 @@ class OrderHistoryCard extends React.Component {
 
         let itemOrder = this.filteredItemOrder().filter(element => element.id === this.props.id)
             
-            return itemOrder[0]
+        return itemOrder[0]
 
     }
 
     farmerGrabber = () => {
-        
+
         let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
         let farmer_id = targetItemOrder[0].item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username

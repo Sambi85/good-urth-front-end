@@ -16,7 +16,7 @@ export const getFarmers = (farmerObj) => {
         // console.log("nested function invoked")
         fetch('http://localhost:4000/farmers')
         .then(resp => resp.json())
-        // .then(console.log)
+    
         .then(data => dispatch({type: "fetched farmers", payload: data}) )      
     }
 }

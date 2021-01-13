@@ -135,7 +135,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props.itemOrders)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
