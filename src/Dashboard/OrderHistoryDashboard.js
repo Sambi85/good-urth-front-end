@@ -18,9 +18,20 @@ import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
                   </Segment>
                 </div>
       )
-    }    
+    }
+
+    filteredItemOrder = () => {
+        
+      const user = this.props.currentUser[0]
+      let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
+      let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+          
+          return filteredItemOrders
+  }
 
     renderDashboard = () => {
+
+      if (this.filteredItemOrder().length > 0) {
       return(
           <>
             <Image src='https://images-prod.healthline.com/hlcmsresource/images/AN_images/benefits-of-pears-1296x728-feature.jpg' fluid='true' centered='true' />
@@ -32,11 +43,17 @@ import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
                                 firstItem={null}
                                 lastItem={null}
                                 siblingRange={1}
-                                totalPages={10}
+                                totalPages={this.filteredItemOrder().length}
                             />
                 </Segment>
         </>
-      )
+        )
+      
+      } else {
+
+        return null
+      
+      }
     }
     
     render() {
@@ -51,7 +68,8 @@ import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
 
 const msp = (state) => {
     return {
-           currentUser: state.currentUser
+           currentUser: state.currentUser,
+           itemOrders: state.itemOrders
       }
    }
    
