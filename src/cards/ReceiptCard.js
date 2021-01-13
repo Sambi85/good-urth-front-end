@@ -45,13 +45,6 @@ class ReceiptCard extends React.Component {
         )
     }
 
-    // filteredItemOrder = () => {
-
-    //     let filteredItemOrders = this.props.itemOrders.filter(element => element.id === this.props.id)
-
-    //     return filteredItemOrders
-    // }
-    
     itemOrderGrabber = () => {
 
         let itemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
@@ -62,7 +55,6 @@ class ReceiptCard extends React.Component {
 
     farmerGrabber = () => {
         
-        // let targetItemOrder = this.props.itemOrders.filter(element => element.id === this.props.id)
         let farmer_id = this.itemOrderGrabber().item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
         console.log(farmer_name)

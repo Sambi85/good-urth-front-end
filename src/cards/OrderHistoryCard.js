@@ -17,7 +17,7 @@ class OrderHistoryCard extends React.Component {
                                 <div>
                                     <Segment>
                                         <Dimmer active>
-                                            <Loader indeterminate>Loading Receipt Card ...</Loader>
+                                            <Loader indeterminate>Loading Order History ...</Loader>
                                         </Dimmer>
                                 
                                         <Image src='/images/wireframe/short-paragraph.png' />
@@ -29,16 +29,17 @@ class OrderHistoryCard extends React.Component {
     filteredItemOrder = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
+        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
         let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
-        
-        return filteredItemOrders
+            
+            return filteredItemOrders
     }
     
     itemOrderGrabber = () => {
 
         let itemOrder = this.filteredItemOrder().filter(element => element.id === this.props.id)
-        return itemOrder[0]
+            
+            return itemOrder[0]
 
     }
 
@@ -48,7 +49,7 @@ class OrderHistoryCard extends React.Component {
         let farmer_id = targetItemOrder[0].item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
         
-        return farmer_name
+            return farmer_name
     }
 
     loadingFarmerGrabber = () => {
@@ -57,7 +58,7 @@ class OrderHistoryCard extends React.Component {
                   <div>
                     <Segment>
                         <Dimmer active>
-                            <Loader indeterminate>Loading Farmer's Name ...</Loader>
+                            <Loader indeterminate>Loading Order ...</Loader>
                         </Dimmer>
                                 
                         <Image src='/images/wireframe/short-paragraph.png' />
@@ -93,7 +94,7 @@ class OrderHistoryCard extends React.Component {
     }
     
     render(){
-        
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
