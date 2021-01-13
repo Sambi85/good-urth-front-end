@@ -78,6 +78,8 @@ class ReceiptList extends React.Component {
     }
     
     renderReceiptList = () => {
+
+        if (this.filteredItemOrders().length > 0) {
         
         return(
             <>
@@ -114,7 +116,11 @@ class ReceiptList extends React.Component {
             </Grid>
             
             </>
-        )
+            )
+            
+        } else {
+            return this.loadingReceiptList()
+        }
     }
 
     render() {
