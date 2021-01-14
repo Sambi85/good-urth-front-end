@@ -20,6 +20,14 @@ import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
       )
     }
 
+    onlyUnique = (value, index, self) => {
+      return self.indexOf(value) === index;
+    }
+
+    paginationHandler = () => {
+      
+    }
+
     filteredItemOrder = () => {
         
       const user = this.props.currentUser[0]
@@ -44,6 +52,7 @@ import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
                                 lastItem={null}
                                 siblingRange={1}
                                 totalPages={this.filteredItemOrder().length}
+                                // onPageChange={}
                             />
                 </Segment>
         </>

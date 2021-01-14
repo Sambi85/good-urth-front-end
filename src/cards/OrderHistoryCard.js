@@ -101,7 +101,7 @@ class OrderHistoryCard extends React.Component {
         console.log(this.props)
         return(
             <>
-                {this.props.itemOrders.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
+                {this.props.farmers.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
             </>
         )
     }

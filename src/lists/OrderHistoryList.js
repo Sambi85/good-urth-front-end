@@ -54,6 +54,10 @@ class OrderHistoryList extends React.Component {
 
     itemOrderIterator = () => {
 
+        let timeArray = this.filteredItemOrders().map(element => element.date_purchased)
+
+        console.log(timeArray)
+
         if (this.filteredItemOrders().length > 0) {
         
             return this.filteredItemOrders().map(itemOrder => <OrderHistoryCard
@@ -135,7 +139,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.props.itemOrders)
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
