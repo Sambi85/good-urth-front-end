@@ -10,24 +10,39 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class OrderHistoryList extends React.Component {
-
+    
     state = {
-        pagination: 0
+        index: 0
     }
 
+    
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        let filteredItemOrders = notPaid.filter(itemOrder => itemOrder.order.user_id === user.id)
         
         return filteredItemOrders
-
+    }
+    
+    unique = (array) => {
+       let set = [... new Set(array)]
+       let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
+       let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
+        
+        return uniqueSet
     }
 
+    filteredByDate = () => {
+        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
+        let uniqueDates = this.unique(mappedByDate)
+            
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
+        return filteredItemOrders
+    }
+    
     tally = () => {
-
-        console.log(this.filteredItemOrders().length)
+       console.log(this.filteredByDate())
         if (this.filteredItemOrders().length > 0) {
             
             let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
@@ -58,9 +73,7 @@ class OrderHistoryList extends React.Component {
 
     itemOrderIterator = () => {
 
-        let timeArray = this.filteredItemOrders().map(element => element.date_purchased)
 
-        console.log(timeArray)
 
         if (this.filteredItemOrders().length > 0) {
         
@@ -128,7 +141,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={this.filteredItemOrders()[0]}
-                                totalPages={this.filteredItemOrders().length}
+                                totalPages={this.state.index + 1}
                                 onPageChange={() => { console.log("PAGINATION!!!")}}
                             />
                                 
@@ -149,7 +162,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.props.itemOrders)
+        // console.log(this.state)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
