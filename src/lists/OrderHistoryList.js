@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Container, Grid, Label, Item, Table } from 'semantic-ui-react'
+import { Container, Grid, Label,  Pagination, Menu, Icon, Item, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import OrderHistoryCard from '../cards/OrderHistoryCard.js';
@@ -10,6 +10,10 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class OrderHistoryList extends React.Component {
+
+    state = {
+        pagination: 0
+    }
 
     filteredItemOrders = () => {
         
@@ -23,8 +27,9 @@ class OrderHistoryList extends React.Component {
 
     tally = () => {
 
-        if (this.filteredItemOrders() > 0) {
-    
+        console.log(this.filteredItemOrders().length)
+        if (this.filteredItemOrders().length > 0) {
+            
             let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
             let subtotal = helper.reduce((a,b) => a + b )
         
@@ -42,14 +47,13 @@ class OrderHistoryList extends React.Component {
             let subtotal = this.tally();
             let tax = 0.045
 
-            return(<>
-             <Table.Cell textAlign='left' size='large'>
-                 <Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label><Label color='teal' size='huge'> Tax(4.5%): {fm.from(tax * subtotal, { symbol: '$' })}</Label>
-                 <Label color='teal' size='huge'> Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$' })}</Label>
-            </Table.Cell>
-            
-            </>)     
-        
+            return(
+                    <>
+                        <Label color='teal' size='huge'> Grand Total: {fm.from(subtotal + (subtotal * tax), { symbol: '$' })}</Label>
+                        <Label color='teal' size='huge'> Tax(4.5%): {fm.from(tax * subtotal, { symbol: '$' })}</Label>
+                        <Label color='teal' size='huge'> Subtotal: {fm.from(subtotal, { symbol: '$' })}</Label>
+                     </>
+            )     
     }
 
     itemOrderIterator = () => {
@@ -100,8 +104,8 @@ class OrderHistoryList extends React.Component {
         return(
             <>
             
-            <Grid container columns={4}>
-                <Table striped verticalAlign='middle' sortable='true' size='medium'>
+            <Grid container columns={2}>
+                <Table striped verticalAlign='middle'  size='medium'>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Item</Table.HeaderCell>
@@ -110,6 +114,7 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell>Count</Table.HeaderCell>
                             <Table.HeaderCell>Price per unit</Table.HeaderCell>
                             <Table.HeaderCell>Price</Table.HeaderCell>
+                            <Table.HeaderCell>Date</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -117,14 +122,19 @@ class OrderHistoryList extends React.Component {
                         
                             { this.itemOrderIterator() }
                         
+                    <Table.Footer>
                         <Table.Row>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        {this.tallyHandler()}
+                            <Table.HeaderCell colSpan='3'>
+                            {this.tallyHandler()}
+                            <Pagination 
+                                defaultActivePage={this.filteredItemOrders()[0]}
+                                totalPages={this.filteredItemOrders().length}
+                                onPageChange={() => { console.log("PAGINATION!!!")}}
+                            />
+                                
+                            </Table.HeaderCell>
                         </Table.Row>
+                        </Table.Footer>
                     </Table.Body>
                 </Table>
             </Grid>
@@ -139,7 +149,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props.itemOrders)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
