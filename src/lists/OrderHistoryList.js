@@ -15,6 +15,13 @@ class OrderHistoryList extends React.Component {
         index: 0
     }
 
+    unique = (array) => {
+       let set = [... new Set(array)]
+       let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
+       let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
+        
+        return uniqueSet
+    }
     
     filteredItemOrders = () => {
         
@@ -24,28 +31,19 @@ class OrderHistoryList extends React.Component {
         
         return filteredItemOrders
     }
-    
-    unique = (array) => {
-       let set = [... new Set(array)]
-       let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
-       let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
-        
-        return uniqueSet
-    }
 
     filteredByDate = () => {
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
         let uniqueDates = this.unique(mappedByDate)
-            
         let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
         return filteredItemOrders
     }
     
     tally = () => {
-       console.log(this.filteredByDate())
-        if (this.filteredItemOrders().length > 0) {
+    
+        if (this.filteredByDate().length > 0) {
             
-            let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
+            let helper = this.filteredByDate().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
             let subtotal = helper.reduce((a,b) => a + b )
         
             return subtotal
@@ -71,13 +69,19 @@ class OrderHistoryList extends React.Component {
             )     
     }
 
+    paginationHandler = (event) => {
+        let index = event.target.innerHTML
+        
+        this.setState({
+            index: index
+        })
+    }
+
     itemOrderIterator = () => {
 
-
-
-        if (this.filteredItemOrders().length > 0) {
+        if (this.filteredByDate().length > 0) {
         
-            return this.filteredItemOrders().map(itemOrder => <OrderHistoryCard
+            return this.filteredByDate().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
                />)
@@ -140,9 +144,9 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={this.filteredItemOrders()[0]}
-                                totalPages={this.state.index + 1}
-                                onPageChange={() => { console.log("PAGINATION!!!")}}
+                                defaultActivePage={this.filteredByDate()}
+                                totalPages={this.state.index + 2}
+                                onPageChange={(event) => this.paginationHandler(event)}
                             />
                                 
                             </Table.HeaderCell>
