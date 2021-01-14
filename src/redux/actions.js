@@ -131,12 +131,11 @@ export const datePurchasedHandler = (idArray) => {
 }
 
 export const getItems = (itemObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
         
         fetch('http://localhost:4000/items')
         .then(resp => resp.json())
-        // .then(console.log)
         .then(data => dispatch({type: "fetched items", payload: data}) )
     }
 }
