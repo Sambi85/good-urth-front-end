@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Container, Grid, Label, Menu, Icon, Item, Table } from 'semantic-ui-react'
+import { Container, Grid, Label,  Pagination, Menu, Icon, Item, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import OrderHistoryCard from '../cards/OrderHistoryCard.js';
@@ -10,6 +10,10 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class OrderHistoryList extends React.Component {
+
+    state = {
+        pagination: 0
+    }
 
     filteredItemOrders = () => {
         
@@ -100,8 +104,8 @@ class OrderHistoryList extends React.Component {
         return(
             <>
             
-            <Grid container columns={4}>
-                <Table striped verticalAlign='middle' sortable='true' size='medium'>
+            <Grid container columns={2}>
+                <Table striped verticalAlign='middle'  size='medium'>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Item</Table.HeaderCell>
@@ -110,6 +114,7 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell>Count</Table.HeaderCell>
                             <Table.HeaderCell>Price per unit</Table.HeaderCell>
                             <Table.HeaderCell>Price</Table.HeaderCell>
+                            <Table.HeaderCell>Date</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -117,33 +122,19 @@ class OrderHistoryList extends React.Component {
                         
                             { this.itemOrderIterator() }
                         
+                    <Table.Footer>
                         <Table.Row>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        <Table.Cell></Table.Cell>
-                        </Table.Row>
-
-                        <Table.Footer>
-                    <Table.Row>
                             <Table.HeaderCell colSpan='3'>
-                        {this.tallyHandler()}
-                                <Menu floated='right' pagination>
-                                    <Menu.Item as='a' icon>
-                                    <Icon name='chevron left' />
-                                    </Menu.Item>
-                                    <Menu.Item as='a'>1</Menu.Item>
-                                    <Menu.Item as='a'>2</Menu.Item>
-                                    <Menu.Item as='a'>3</Menu.Item> 
-                                    <Menu.Item as='a'>4</Menu.Item>
-                                    <Menu.Item as='a' icon>
-                                    <Icon name='chevron right' />
-                                    </Menu.Item>
-                                </Menu>
+                            {this.tallyHandler()}
+                            <Pagination 
+                                defaultActivePage={this.filteredItemOrders()[0]}
+                                totalPages={this.filteredItemOrders().length}
+                                onPageChange={() => { console.log("PAGINATION!!!")}}
+                            />
+                                
                             </Table.HeaderCell>
-                    </Table.Row>
-                    </Table.Footer>
+                        </Table.Row>
+                        </Table.Footer>
                     </Table.Body>
                 </Table>
             </Grid>
