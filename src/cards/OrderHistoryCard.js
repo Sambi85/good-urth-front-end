@@ -82,7 +82,7 @@ class OrderHistoryCard extends React.Component {
                 <Table.Row>
                     <Table.Cell>{itemOrder.item.name}</Table.Cell>
                     <Table.Cell>{this.farmerGrabber()}</Table.Cell>
-                    <Table.Cell><Label size='large'>{itemOrder.item.purchase_unit}</Label> </Table.Cell>
+                    <Table.Cell><Label size='medium'>{itemOrder.item.purchase_unit}</Label> </Table.Cell>
                     <Table.Cell>{itemOrder.quantity}</Table.Cell>
                     <Table.Cell>
                         <Label color='teal' tag size='medium'>
@@ -98,7 +98,7 @@ class OrderHistoryCard extends React.Component {
     }
     
     render(){
-        console.log(this.props)
+        
         return(
             <>
                 {this.props.farmers.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
