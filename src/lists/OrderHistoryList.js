@@ -10,24 +10,31 @@ const { FormatMoney } = require('format-money-js');
 const fm = new FormatMoney({ decimals: 2 });
 
 class OrderHistoryList extends React.Component {
-
+    
     state = {
-        pagination: 0
+        index: 0
     }
 
+    unique = (value, index, self) => {
+        return self.indexOf(value) === index;
+      }
+    
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
         let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        let filteredItemOrders = notPaid.filter(itemOrder => itemOrder.order.user_id === user.id)
         
         return filteredItemOrders
-
     }
 
+    filteredByDate = () => {
+        let timeArray = this.filteredItemOrders().map(element => element.date_purchased)
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === timeArray[this.state.index])
+    }
+    
     tally = () => {
-
-        console.log(this.filteredItemOrders().length)
+        
         if (this.filteredItemOrders().length > 0) {
             
             let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
@@ -58,9 +65,7 @@ class OrderHistoryList extends React.Component {
 
     itemOrderIterator = () => {
 
-        let timeArray = this.filteredItemOrders().map(element => element.date_purchased)
 
-        console.log(timeArray)
 
         if (this.filteredItemOrders().length > 0) {
         
@@ -149,7 +154,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.props.itemOrders)
+        console.log(this.state)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
