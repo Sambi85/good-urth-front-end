@@ -15,9 +15,6 @@ class OrderHistoryList extends React.Component {
         index: 0
     }
 
-    unique = (value, index, self) => {
-        return self.indexOf(value) === index;
-      }
     
     filteredItemOrders = () => {
         
@@ -27,18 +24,25 @@ class OrderHistoryList extends React.Component {
         
         return filteredItemOrders
     }
+    
+    unique = (array) => {
+       let set = [... new Set(array)]
+       let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
+       let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
+        
+        return uniqueSet
+    }
 
     filteredByDate = () => {
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
         let uniqueDates = this.unique(mappedByDate)
-
+            
         let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
-
         return filteredItemOrders
     }
     
     tally = () => {
-        
+       console.log(this.filteredByDate())
         if (this.filteredItemOrders().length > 0) {
             
             let helper = this.filteredItemOrders().map(itemOrder => Math.floor(itemOrder.item.price) * itemOrder.quantity)
@@ -158,7 +162,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
