@@ -29,8 +29,12 @@ class OrderHistoryList extends React.Component {
     }
 
     filteredByDate = () => {
-        let timeArray = this.filteredItemOrders().map(element => element.date_purchased)
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === timeArray[this.state.index])
+        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
+        let uniqueDates = this.unique(mappedByDate)
+
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
+
+        return filteredItemOrders
     }
     
     tally = () => {
@@ -133,7 +137,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={this.filteredItemOrders()[0]}
-                                totalPages={this.filteredItemOrders().length}
+                                totalPages={this.state.index + 1}
                                 onPageChange={() => { console.log("PAGINATION!!!")}}
                             />
                                 
