@@ -169,7 +169,6 @@ class PaymentDashboard extends React.Component {
     }
     
     render() {
-        
         return (
                 <> {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
         )
