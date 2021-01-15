@@ -70,11 +70,15 @@ class OrderHistoryList extends React.Component {
     }
 
     paginationHandler = (event) => {
-        let index = event.target.innerHTML
+           
+            let newIndex = event.target.innerHTML
         
-        this.setState({
-            index: index
-        })
+            if(isNaN(newIndex === true)) {
+                
+                this.setState({
+                    index: newIndex
+                })
+        }    
     }
 
     itemOrderIterator = () => {
@@ -144,9 +148,9 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={this.filteredByDate()}
-                                totalPages={this.state.index + 2}
-                                onPageChange={(event) => this.paginationHandler(event)}
+                                defaultActivePage={this.filteredByDate()[0]}
+                                totalPages={this.filteredByDate().length - 1}
+                                onClick={(event) => this.paginationHandler(event)}
                             />
                                 
                             </Table.HeaderCell>
