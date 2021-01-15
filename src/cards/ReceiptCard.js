@@ -83,7 +83,7 @@ class ReceiptCard extends React.Component {
         if (this.itemOrderGrabber().quantity < this.itemOrderGrabber().item.stock_amount) {
             
             return (  
-            this.props.increment(this.itemOrderGrabber()),
+            
             this.setState({
                 placeholder: `x${this.itemOrderGrabber().quantity}`
             })
@@ -102,17 +102,17 @@ class ReceiptCard extends React.Component {
     decrementButton = () => {
         console.log("decrement!")
 
-        if (this.props.itemOrder.quantity === 0) {
+        if (this.itemOrderGrabber().quantity > 1) {
 
         return (
             this.setState({
-                placeholder: `x${this.itemOrderGrabber().quantity}`
+                placeholder: `x${this.itemOrderGrabber().quantity - 1}`
                 })
             )
         } else {
 
             return (
-                this.props.decrement(this.itemOrderGrabber()),
+                
                 this.setState({
                     placeholder: `x${this.itemOrderGrabber().quantity}`
                 })
