@@ -147,7 +147,7 @@ class PaymentDashboard extends React.Component {
                                 </Table.Row>
 
                                 <Table.Row> 
-                                    <Table.Cell> Zipcode: 11206 </Table.Cell>
+                                    <Table.Cell> Zip code: 11206 </Table.Cell>
                                 </Table.Row>
                                     
                                 <Table.Row>
