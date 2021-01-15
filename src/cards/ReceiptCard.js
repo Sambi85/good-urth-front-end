@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { increment, decrement, getFarmers, destroyItemOrder } from '../redux/actions'
+import { destroyItemOrder } from '../redux/actions'
 import { Dimmer, Button, Icon, Input, Image, Label, Loader, Table, Segment } from 'semantic-ui-react';
-import { ContactsOutlined } from '@material-ui/icons';
 
 // converts to money //
 const { FormatMoney } = require('format-money-js');
@@ -19,9 +18,9 @@ class ReceiptCard extends React.Component {
     componentDidMount() {
         
         return (
-            this.props.fetchFarmers(),
+        
             this.setState({
-                placeholder: `x${this.itemOrderGrabber().quantity}`,
+                placeholder: this.itemOrderGrabber().quantity
             })
         )        
     }
@@ -57,7 +56,7 @@ class ReceiptCard extends React.Component {
         
         let farmer_id = this.itemOrderGrabber().item.farmer_id
         let farmer_name = this.props.farmers.filter(element => element.id === farmer_id)[0].username
-        console.log(farmer_name)
+        
         return farmer_name
     }
 
@@ -80,11 +79,11 @@ class ReceiptCard extends React.Component {
     incrementButton = () => {
         console.log("increment!")
 
-        if (this.itemOrderGrabber().quantity < this.itemOrderGrabber().item.stock_amount) {
+        if (this.state.placeholder < this.itemOrderGrabber().item.stock_amount) {
             
             return (  
             this.setState({
-                placeholder: `x${this.itemOrderGrabber().quantity}`
+                placeholder: this.state.placeholder + 1
             })
         )
 
@@ -92,7 +91,7 @@ class ReceiptCard extends React.Component {
             
             return (  
                 this.setState({
-                    placeholder: `x${this.itemOrderGrabber().quantity}`
+                    placeholder: this.state.placeholder
                 })
             )
         }
@@ -101,18 +100,18 @@ class ReceiptCard extends React.Component {
     decrementButton = () => {
         console.log("decrement!")
 
-        if (this.itemOrderGrabber().quantity > 1) {
+        if (this.state.placeholder >= 2) {
 
         return (
             this.setState({
-                placeholder: `x${this.itemOrderGrabber().quantity - 1}`
+                placeholder: this.state.placeholder - 1
                 })
             )
         } else {
 
             return (
                 this.setState({
-                    placeholder: `x${this.itemOrderGrabber().quantity}`
+                    placeholder: this.state.placeholder
                 })
              )
         }
@@ -141,7 +140,7 @@ class ReceiptCard extends React.Component {
                         <Button icon size='mini' onClick={this.incrementButton}>
                             <Icon name='right arrow'/>
                         </Button>
-                    <Input id='input' size='mini' placeholder={this.state.placeholder} size='mini'/>
+                    <Input id='input' size='mini' placeholder={`x${this.state.placeholder}`} size='mini'/>
                     </Table.Cell>
                     <Table.Cell>
                         <Label color='teal' tag size='medium'>
@@ -157,10 +156,10 @@ class ReceiptCard extends React.Component {
     }
     
     render(){
-
+            console.log(this.props)
         return(
             <>
-                {this.props.itemOrders.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
+                {this.props.farmers.length === 0 ? this.loadingReceiptCard() : this.renderReceiptCard()}
             </>
         )
     }
@@ -177,9 +176,6 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
 
-        fetchFarmers:() => dispatch(getFarmers()),
-        increment: (itemOrder) => dispatch(increment(itemOrder)),
-        decrement: (itemOrder) => dispatch(decrement(itemOrder)),
         destroyItemOrder: (itemOrderId) => dispatch(destroyItemOrder(itemOrderId))
     
     }
