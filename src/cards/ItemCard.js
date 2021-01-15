@@ -105,10 +105,10 @@ class ItemCard extends React.Component {
 
     addToCart = (event) => {
 
-        return this.submitHandler(this.state.currentUser.id)
+        return this.submitHandler(this.props.currentUser[0].id)
     }
 
-   async submitHandler(currentUserId) {
+   async submitHandler() {
 
             let orderOptions = {
                 method: "POST",
@@ -119,7 +119,7 @@ class ItemCard extends React.Component {
                 body: JSON.stringify({
                     
                     user_id: this.props.currentUser[0].id,
-                    subtotal: this.props.item.price,
+                    subtotal: this.targetItem().price,
                     tax: 0,
                     total: 0,
                     pick_up: "t"
@@ -151,7 +151,8 @@ class ItemCard extends React.Component {
 
                     item_id: this.targetItem().id,
                     order_id: this.state.orderId,
-                    quantity: this.state.placeholder
+                    quantity: this.state.placeholder,
+                    paid: false
                 
                 })
             }
