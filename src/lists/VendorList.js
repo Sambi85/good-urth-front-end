@@ -24,8 +24,8 @@ class VendorList extends React.Component {
 
         let num = this.props.id === '' ? this.props.farmerId : +this.props.id 
     
-        let targetSchedule = this.props.schedules.filter(element => element.market_id === parseInt(num))
-            debugger
+        let targetSchedule = this.props.schedules.filter(element => element.market_id === num)  //HERE --------------------------- 
+            
         let farmerId = targetSchedule[0].farmer_id
         let filteredFarmers = this.props.farmers.filter(element => element.id === farmerId)
         return filteredFarmers.map(vendor => <VendorCard key={vendor.id} vendor={vendor} />)

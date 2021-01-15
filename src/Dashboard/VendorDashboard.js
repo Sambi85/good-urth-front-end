@@ -10,8 +10,14 @@ class VendorDashboard extends React.Component {
         this.props.fetchMarkets();
     }
 
+    targetMarket = () => {
+
+      let target = this.props.markets.filter(market => market.id === parseInt(this.props.id))
+      return target[0]
+    }
+
     parsePhoneNumber = () => {
-        let cleaned = ('' + this.props.markets[0].phone_number).replace(/\D/g, '')
+        let cleaned = ('' + this.targetMarket().phone_number).replace(/\D/g, '')
         let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
         
         if (match) {
@@ -37,7 +43,7 @@ class VendorDashboard extends React.Component {
     }
 
     operationsConverter = () => {
-        let string = this.props.markets[0].operation_months_code
+        let string = this.targetMarket().operation_months_code
 
             if (string === "P") {
                
@@ -90,20 +96,20 @@ class VendorDashboard extends React.Component {
                         <Table celled>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell><h1>{this.props.markets[0].name}</h1></Table.HeaderCell>
+                                    <Table.HeaderCell><h1>{this.targetMarket().name}</h1></Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
 
                             <Table.Body>
                                     <Table.Row>
                                         <Table.Cell>
-                                        <p>Hours: {this.props.markets[0].hours_of_operation}</p>
+                                        <p>Hours: {this.targetMarket().hours_of_operation}</p>
                                         </Table.Cell>
                                     </Table.Row>
                                         
                                     <Table.Row>
                                         <Table.Cell>
-                                            <p>Contact: {this.props.markets[0].contact}</p>
+                                            <p>Contact: {this.targetMarket().contact}</p>
                                         </Table.Cell>
                                     </Table.Row>
 
@@ -115,7 +121,7 @@ class VendorDashboard extends React.Component {
 
                                     <Table.Row>
                                         <Table.Cell>
-                                            <p>Website: {this.props.markets[0].url}</p>
+                                            <p>Website: {this.targetMarket().url}</p>
                                         </Table.Cell>
                                     </Table.Row>
                             
@@ -136,7 +142,7 @@ class VendorDashboard extends React.Component {
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>
-                                        <p>{`${this.props.markets[0].address} New York, New York, ${this.props.markets[0].zip}`}</p>
+                                        <p>{`${this.targetMarket().address} New York, New York, ${this.targetMarket().zip}`}</p>
                                     </Table.Cell>
                                 </Table.Row>
 
@@ -148,13 +154,13 @@ class VendorDashboard extends React.Component {
 
                                 <Table.Row> 
                                     <Table.Cell>
-                                        <p>FMNP status: {this.answerConverter(this.props.markets[0].fmnp)}</p>
+                                        <p>FMNP status: {this.answerConverter(this.targetMarket().fmnp)}</p>
                                     </Table.Cell>
                                 </Table.Row>
 
                                 <Table.Row> 
                                     <Table.Cell>
-                                        <p>Snap Status: {this.answerConverter(this.props.markets[0].snap_status)}</p>
+                                        <p>Snap Status: {this.answerConverter(this.targetMarket().snap_status)}</p>
                                     </Table.Cell>
                                 </Table.Row>
 
@@ -169,6 +175,7 @@ class VendorDashboard extends React.Component {
     }
     
     render() {
+        console.log(this.targetMarket())
         return(
             <>
               {this.props.markets.length === 0 ? this.loadingVendorDashboard() : this.renderVendorDashboard()}
