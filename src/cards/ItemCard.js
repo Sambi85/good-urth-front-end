@@ -11,25 +11,21 @@ const fm = new FormatMoney({
 class ItemCard extends React.Component {
 
     state = {
-        item: [],
         placeholder: 0,
-        orderId: 0,
+        orderId: 0
     }
 
-    componentDidMount() {
+    targetItem = () => {
 
-        return ( 
-             
-                this.setState({
-                    item: this.props.item
-            })
-        )
+       let target = this.props.items.filter(item => item.id === this.props.id)
+        
+       return target[0]
     }
     
 
     parsedPrice = () => {
         
-       return fm.from(parseInt(this.state.item.price), { symbol: '$' })
+       return fm.from(parseInt(this.targetItem().price), { symbol: '$' })
     
     }
 
@@ -47,15 +43,15 @@ class ItemCard extends React.Component {
 
     itemCounter = () => {
     
-       return this.state.item.stock_amount
+       return this.targetItem().stock_amount
     }
 
     increment = (event) => {
 
-        if (this.state.placeholder >= this.state.item.stock_amount) {
+        if (this.state.placeholder >= this.targetItem().stock_amount) {
 
             this.setState({
-                placeholder: this.state.item.stock_amount
+                placeholder: this.targetItem().stock_amount
             })
 
         } else {
@@ -88,14 +84,14 @@ class ItemCard extends React.Component {
         let matches = str.match(/(\d+)/);
         console.log("matches:", matches.input)
 
-        if (matches.input <= this.state.item.stock_amount) {
+        if (matches.input <= this.targetItem().stock_amount) {
                 console.log('matches inside:', matches.input)
             this.setState({
                 
                 placeholder: matches.input
             
             })
-        } else if (matches.input > this.state.item.stock_amount || matches.input < 0 ){
+        } else if (matches.input > this.targetItem().stock_amount || matches.input < 0 ){
 
             this.setState({
                 
@@ -153,7 +149,7 @@ class ItemCard extends React.Component {
                 },
                 body: JSON.stringify({
 
-                    item_id: this.state.item.id,
+                    item_id: this.targetItem().id,
                     order_id: this.state.orderId,
                     quantity: this.state.placeholder
                 
@@ -191,15 +187,15 @@ class ItemCard extends React.Component {
         
         <Grid.Column>
                 <Card>  
-                    <Image src={this.state.item.url} wrapped ui={false} />
+                    <Image src={this.targetItem().url} wrapped ui={false} />
                     
                     <Card.Content>
                         <Card.Header>
-                            {this.soldOut(this.state.item.item_pulled)}  {this.state.item.name}
+                            {this.soldOut(this.targetItem().item_pulled)}  {this.targetItem().name}
                         </Card.Header>
                 
                         <Card.Meta>                     
-                            <span className='number'>{ this.parsedPrice() } per {this.state.item.purchase_unit} </span>
+                            <span className='number'>{ this.parsedPrice() } per {this.targetItem().purchase_unit} </span>
                             <p> Count: {this.itemCounter()}</p>
                         </Card.Meta>
 
@@ -226,10 +222,10 @@ class ItemCard extends React.Component {
     }
     
     render() {
-            
+            console.log(this.props.items)
         return (
                 <>
-                    {this.props.item.length === 0 ? this.loadingItemCard() : this.renderItemCard()}
+                    {this.props.items.length === 0 ? this.loadingItemCard() : this.renderItemCard()}
                 </>
         )
     }   
@@ -237,7 +233,8 @@ class ItemCard extends React.Component {
 
 const msp = (state) => {
     return {
-        currentUser: state.currentUser
+        currentUser: state.currentUser,
+        items: state.items
       }
    }
    
