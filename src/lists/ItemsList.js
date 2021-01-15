@@ -1,23 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux'
-// import { getItems } from '../redux/actions'
 import { Grid } from 'semantic-ui-react'
 import ItemCard from '../cards/ItemCard.js'
 
 class ItemsList extends React.Component {
 
-    // componentDidMount() {
-        
-    //     return (
-    //             this.props.fetchItems()       
-    //     )
-    // }
-
     itemsIterator = () => {
 
         let filteredItems = this.props.items.filter(element => element.farmer_id === parseInt(this.props.id))
         
-        return filteredItems.map(element => <ItemCard key={element.id} item={element}/>)
+        return filteredItems.map(element => <ItemCard key={element.id} id={element.id}/>)
     }
     
     render(){
@@ -38,10 +30,5 @@ const msp = (state) => {
       }
    }
    
-// const mdp = (dispatch) => {
-//    return {
-//         fetchItems: () => dispatch(getItems())
-//       }
-//    }
    
 export default connect(msp, null)(ItemsList); 
