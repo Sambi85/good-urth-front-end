@@ -1,3 +1,4 @@
+import { ContactSupport } from '@material-ui/icons';
 import React from 'react';
 import { connect } from 'react-redux'
 
@@ -13,6 +14,14 @@ class OrderHistoryCard extends React.Component {
 
     unique = (value, index, self) => {
         return self.indexOf(value) === index;
+    }
+
+    dateParser = () => {
+
+        let date = new Date(this.itemOrderGrabber().date_purchased)
+        let stringDate = date.toLocaleTimeString() + " , " + date.toDateString() 
+        
+        return stringDate
     }
                                          
     loadingReceiptCard = () => {
@@ -81,6 +90,7 @@ class OrderHistoryCard extends React.Component {
             <>
                 <Table.Row>
                     <Table.Cell>{itemOrder.item.name}</Table.Cell>
+                    <Table.Cell>{this.dateParser()}</Table.Cell>
                     <Table.Cell>{this.farmerGrabber()}</Table.Cell>
                     <Table.Cell><Label size='medium'>{itemOrder.item.purchase_unit}</Label> </Table.Cell>
                     <Table.Cell>{itemOrder.quantity}</Table.Cell>
