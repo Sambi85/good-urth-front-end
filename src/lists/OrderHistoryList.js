@@ -16,6 +16,7 @@ class OrderHistoryList extends React.Component {
     }
 
     unique = (array) => {
+
        let set = [... new Set(array)]
        let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
        let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
@@ -33,12 +34,23 @@ class OrderHistoryList extends React.Component {
     }
 
     filteredByDate = () => {
+
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
         let uniqueDates = this.unique(mappedByDate)
+        
         let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
+        
         return filteredItemOrders
     }
-    
+
+    pages = () => {
+
+        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
+        let uniqueDates = this.unique(mappedByDate)
+
+        return uniqueDates
+    }
+
     tally = () => {
     
         if (this.filteredByDate().length > 0) {
@@ -51,7 +63,6 @@ class OrderHistoryList extends React.Component {
         } else {
 
             return 0;
-        
         }
     }
 
@@ -130,12 +141,12 @@ class OrderHistoryList extends React.Component {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Item</Table.HeaderCell>
+                            <Table.HeaderCell>Date</Table.HeaderCell>
                             <Table.HeaderCell>Farm</Table.HeaderCell>
                             <Table.HeaderCell>Unit</Table.HeaderCell>
                             <Table.HeaderCell>Count</Table.HeaderCell>
                             <Table.HeaderCell>Price per unit</Table.HeaderCell>
                             <Table.HeaderCell>Price</Table.HeaderCell>
-                            <Table.HeaderCell>Date</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
 
@@ -148,8 +159,8 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={this.filteredByDate()[0]}
-                                totalPages={this.filteredByDate().length - 1}
+                                defaultActivePage={this.pages()[0]}
+                                totalPages={this.pages().length}
                                 onClick={(event) => this.paginationHandler(event)}
                             />
                                 
@@ -170,7 +181,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        // console.log(this.state)
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
