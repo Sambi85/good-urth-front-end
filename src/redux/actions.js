@@ -33,7 +33,7 @@ export const getFarmerId  = (id, history) => {
 export const getItemOrders = (itemOrderObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/item_orders')
         .then(resp => resp.json())
         
