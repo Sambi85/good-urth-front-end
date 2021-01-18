@@ -34,12 +34,10 @@ class OrderHistoryList extends React.Component {
     }
 
     filteredByDate = () => {
-
+        
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
-        // debugger
-
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index])
         return filteredItemOrders
     }
 
@@ -83,19 +81,23 @@ class OrderHistoryList extends React.Component {
     paginationHandler = (event) => {
            
             let newIndex = event.target.innerHTML
-        
-            if(isNaN(newIndex === true)) {
-                
+            
+            console.log(newIndex)
+            
+            if(isNaN(newIndex)) {
+                console.log("inside:",newIndex)
                 this.setState({
-                    index: newIndex
+                    index: parseInt(newIndex) - 1 
                 })
+            
         }    
     }
 
     itemOrderIterator = () => {
 
         if (this.filteredByDate().length > 0) {
-        
+            
+            
             return this.filteredByDate().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
@@ -159,9 +161,10 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={this.pages()[0]}
+                                defaultActivePage={1}
                                 totalPages={this.pages().length}
-                                onClick={(event) => this.paginationHandler(event)}
+                                activePage={this.state.index}
+                                onPageChange={(event) => this.paginationHandler(event)}
                             />
                                 
                             </Table.HeaderCell>
