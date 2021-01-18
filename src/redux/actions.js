@@ -11,7 +11,7 @@ export const getMarkets = (marketObj) => {
 }
 
 export const getFarmers = (farmerObj) => {
-    // console.log("first dispatch invoked")
+    
     return function (dispatch) {
         
         fetch('http://localhost:4000/farmers')
