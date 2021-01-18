@@ -31,7 +31,7 @@ export const getFarmerId  = (id, history) => {
 }
 
 export const getItemOrders = (itemOrderObj) => {
-    // console.log("first dispatch invoked")
+    
     return function (dispatch) {
         
         fetch('http://localhost:4000/item_orders')
