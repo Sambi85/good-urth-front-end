@@ -13,7 +13,7 @@ export const getMarkets = (marketObj) => {
 export const getFarmers = (farmerObj) => {
     // console.log("first dispatch invoked")
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/farmers')
         .then(resp => resp.json())
     
