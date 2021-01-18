@@ -80,12 +80,72 @@ class OrderHistoryList extends React.Component {
     }
 
     paginationHandler = (event) => {
-           
-            let newIndex = event.target.innerHTML
                 
+        let newIndex = event.target.innerHTML
+                
+        switch (newIndex) {
+                    
+            case isNaN(newIndex) === false :
+                        
                 this.setState({
                     index: parseInt(newIndex)
                 })   
+                
+                return  console.log(newIndex)
+              
+            case "⟩" :
+
+                if (this.state.index < this.pages().length - 1) {
+
+                    this.setState({
+                        index: this.state.index += 1
+                    }) 
+
+                    return console.log(this.state.index)
+                
+                } else {
+                    
+                    this.setState({
+                        index: this.state.index
+                    }) 
+                }
+            
+            case "⟨" :
+
+                if (this.state.index > 0) {
+
+                    this.setState({
+                        index: this.state.index -= 1
+                    }) 
+        
+                        return console.log(this.state.index)
+                    
+                    } else if(this.state.index < 0) {
+                        
+                        this.setState({
+                            index: 0
+                        }) 
+                    }
+
+            case "»" :
+
+                    this.setState({
+                            index: this.pages().length - 1 
+                    }) 
+            
+                        return console.log(newIndex)
+            
+            case "«" :
+
+                    this.setState({
+                        index: 0
+                    }) 
+
+                        return console.log(newIndex)
+            
+            default :
+                return null
+        }      
     }
 
     itemOrderIterator = () => {
@@ -158,6 +218,7 @@ class OrderHistoryList extends React.Component {
                                 defaultActivePage={1} 
                                 totalPages={this.pages().length - 1}
                                 onPageChange={(event) => this.paginationHandler(event)}
+                                // onClick={(event) => this.clickHandler(event)}
                             />
                                 
                             </Table.HeaderCell>
@@ -177,7 +238,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
