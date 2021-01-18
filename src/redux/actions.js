@@ -1,6 +1,6 @@
 
 export const getMarkets = (marketObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
         
         fetch('http://localhost:4000/markets')
