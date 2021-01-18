@@ -1,19 +1,19 @@
 
 export const getMarkets = (marketObj) => {
-    // console.log("first dispatch invoked")
+
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/markets')
         .then(resp => resp.json())
-        // .then(console.log)
+
         .then(data => dispatch({type: "fetched markets", payload: data}) )
     }
 }
 
 export const getFarmers = (farmerObj) => {
-    // console.log("first dispatch invoked")
+    
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/farmers')
         .then(resp => resp.json())
     
@@ -31,12 +31,12 @@ export const getFarmerId  = (id, history) => {
 }
 
 export const getItemOrders = (itemOrderObj) => {
-    // console.log("first dispatch invoked")
+    
     return function (dispatch) {
-        // console.log("nested function invoked")
+        
         fetch('http://localhost:4000/item_orders')
         .then(resp => resp.json())
-        // .then(console.log)
+        
         .then(data => dispatch({type: "fetched itemOrders", payload: data}) )
     }
 }
