@@ -81,16 +81,12 @@ class OrderHistoryList extends React.Component {
     paginationHandler = (event) => {
            
             let newIndex = event.target.innerHTML
-            
-            console.log(newIndex)
-            
-            if(isNaN(newIndex)) {
-                console.log("inside:",newIndex)
+
                 this.setState({
                     index: parseInt(newIndex) - 1 
                 })
             
-        }    
+        }   
     }
 
     itemOrderIterator = () => {
@@ -162,6 +158,9 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={1}
+                                // firstItem={}
+                                // lastItem={}
+                                // nextItem={}
                                 totalPages={this.pages().length}
                                 activePage={this.state.index}
                                 onPageChange={(event) => this.paginationHandler(event)}
