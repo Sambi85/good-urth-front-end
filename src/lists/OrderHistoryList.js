@@ -37,8 +37,7 @@ class OrderHistoryList extends React.Component {
         
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
-        
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index - 1])
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index])
         
         return filteredItemOrders
     }
@@ -157,8 +156,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={1} 
-                                totalPages={this.pages().length}
-                                activePage={this.state.index}
+                                totalPages={this.pages().length - 1}
                                 onPageChange={(event) => this.paginationHandler(event)}
                             />
                                 
@@ -179,7 +177,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
