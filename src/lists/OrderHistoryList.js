@@ -37,7 +37,9 @@ class OrderHistoryList extends React.Component {
         
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index])
+        
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index - 1])
+        
         return filteredItemOrders
     }
 
@@ -81,19 +83,16 @@ class OrderHistoryList extends React.Component {
     paginationHandler = (event) => {
            
             let newIndex = event.target.innerHTML
-
+                
                 this.setState({
-                    index: parseInt(newIndex) - 1 
-                })
-            
-        }   
+                    index: parseInt(newIndex)
+                })   
     }
 
     itemOrderIterator = () => {
 
         if (this.filteredByDate().length > 0) {
-            
-            
+                     
             return this.filteredByDate().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
@@ -157,10 +156,7 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={1}
-                                // firstItem={}
-                                // lastItem={}
-                                // nextItem={}
+                                defaultActivePage={1} 
                                 totalPages={this.pages().length}
                                 activePage={this.state.index}
                                 onPageChange={(event) => this.paginationHandler(event)}
@@ -183,7 +179,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-            console.log(this.props)
+        console.log(this.state)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
