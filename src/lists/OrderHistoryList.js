@@ -38,6 +38,7 @@ class OrderHistoryList extends React.Component {
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
         let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index])
+        
         return filteredItemOrders
     }
 
@@ -79,21 +80,78 @@ class OrderHistoryList extends React.Component {
     }
 
     paginationHandler = (event) => {
-           
-            let newIndex = event.target.innerHTML
-
+                
+        let newIndex = event.target.innerHTML
+                
+        switch (newIndex) {
+                    
+            case isNaN(newIndex) === false :
+                        
                 this.setState({
-                    index: parseInt(newIndex) - 1 
-                })
+                    index: parseInt(newIndex)
+                })   
+                
+                return  console.log(newIndex)
+              
+            case "⟩" :
+
+                if (this.state.index < this.pages().length - 1) {
+
+                    this.setState({
+                        index: this.state.index += 1
+                    }) 
+
+                    return console.log(this.state.index)
+                
+                } else {
+                    
+                    this.setState({
+                        index: this.state.index
+                    }) 
+                }
             
-        }   
+            case "⟨" :
+
+                if (this.state.index > 0) {
+
+                    this.setState({
+                        index: this.state.index -= 1
+                    }) 
+        
+                        return console.log(this.state.index)
+                    
+                    } else if(this.state.index < 0) {
+                        
+                        this.setState({
+                            index: 0
+                        }) 
+                    }
+
+            case "»" :
+
+                    this.setState({
+                            index: this.pages().length - 1 
+                    }) 
+            
+                        return console.log(newIndex)
+            
+            case "«" :
+
+                    this.setState({
+                        index: 0
+                    }) 
+
+                        return console.log(newIndex)
+            
+            default :
+                return null
+        }      
     }
 
     itemOrderIterator = () => {
 
         if (this.filteredByDate().length > 0) {
-            
-            
+                     
             return this.filteredByDate().map(itemOrder => <OrderHistoryCard
                    key={itemOrder.id} 
                    id={itemOrder.id}
@@ -157,13 +215,10 @@ class OrderHistoryList extends React.Component {
                             <Table.HeaderCell colSpan='3'>
                             {this.tallyHandler()}
                             <Pagination 
-                                defaultActivePage={1}
-                                // firstItem={}
-                                // lastItem={}
-                                // nextItem={}
-                                totalPages={this.pages().length}
-                                activePage={this.state.index}
+                                defaultActivePage={1} 
+                                totalPages={this.pages().length - 1}
                                 onPageChange={(event) => this.paginationHandler(event)}
+                                // onClick={(event) => this.clickHandler(event)}
                             />
                                 
                             </Table.HeaderCell>
@@ -183,7 +238,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-            console.log(this.props)
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
