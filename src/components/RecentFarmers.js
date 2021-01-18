@@ -11,7 +11,7 @@ filteredItemOrders = () => {
     const user = this.props.currentUser[0]
     let paid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
     let filteredItemOrders = paid.filter(element => element.order.user_id === user.id)
-
+    
     return filteredItemOrders
 }
 
@@ -26,8 +26,15 @@ filteredItemIds = () => {
 
 recentFarmerIterator = () => {
     
-    let targetFarmers = this.props.farmers.filter(element => this.filteredItemOrders().includes(element.id))
+    let targetFarmers = [];
+    let itemOrderIds = this.filteredItemOrders().map(itemOrder => itemOrder.id)
+        
+    for (let id of itemOrderIds) {
     
+       targetFarmers = this.props.farmers.filter(farmer => farmer.id)
+
+    }
+
     if (targetFarmers.length > 0) {
         
         return targetFarmers.map(element => <RecentCard key={element.id} id={element.id}/>)
@@ -47,6 +54,7 @@ emptyFarmers = () => {
 }
 
     render() {
+        
         return (
             <Grid divided='vertically'>
             <Grid.Row columns={1}>

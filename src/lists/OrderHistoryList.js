@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { Container, Grid, Label,  Pagination, Menu, Icon, Item, Table } from 'semantic-ui-react'
+import { Container, Grid, Label,  Pagination, Item, Table } from 'semantic-ui-react'
 
 // Sub Component //
 import OrderHistoryCard from '../cards/OrderHistoryCard.js';
@@ -37,6 +37,7 @@ class OrderHistoryList extends React.Component {
 
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.date_purchased)
         let uniqueDates = this.unique(mappedByDate)
+        
         
         let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.date_purchased === uniqueDates[this.state.index])
         
@@ -176,12 +177,12 @@ class OrderHistoryList extends React.Component {
         } else {
 
             return this.loadingReceiptList()
-        
+
         }
     }
 
     render() {
-        console.log(this.props)
+            console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
