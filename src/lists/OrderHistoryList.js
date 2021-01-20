@@ -60,16 +60,17 @@ class OrderHistoryList extends React.Component {
             let target = uniqueDates[i].substring(0, uniqueDates[i].length - 5);
             
             for(let j = 0; j < uniqueDates.length; j++) {
-                
+                // console.log("target:",target,"uniqueDates[j]:",uniqueDates[j])
                 if(uniqueDates[j].includes(target)) {
-                     array1.push(uniqueDates[j]);
+                    console.log(uniqueDates[j])
+                     array1.push(uniqueDates.shift(uniqueDates[j]));
                      console.log("array1:",array1)
 
                 }
                 
-                if (!(uniqueDates[j].includes(target)) && j ===uniqueDates.length) {
+                if (!(uniqueDates[j].includes(target)) && j === uniqueDates.length - 1) {
                     array2.push(array1);
-                    console.log("array2:",array2)
+                    // console.log("array2:",array2)
                     array1 = [];
                 }
             }
