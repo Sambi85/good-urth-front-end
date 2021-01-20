@@ -219,7 +219,7 @@ class OrderHistoryList extends React.Component {
                                 defaultActivePage={1} 
                                 totalPages={this.pages().length - 1}
                                 onPageChange={(event) => this.paginationHandler(event)}
-                                // onClick={(event) => this.clickHandler(event)}
+                            
                             />
                                 
                             </Table.HeaderCell>
