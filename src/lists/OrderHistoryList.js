@@ -37,8 +37,9 @@ class OrderHistoryList extends React.Component {
         
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at === uniqueDates[this.state.index])
-        
+        let target = uniqueDates[this.state.index].substring(0, uniqueDates[this.state.index].length - 5);
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at.includes(target))
+        // debugger
         return filteredItemOrders
     }
 
