@@ -19,9 +19,10 @@ class OrderHistoryCard extends React.Component {
     dateParser = () => {
 
         let date = new Date(this.itemOrderGrabber().updated_at)
+        
         let stringDate = date.toLocaleTimeString() + " , " + date.toDateString() 
         
-        return stringDate
+        return this.itemOrderGrabber().updated_at
     }
                                          
     loadingReceiptCard = () => {
