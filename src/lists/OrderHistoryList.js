@@ -51,19 +51,33 @@ class OrderHistoryList extends React.Component {
 
     pages = () => {
 
+        let array1 = [], array2 = []
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
-        let dateArray = []
+        
+        for(let i = 0; i < uniqueDates.length; i++) {
+            
+            let target = uniqueDates[i].substring(0, uniqueDates[i].length - 5);
+            
+            for(let j = 0; j < uniqueDates.length; j++) {
+                
+                if(uniqueDates[j].includes(target)) {
+                     array1.push(uniqueDates[j]);
+                     console.log("array1:",array1)
 
-        for(let uniqueDate of uniqueDates) {
-
-            let target = uniqueDate.substring(0, uniqueDate.length - 5)
-         
-           let result = this.filteredItemOrders().filter(date => date.updated_at.includes(target))
-            dateArray.push(result)
+                }
+                
+                if (!(uniqueDates[j].includes(target)) && j ===uniqueDates.length) {
+                    array2.push(array1);
+                    console.log("array2:",array2)
+                    array1 = [];
+                }
+            }
         }
-            debugger
-        return uniqueDates
+        console.log("return array:",array2)
+
+            return 10
+        // return filteredItemOrders
     }
 
     tally = () => {
