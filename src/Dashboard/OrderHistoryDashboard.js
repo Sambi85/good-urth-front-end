@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // semantic-ui //
-import { Dimmer, Loader, Image, Pagination, Segment } from 'semantic-ui-react';
+import { Dimmer, Loader, Image, Segment } from 'semantic-ui-react';
 
   class OrderHistoryDashboard extends React.Component {
 
