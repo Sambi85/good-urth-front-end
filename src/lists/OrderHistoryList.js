@@ -42,7 +42,6 @@ class OrderHistoryList extends React.Component {
         console.log(uniqueDates)
         console.log(target)
         // let target = uniqueDates[this.state.index]
-        // console.log("targetx:",target)
         
         return target
         // return momentTarget
