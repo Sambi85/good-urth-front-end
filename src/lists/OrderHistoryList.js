@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Container, Grid, Label,  Pagination, Item, Table } from 'semantic-ui-react'
+import moment from 'moment'
 
 // Sub Component //
 import OrderHistoryCard from '../cards/OrderHistoryCard.js';
@@ -27,8 +28,8 @@ class OrderHistoryList extends React.Component {
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
-        let filteredItemOrders = notPaid.filter(itemOrder => itemOrder.order.user_id === user.id)
+        let paidItemOrders = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
+        let filteredItemOrders = paidItemOrders.filter(itemOrder => itemOrder.order.user_id === user.id)
         
         return filteredItemOrders
     }
@@ -38,8 +39,15 @@ class OrderHistoryList extends React.Component {
         let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
         let uniqueDates = this.unique(mappedByDate)
         let target = uniqueDates[this.state.index].substring(0, uniqueDates[this.state.index].length - 5);
-
+        console.log(uniqueDates)
+        console.log(target)
+        // let target = uniqueDates[this.state.index]
+        // console.log("targetx:",target)
+        // let momentTarget = moment(new Date(target)).format('MMMM Do YYYY, h:mm:ss a');    
+        
+        
         return target
+        // return momentTarget
     }
 
     filteredByDate = () => {
@@ -51,34 +59,10 @@ class OrderHistoryList extends React.Component {
 
     pages = () => {
 
-        let array1 = [], array2 = []
-        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
+        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at.substring(0, itemOrder.updated_at.length - 5))
         let uniqueDates = this.unique(mappedByDate)
-        
-        for(let i = 0; i < uniqueDates.length; i++) {
             
-            let target = uniqueDates[i].substring(0, uniqueDates[i].length - 5);
-            
-            for(let j = 0; j < uniqueDates.length; j++) {
-                // console.log("target:",target,"uniqueDates[j]:",uniqueDates[j])
-                if(uniqueDates[j].includes(target)) {
-                    console.log(uniqueDates[j])
-                     array1.push(uniqueDates.shift(uniqueDates[j]));
-                     console.log("array1:",array1)
-
-                }
-                
-                if (!(uniqueDates[j].includes(target)) && j === uniqueDates.length - 1) {
-                    array2.push(array1);
-                    // console.log("array2:",array2)
-                    array1 = [];
-                }
-            }
-        }
-        console.log("return array:",array2)
-
-            return 10
-        // return filteredItemOrders
+        return uniqueDates
     }
 
     tally = () => {
@@ -247,7 +231,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={1} 
-                                totalPages={this.pages().length - 1}
+                                totalPages={this.pages().length}
                                 onPageChange={(event) => this.paginationHandler(event)}
                             
                             />
