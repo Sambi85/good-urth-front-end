@@ -41,13 +41,8 @@ class OrderHistoryList extends React.Component {
         let target = uniqueDates[this.state.index].substring(0, uniqueDates[this.state.index].length - 5);
         console.log(uniqueDates)
         console.log(target)
-        // let target = uniqueDates[this.state.index]
-        // console.log("targetx:",target)
-        // let momentTarget = moment(new Date(target)).format('MMMM Do YYYY, h:mm:ss a');    
-        
         
         return target
-        // return momentTarget
     }
 
     filteredByDate = () => {
