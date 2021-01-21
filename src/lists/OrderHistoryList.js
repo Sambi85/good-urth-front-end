@@ -41,7 +41,6 @@ class OrderHistoryList extends React.Component {
         let target = uniqueDates[this.state.index].substring(0, uniqueDates[this.state.index].length - 5);
         console.log(uniqueDates)
         console.log(target)
-        // let target = uniqueDates[this.state.index]
         
         return target
         // return momentTarget
