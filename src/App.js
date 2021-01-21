@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar.js'
 import { connect } from 'react-redux'
-import { getFarmers, getCurrentUser, getItemOrders, getItems, getSchedules } from './redux/actions'
+import { getFarmers, getGroups, getCurrentUser, getItemOrders, getItems, getSchedules } from './redux/actions'
 import { Image } from 'semantic-ui-react'
 
 // Containers //
@@ -18,6 +18,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
+    this.props.fetchGroups();
     this.props.fetchFarmers();
     this.props.fetchCurrentUser();
     this.props.fetchItemOrders();
@@ -48,6 +49,7 @@ class App extends React.Component {
 
 const msp = (state) => {
   return {
+         groups: state.groups, 
          farmers: state.farmers,
          currentUser: state.currentUser,
          itemOrders: state.itemOrders,
@@ -58,6 +60,7 @@ const msp = (state) => {
 const mdp = (dispatch) => {
  return {
 
+     fetchGroups: () => dispatch(getGroups()),
      fetchFarmers: () => dispatch(getFarmers()),
      fetchCurrentUser: () => dispatch(getCurrentUser()),
      fetchItemOrders: () => dispatch(getItemOrders()),

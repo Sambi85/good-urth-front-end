@@ -248,7 +248,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
@@ -260,6 +260,7 @@ class OrderHistoryList extends React.Component {
 const msp = (state) => {
     return {
            itemOrders: state.itemOrders,
+           groups: state.groups,
            currentUser: state.currentUser
       }
    }
