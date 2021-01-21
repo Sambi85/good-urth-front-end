@@ -43,7 +43,6 @@ class OrderHistoryList extends React.Component {
         console.log(target)
         
         return target
-        // return momentTarget
     }
 
     filteredByDate = () => {
