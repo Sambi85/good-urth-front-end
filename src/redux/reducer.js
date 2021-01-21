@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 
 let defaultState = {
     markets: [],
+    groups: [],
     schedules: [],
     farmers: [],
     farmerId: "",
@@ -13,6 +14,17 @@ let defaultState = {
     users: [],
     billTotal: [],
     currentUser: []
+}
+
+function groupReducer(currentState = defaultState.groups, action) {
+    switch (action.type) {
+              
+        case "fetched groups" :
+            return action.payload
+                
+        default :
+            return currentState
+    }
 }
 
 function marketReducer(currentState = defaultState.markets, action) {
@@ -220,6 +232,7 @@ function billTotalReducer (currentState = defaultState.billTotal, action) {
 }
 
 const rootReducer = combineReducers({
+    groups: groupReducer,
     markets: marketReducer,
     schedules: scheduleReducer,
     farmers: farmerReducer,

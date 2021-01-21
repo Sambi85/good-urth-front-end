@@ -101,7 +101,7 @@ export const paidItemOrders = (idArray) => {
     }
 }
 
-export const datePurchasedHandler = (idArray) => {
+export const datePurchasedHandler = (groupId) => {
 
     return function (dispatch) {
 
@@ -113,11 +113,11 @@ export const datePurchasedHandler = (idArray) => {
         },
 
         body: JSON.stringify({
-            date_purchased: new Date()
+            group_id: groupId
         })
     }
 
-    for (let id of idArray) {
+    for (let id of groupId) {
 
         fetch(`http://localhost:4000/item_orders/${id}`, options)
         .then(resp => resp.json())
@@ -187,6 +187,17 @@ export const getUsers = (userObj) => {
         fetch('http://localhost:4000/users/')
         .then(resp => resp.json())
         .then(data => dispatch({type: "fetched users", payload: data}) )
+    }
+}
+
+
+export const getGroups = (groupObj) => {
+
+    return function (dispatch) {
+        
+        fetch('http://localhost:4000/groups/')
+        .then(resp => resp.json())
+        .then(data => dispatch({type: "fetched groups", payload: data}) )
     }
 }
 
