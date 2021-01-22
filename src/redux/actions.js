@@ -92,7 +92,8 @@ export const paidItemOrders = (idArray) => {
 
             fetch(`http://localhost:4000/item_orders/${id}`, options)
             .then(resp => resp.json())
-            .then(data => { console.log(data)
+            .then(data => { 
+                // console.log(data)
                 dispatch({type: "paid itemOrders", payload: data})  })
             .catch(error => {
                 console.error('Error:', error);
@@ -103,7 +104,7 @@ export const paidItemOrders = (idArray) => {
 
 export const purchaseHandler = (itemOrderIds) => {
 
-    return function (dispatch) {
+    return async function (dispatch) {
 
         let targetGroupId = 0;
 
@@ -116,41 +117,46 @@ export const purchaseHandler = (itemOrderIds) => {
                     body: JSON.stringify({})
                 }
 
-                    fetch(`http://localhost:4000/groups/`, groupOptions)
+                   fetch(`http://localhost:4000/groups/`, groupOptions)
                     .then(resp => resp.json())
                     .then(groupData => { 
-                        console.log(groupData)
+                        // console.log(groupData)
 
                         targetGroupId = groupData.id
+                        
+
+                                        let itemOrderOptions = {
+                                            method: "PATCH",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                "Accepts": "application/json"
+                                            },
+                                            
+                                            body: JSON.stringify({
+                                                group_id: targetGroupId
+                                            
+                                            })
+                                        }
+                                        
+                                    
+                                    for (let id of itemOrderIds) {
+                                            
+                                        fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
+                                            .then(resp => resp.json())
+                                            .then(data => { console.log(data)
+                                                
+                                                dispatch({type: "purchase_data", payload: data})  })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                            }
+
                         dispatch({type: "purchase_data", payload: groupData})  })
                         .catch(error => {
                             console.error('Error:', error);
                         });
                         
-                        let itemOrderOptions = {
-                            method: "PATCH",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Accepts": "application/json"
-                            },
-                            
-                            body: JSON.stringify({
-                                group_id: targetGroupId
-                            
-                            })
-                        }
-                        
-                        for (let id of itemOrderIds) {
-                            
-                          fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
-                            .then(resp => resp.json())
-                            .then(data => { console.log(data)
-                                
-                                dispatch({type: "purchase_data", payload: data})  })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-            }
+                        console.log("group id",targetGroupId)
         }        
 }
 
