@@ -101,9 +101,28 @@ export const paidItemOrders = (idArray) => {
     }
 }
 
-export const datePurchasedHandler = (groupId) => {
+export const purchaseHandler = (groupId) => {
 
     return function (dispatch) {
+
+        let targetGroupId = 0;
+
+        let options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accepts": "application/json"
+                    }
+                }
+                    fetch(`http://localhost:4000/groups/`, options)
+                    .then(resp => resp.json())
+                    .then(groupData => { 
+                        console.log(groupData)
+                        targetGroupId = data.id
+                        dispatch({type: "purchase_data", payload: groupData})  })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
 
     let options = {
         method: "PATCH",
@@ -201,11 +220,32 @@ export const getGroups = (groupObj) => {
     }
 }
 
+// export const createGroup = () => {
+
+//     return function (dispatch) {
+
+//     let options = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Accepts": "application/json"
+//         }
+//     }
+//         fetch(`http://localhost:4000/groups/`, options)
+//         .then(resp => resp.json())
+//         .then(data => { console.log(data)
+//             dispatch({type: "purchase_data", payload: data})  })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+//         }
+//     }        
+
 export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/3')
+    fetch('http://localhost:4000/users/5')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 
