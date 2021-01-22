@@ -93,7 +93,7 @@ export const paidItemOrders = (idArray) => {
             fetch(`http://localhost:4000/item_orders/${id}`, options)
             .then(resp => resp.json())
             .then(data => { 
-                // console.log(data)
+                console.log(data)
                 dispatch({type: "paid itemOrders", payload: data})  })
             .catch(error => {
                 console.error('Error:', error);
