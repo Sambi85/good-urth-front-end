@@ -14,8 +14,8 @@ class ReceiptList extends React.Component {
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === false)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        let notGrouped = this.props.itemOrders.filter(itemOrder => itemOrder.group_id === null)
+        let filteredItemOrders = notGrouped.filter(element => element.order.user_id === user.id)
 
         return filteredItemOrders
         
