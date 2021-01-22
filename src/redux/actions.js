@@ -119,8 +119,7 @@ export const purchaseHandler = (itemOrderIds) => {
 
                    fetch(`http://localhost:4000/groups/`, groupOptions)
                     .then(resp => resp.json())
-                    .then(groupData => { 
-                        // console.log(groupData)
+                    .then(groupData => { console.log(groupData)
 
                         targetGroupId = groupData.id
                         
@@ -145,19 +144,19 @@ export const purchaseHandler = (itemOrderIds) => {
                                             .then(resp => resp.json())
                                             .then(data => { console.log(data)
                                                 
-                                                dispatch({type: "purchase_data", payload: data})  })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-                            }
+                                            dispatch({type: "purchase_data", payload: data})  })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                             });
+                                    }
 
                         dispatch({type: "purchase_data", payload: groupData})  })
                         .catch(error => {
                             console.error('Error:', error);
                         });
                         
-                        console.log("group id",targetGroupId)
-        }        
+                    console.log("group id",targetGroupId)
+                }        
 }
 
 export const getItems = (itemObj) => {
