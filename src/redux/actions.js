@@ -101,52 +101,57 @@ export const paidItemOrders = (idArray) => {
     }
 }
 
-export const purchaseHandler = (groupId) => {
+export const purchaseHandler = (itemOrderIds) => {
 
     return function (dispatch) {
 
         let targetGroupId = 0;
 
-        let options = {
+        let groupOptions = {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "Accepts": "application/json"
-                    }
+                    },
+                    body: JSON.stringify({})
                 }
-                    fetch(`http://localhost:4000/groups/`, options)
+
+                    fetch(`http://localhost:4000/groups/`, groupOptions)
                     .then(resp => resp.json())
                     .then(groupData => { 
                         console.log(groupData)
-                        targetGroupId = data.id
+
+                        targetGroupId = groupData.id
                         dispatch({type: "purchase_data", payload: groupData})  })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    });
-
-    let options = {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accepts": "application/json"
-        },
-
-        body: JSON.stringify({
-            group_id: groupId
-        })
-    }
-
-    for (let id of groupId) {
-
-        fetch(`http://localhost:4000/item_orders/${id}`, options)
-        .then(resp => resp.json())
-        .then(data => { console.log(data)
-            dispatch({type: "purchase_data", payload: data})  })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        }
-    }        
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                        
+                        let itemOrderOptions = {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accepts": "application/json"
+                            },
+                            
+                            body: JSON.stringify({
+                                group_id: targetGroupId
+                            
+                            })
+                        }
+                        
+                        for (let id of itemOrderIds) {
+                            
+                          fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
+                            .then(resp => resp.json())
+                            .then(data => { console.log(data)
+                                
+                                dispatch({type: "purchase_data", payload: data})  })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+            }
+        }        
 }
 
 export const getItems = (itemObj) => {
