@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber, datePurchasedHandler } from '../redux/actions'
+import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber, purchaseHandler } from '../redux/actions'
 import ConfirmButton from '../components/ConfirmButton.js'
 import EmptyButton from '../components/EmptyButton.js' 
 
@@ -60,7 +60,7 @@ class PaymentDashboard extends React.Component {
         
         let filteredIds = this.filteredItemOrders().map(element => element.id)
         this.props.paidItemOrders(filteredIds)
-        this.props.datePurchasedHandler(filteredIds)
+        this.props.purchaseHandler(filteredIds)
     }
     
     emptyCartHandler = () => {
@@ -169,6 +169,7 @@ class PaymentDashboard extends React.Component {
     }
     
     render() {
+        console.log(this.props)
         return (
                 <> {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
         )
@@ -177,6 +178,7 @@ class PaymentDashboard extends React.Component {
 
 const msp = (state) => {
     return {
+           groups: state.groups,
            itemOrders: state.itemOrders,
            currentUser: state.currentUser
       }
@@ -187,7 +189,7 @@ const mdp = (dispatch) => {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
         paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
         billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill)),
-        datePurchasedHandler: (idArray) => dispatch(datePurchasedHandler(idArray))
+        purchaseHandler: (idArray) => dispatch(purchaseHandler(idArray))
        }
     }
    

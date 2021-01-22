@@ -21,6 +21,11 @@ function groupReducer(currentState = defaultState.groups, action) {
               
         case "fetched groups" :
             return action.payload
+
+        case "purchase_data" :
+        defaultState.groups = action.payload
+        currentState = defaultState.groups
+            return currentState
                 
         default :
             return currentState

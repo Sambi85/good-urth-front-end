@@ -92,7 +92,8 @@ export const paidItemOrders = (idArray) => {
 
             fetch(`http://localhost:4000/item_orders/${id}`, options)
             .then(resp => resp.json())
-            .then(data => { console.log(data)
+            .then(data => { 
+                // console.log(data)
                 dispatch({type: "paid itemOrders", payload: data})  })
             .catch(error => {
                 console.error('Error:', error);
@@ -101,33 +102,61 @@ export const paidItemOrders = (idArray) => {
     }
 }
 
-export const datePurchasedHandler = (groupId) => {
+export const purchaseHandler = (itemOrderIds) => {
 
-    return function (dispatch) {
+    return async function (dispatch) {
 
-    let options = {
-        method: "PATCH",
-        headers: {
-            "Content-Type": "application/json",
-            "Accepts": "application/json"
-        },
+        let targetGroupId = 0;
 
-        body: JSON.stringify({
-            group_id: groupId
-        })
-    }
+        let groupOptions = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accepts": "application/json"
+                    },
+                    body: JSON.stringify({})
+                }
 
-    for (let id of groupId) {
+                   fetch(`http://localhost:4000/groups/`, groupOptions)
+                    .then(resp => resp.json())
+                    .then(groupData => { console.log(groupData)
 
-        fetch(`http://localhost:4000/item_orders/${id}`, options)
-        .then(resp => resp.json())
-        .then(data => { console.log(data)
-            dispatch({type: "purchase_data", payload: data})  })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-        }
-    }        
+                        targetGroupId = groupData.id
+                        
+
+                                        let itemOrderOptions = {
+                                            method: "PATCH",
+                                            headers: {
+                                                "Content-Type": "application/json",
+                                                "Accepts": "application/json"
+                                            },
+                                            
+                                            body: JSON.stringify({
+                                                group_id: targetGroupId
+                                            
+                                            })
+                                        }
+                                        
+                                    
+                                    for (let id of itemOrderIds) {
+                                            
+                                        fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
+                                            .then(resp => resp.json())
+                                            .then(data => { console.log(data)
+                                                
+                                            dispatch({type: "purchase_data", payload: data})  })
+                                            .catch(error => {
+                                                console.error('Error:', error);
+                                             });
+                                    }
+
+                        dispatch({type: "purchase_data", payload: groupData})  })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                        
+                    console.log("group id",targetGroupId)
+                }        
 }
 
 export const getItems = (itemObj) => {
@@ -201,11 +230,32 @@ export const getGroups = (groupObj) => {
     }
 }
 
+// export const createGroup = () => {
+
+//     return function (dispatch) {
+
+//     let options = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//             "Accepts": "application/json"
+//         }
+//     }
+//         fetch(`http://localhost:4000/groups/`, options)
+//         .then(resp => resp.json())
+//         .then(data => { console.log(data)
+//             dispatch({type: "purchase_data", payload: data})  })
+//         .catch(error => {
+//             console.error('Error:', error);
+//         });
+//         }
+//     }        
+
 export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/3')
+    fetch('http://localhost:4000/users/5')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 
