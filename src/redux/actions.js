@@ -255,7 +255,7 @@ export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/5')
+    fetch('http://localhost:4000/users/3')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 

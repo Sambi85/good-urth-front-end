@@ -42,8 +42,8 @@ class OrderHistoryCard extends React.Component {
     filteredItemOrder = () => {
         
         const user = this.props.currentUser[0]
-        let notPaid = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
-        let filteredItemOrders = notPaid.filter(element => element.order.user_id === user.id)
+        let grouped = this.props.itemOrders.filter(itemOrder => itemOrder.group_id !== null)
+        let filteredItemOrders = grouped.filter(element => element.order.user_id === user.id)
             
             return filteredItemOrders
     }

@@ -17,7 +17,7 @@ class PaymentDashboard extends React.Component {
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
-        let notGrouped = this.props.itemOrders.filter(itemOrder => itemOrder.group_id === null)
+        let notGrouped = this.props.itemOrders.filter(itemOrder => itemOrder.group_id === 0)
         let filteredItemOrders = notGrouped.filter(element => element.order.user_id === user.id)
         
         return filteredItemOrders
@@ -171,7 +171,7 @@ class PaymentDashboard extends React.Component {
     render() {
         
         return (
-                <> {this.props.itemOrders.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
+                <> {this.props.currentUser.length === 0 ? this.loadingPaymentDashboard() : this.renderPaymentDashboard()} </>
         )
     }
 }
