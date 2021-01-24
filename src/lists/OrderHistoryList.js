@@ -15,49 +15,43 @@ class OrderHistoryList extends React.Component {
     state = {
         index: 0
     }
-
-    unique = (array) => {
-
-       let set = [... new Set(array)]
-       let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
-       let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
-        
-        return uniqueSet
-    }
     
     filteredItemOrders = () => {
         
         const user = this.props.currentUser[0]
-        let paidItemOrders = this.props.itemOrders.filter(itemOrder => itemOrder.paid === true)
-        let filteredItemOrders = paidItemOrders.filter(itemOrder => itemOrder.order.user_id === user.id)
+        let grouped = this.props.itemOrders.filter(itemOrder => itemOrder.group_id > 0)
+        let filteredItemOrders = grouped.filter(element => element.order.user_id === user.id)
         
         return filteredItemOrders
     }
+    
+    unique = (array) => {
+    
+           let set = [... new Set(array)]
+           let filteredSet = set.filter((item, index) => set.indexOf(item) === index);
+           let uniqueSet = filteredSet.reduce( (unique, item) => unique.includes(item) ? unique : [...unique, item], []);
+            
+            return uniqueSet
+    }
+    
+    uniqueIds = () => {
+        let mappedIds = this.filteredItemOrders().map(itemOrder => itemOrder.group_id)
+        let uniqueIds = this.unique(mappedIds)
 
-    targetTimestamp = () => {
+        return uniqueIds
+    }
+
+    groupIdSelector = () => {
         
-        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at)
-        let uniqueDates = this.unique(mappedByDate)
-        let target = uniqueDates[this.state.index].substring(0, uniqueDates[this.state.index].length - 5);
-        console.log(uniqueDates)
-        console.log(target)
-        
+        let target = this.uniqueIds()[this.state.index]
         return target
     }
 
     filteredByDate = () => {
         
-        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.updated_at.includes(this.targetTimestamp()))
+        let filteredItemOrders = this.filteredItemOrders().filter(itemOrder => itemOrder.group_id === this.groupIdSelector())
     
         return filteredItemOrders
-    }
-
-    pages = () => {
-
-        let mappedByDate = this.filteredItemOrders().map(itemOrder => itemOrder.updated_at.substring(0, itemOrder.updated_at.length - 5))
-        let uniqueDates = this.unique(mappedByDate)
-            
-        return uniqueDates
     }
 
     tally = () => {
@@ -105,7 +99,7 @@ class OrderHistoryList extends React.Component {
               
             case "⟩" :
 
-                if (this.state.index < this.pages().length - 1) {
+                if (this.state.index < this.uniqueIds().length - 1) {
 
                     this.setState({
                         index: this.state.index += 1
@@ -140,7 +134,7 @@ class OrderHistoryList extends React.Component {
             case "»" :
 
                     this.setState({
-                            index: this.pages().length - 1 
+                            index: this.uniqueIds().length - 1 
                     }) 
             
                         return console.log(newIndex)
@@ -226,7 +220,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={1} 
-                                totalPages={this.pages().length}
+                                totalPages={this.filteredItemOrders().length}
                                 onPageChange={(event) => this.paginationHandler(event)}
                             
                             />
@@ -248,7 +242,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        console.log(this.props)
+        
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
