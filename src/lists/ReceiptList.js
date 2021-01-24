@@ -127,7 +127,7 @@ class ReceiptList extends React.Component {
         console.log(this.props)
         return(
             <>
-                {this.props.itemOrders  .length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
+                {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
             </>
         )
     }
