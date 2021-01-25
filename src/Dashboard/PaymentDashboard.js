@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { destroyTargetItemOrders, paidItemOrders, billTotalGrabber, purchaseHandler } from '../redux/actions'
+import { destroyTargetItemOrders, billTotalGrabber, purchaseHandler } from '../redux/actions'
 import ConfirmButton from '../components/ConfirmButton.js'
 import EmptyButton from '../components/EmptyButton.js' 
 
@@ -59,7 +59,6 @@ class PaymentDashboard extends React.Component {
     confirmCartHandler = () => {
         
         let filteredIds = this.filteredItemOrders().map(element => element.id)
-        this.props.paidItemOrders(filteredIds)
         this.props.purchaseHandler(filteredIds)
     }
     
@@ -187,7 +186,6 @@ const msp = (state) => {
 const mdp = (dispatch) => {
     return {
         destroyTargetItemOrders: (itemOrderIds) => dispatch(destroyTargetItemOrders(itemOrderIds)),
-        paidItemOrders: (itemOrderIds) => dispatch(paidItemOrders(itemOrderIds)),
         billTotalGrabber: (totalBill) => dispatch(billTotalGrabber(totalBill)),
         purchaseHandler: (idArray) => dispatch(purchaseHandler(idArray))
        }

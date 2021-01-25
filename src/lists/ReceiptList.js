@@ -34,8 +34,6 @@ class ReceiptList extends React.Component {
 
             return 0;
         }
-    
-
     }
 
     tallyHandler = () => { 
