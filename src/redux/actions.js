@@ -1,4 +1,3 @@
-
 export const getMarkets = (marketObj) => {
 
     return function (dispatch) {
@@ -72,35 +71,35 @@ export const destroyTargetItemOrders = (idArray) => {
     }  
 }
 
-export const paidItemOrders = (idArray) => {
+// export const paidItemOrders = (idArray) => {
 
-    return function (dispatch) {
+//     return function (dispatch) {
 
-        let options = {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Accepts": "application/json"
-            },
+//         let options = {
+//             method: "PATCH",
+//             headers: {
+//                 "Content-Type": "application/json",
+//                 "Accepts": "application/json"
+//             },
 
-            body: JSON.stringify({
-                paid: true
-            })
-        }
+//             body: JSON.stringify({
+//                 paid: true
+//             })
+//         }
 
-        for (let id of idArray) {
+//         for (let id of idArray) {
 
-            fetch(`http://localhost:4000/item_orders/${id}`, options)
-            .then(resp => resp.json())
-            .then(data => { 
-                console.log(data)
-                dispatch({type: "paid itemOrders", payload: data})  })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-        }        
-    }
-}
+//             fetch(`http://localhost:4000/item_orders/${id}`, options)
+//             .then(resp => resp.json())
+//             .then(data => { 
+//                 console.log(data)
+//                 dispatch({type: "paid itemOrders", payload: data})  })
+//             .catch(error => {
+//                 console.error('Error:', error);
+//             });
+//         }        
+//     }
+// }
 
 export const purchaseHandler = (itemOrderIds) => {
 
@@ -113,42 +112,41 @@ export const purchaseHandler = (itemOrderIds) => {
                     headers: {
                         "Content-Type": "application/json",
                         "Accepts": "application/json"
-                    },
-                    body: JSON.stringify({})
+                    }
                 }
 
                    fetch(`http://localhost:4000/groups/`, groupOptions)
                     .then(resp => resp.json())
                     .then(groupData => { console.log(groupData)
-
+                                debugger
                         targetGroupId = groupData.id
                         
 
-                                        let itemOrderOptions = {
-                                            method: "PATCH",
-                                            headers: {
-                                                "Content-Type": "application/json",
-                                                "Accepts": "application/json"
-                                            },
+                                    //     let itemOrderOptions = {
+                                    //         method: "PATCH",
+                                    //         headers: {
+                                    //             "Content-Type": "application/json",
+                                    //             "Accepts": "application/json"
+                                    //         },
                                             
-                                            body: JSON.stringify({
-                                                group_id: targetGroupId
+                                    //         body: JSON.stringify({
+                                    //             group_id: targetGroupId
                                             
-                                            })
-                                        }
+                                    //         })
+                                    //     }
                                         
                                     
-                                    for (let id of itemOrderIds) {
+                                    // for (let id of itemOrderIds) {
                                             
-                                        fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
-                                            .then(resp => resp.json())
-                                            .then(data => { console.log(data)
+                                    //     fetch(`http://localhost:4000/item_orders/${id}`, itemOrderOptions)
+                                    //         .then(resp => resp.json())
+                                    //         .then(data => { console.log(data)
                                                 
-                                            dispatch({type: "purchase_data", payload: data})  })
-                                            .catch(error => {
-                                                console.error('Error:', error);
-                                             });
-                                    }
+                                    //         dispatch({type: "purchase_data", payload: data})  })
+                                    //         .catch(error => {
+                                    //             console.error('Error:', error);
+                                    //          });
+                                    // }
 
                         dispatch({type: "purchase_data", payload: groupData})  })
                         .catch(error => {
@@ -255,7 +253,7 @@ export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/3')
+    fetch('http://localhost:4000/users/1')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 
