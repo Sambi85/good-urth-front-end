@@ -29,7 +29,6 @@ class MarketList extends React.Component {
     queensToggle = () => <Checkbox id='queens' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
     statenIslandToggle = () => <Checkbox id='statenIsland' toggle={this.state.toggle} onClick={this.clickHandler} toggle/>
     
-    
     // Iterator // 
     
     mainIterator = () => {

@@ -52,11 +52,5 @@ const msp = (state) => {
       }
    }
    
-// const mdp = (dispatch) => {
-//    return {
 
-//             fetchSchedules: () => dispatch(getSchedules())
-//       }
-//    }
-   
 export default connect(msp, null)(VendorList);
