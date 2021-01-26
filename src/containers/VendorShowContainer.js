@@ -17,7 +17,6 @@ componentDidMount() {
     })
 }
 
-
     parsePathname = (string) => {
         let fileName = this.props.history.location.pathname.replace(/^.*[\\\/]/, '')
         return fileName
@@ -32,7 +31,6 @@ componentDidMount() {
             </>
         )
     }
-
 }
 
 export default withRouter(VendorShowContainer); 
