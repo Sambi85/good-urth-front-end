@@ -220,7 +220,7 @@ class OrderHistoryList extends React.Component {
                             {this.tallyHandler()}
                             <Pagination 
                                 defaultActivePage={1} 
-                                totalPages={this.filteredItemOrders().length}
+                                totalPages={this.filteredByDate().length}
                                 onPageChange={(event) => this.paginationHandler(event)}
                             
                             />
@@ -242,7 +242,7 @@ class OrderHistoryList extends React.Component {
     }
 
     render() {
-        
+        console.log(this.props)
         return(
             <>
                 {this.props.itemOrders.length === 0 ? this.loadingReceiptList() : this.renderReceiptList() }
