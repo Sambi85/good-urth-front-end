@@ -194,34 +194,13 @@ export const getGroups = (groupObj) => {
         .then(resp => resp.json())
         .then(data => dispatch({type: "fetched groups", payload: data}) )
     }
-}
-
-// export const createGroup = () => {
-
-//     return function (dispatch) {
-
-//     let options = {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accepts": "application/json"
-//         }
-//     }
-//         fetch(`http://localhost:4000/groups/`, options)
-//         .then(resp => resp.json())
-//         .then(data => { console.log(data)
-//             dispatch({type: "purchase_data", payload: data})  })
-//         .catch(error => {
-//             console.error('Error:', error);
-//         });
-//         }
-//     }        
+}      
 
 export const getCurrentUser = (currentUserObj) => {
 
     return function (dispatch) {
     
-    fetch('http://localhost:4000/users/1')
+    fetch('http://localhost:4000/users/3')
     .then(resp => resp.json())
     .then(data => dispatch({type: "fetched currentUser", payload: data}))
     } 

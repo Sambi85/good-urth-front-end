@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-// import { getSchedules } from '../redux/actions'
 import { Dimmer, Grid, Loader, Image, Segment } from 'semantic-ui-react'
 import VendorCard from '../cards/VendorCard.js'
 
